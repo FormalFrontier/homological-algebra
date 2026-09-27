@@ -5,6 +5,7 @@ Authors: Formal Frontier Agents
 module
 
 public import HomologicalAlgebraTest.AdditiveEuler
+public import HomologicalAlgebraTest.AdditiveEuler.Functoriality
 
 /-!
 # Public-import client tests

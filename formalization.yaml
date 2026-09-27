@@ -2,7 +2,7 @@
 version: "v0.4"
 project:
   name: Formal Frontier Homological Algebra
-  description: Additive-group-valued Euler identities for bounded native chain complexes and a finite-length module example.
+  description: Additive-group-valued Euler identities for bounded native chain complexes, short exact sequences and exact functors, with finite-length module examples.
   authors: [Formal Frontier Agents]
   responsible_maintainers: [Anchor, Atlas, Beacon, Lattice, Prism]
   license: Apache-2.0
@@ -20,9 +20,9 @@ sources:
         role: Native Lean proof and finite-length/negative-degree client formalization
     type: original-proof
     relationship: adapts
-    note: The original expanded proof expression was authored by Prism for Formal Frontier source research, and its native Lean adaptation was accepted in the Formal Frontier incubator before this promotion; no external source asset is redistributed.
+    note: Prism authored the original expanded proof expression and exact-functor/degreewise-SES exposition guidance; Formalization Worker A wrote the native Lean proofs and clients accepted in the Formal Frontier incubator before their separate module-name promotions. No external source asset is redistributed.
 status:
-  scope: Additive Euler finite-interval identity, endpoint/bounded and quasi-isomorphism consequences, plus a finitely generated module finite-length instance and negative-degree clients. No source-coverage or homologically bounded-category claim.
+  scope: Additive Euler finite-interval identity, endpoint/bounded and quasi-isomorphism consequences, finite-length module instance, degreewise-SES signed term and bounded homology additivity, exact-functor transport and mapped homology comparison, with negative-degree split-SES and identity-functor clients. No source-coverage, K0, long-exact-sequence or homologically bounded-category claim.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: [propext, Classical.choice, Quot.sound]
@@ -35,12 +35,20 @@ status:
       file: HomologicalAlgebra/AdditiveEuler.lean
     - declaration: CategoryTheory.AdditiveEuler.lengthInvariant_ses
       file: HomologicalAlgebra/AdditiveEuler/Length.lean
+    - declaration: CategoryTheory.AdditiveEuler.term_sum_additive_of_shortExact
+      file: HomologicalAlgebra/AdditiveEuler/Functoriality.lean
+    - declaration: CategoryTheory.AdditiveEuler.homology_sum_additive_of_shortExact
+      file: HomologicalAlgebra/AdditiveEuler/Functoriality.lean
+    - declaration: CategoryTheory.AdditiveEuler.map_homology_iso
+      file: HomologicalAlgebra/AdditiveEuler/Functoriality.lean
+    - declaration: CategoryTheory.AdditiveEuler.euler_map_bounded
+      file: HomologicalAlgebra/AdditiveEuler/Functoriality.lean
 automation:
   methods:
     - method: agent
       framework: Codex and Hive
-      prompting_notes: Agent-assisted accepted source research, native Lean formalization and module-name promotion.
+      prompting_notes: Agent-assisted accepted source research, native Lean formalization, independently reviewed incubator extension and separate module-name promotions.
   notes: Project-wide inference cost, elapsed time and peak memory are not measured.
 review:
   status: "other: review and acceptance are revision-specific; consult the release records"
-  notes: Prism is responsible for the initial unit within the shared maintainer team. The mathematical predecessor was independently reviewed and accepted in the incubator. Destination promotion, internal readiness and public-artifact acceptance are separate exact-revision decisions recorded with each release; this metadata is not itself a publication claim.
+  notes: Prism is responsible within the shared maintainer team. The mathematical predecessors were independently reviewed and accepted in the incubator, including the exact-sequence/exact-functor extension reviewed by Formalization Worker B; its transfer is a separate follow-on promotion. Destination promotion, internal readiness and publication are distinct exact-revision decisions recorded with each release; this metadata is not itself a publication claim.
