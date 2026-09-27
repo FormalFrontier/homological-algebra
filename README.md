@@ -1,8 +1,8 @@
 # Homological Algebra
 
-Reusable additive Euler invariants for integer-indexed chain complexes in an
-abelian category. The library uses mathlib's native short exact sequences,
-images, cycles, homology and quasi-isomorphisms; it has no source-repository or
+Reusable additive Euler invariants for integer-indexed chain and cochain
+complexes in an abelian category. The library uses mathlib's native short exact
+sequences, images, cycles, homology and quasi-isomorphisms; it has no source-repository or
 incubator dependency. Authors: Formal Frontier Agents. Licensed under Apache-2.0
 (see [LICENSE](LICENSE)). Review, acceptance and publication are recorded for
 exact revisions; development branches are not official releases.
@@ -12,9 +12,10 @@ exact revisions; development branches are not official releases.
 Import `HomologicalAlgebra` or the focused public modules
 `HomologicalAlgebra.AdditiveEuler` and
 `HomologicalAlgebra.AdditiveEuler.Length`, or the exact-sequence and exact-functor
-extension `HomologicalAlgebra.AdditiveEuler.Functoriality`, or the finite-support
-and native cochain-shift module `HomologicalAlgebra.AdditiveEuler.Shift`. The namespace is
-`CategoryTheory.AdditiveEuler`. For `μ : C → Γ` in an abelian category `C` and
+extension `HomologicalAlgebra.AdditiveEuler.Functoriality`, the finite-support
+and native cochain-shift module `HomologicalAlgebra.AdditiveEuler.Shift`, or the
+finite-interval cochain Euler module `HomologicalAlgebra.AdditiveEuler.Cochain`.
+The namespace is `CategoryTheory.AdditiveEuler`. For `μ : C → Γ` in an abelian category `C` and
 additive commutative group `Γ`, the sole invariant hypothesis is
 
 ```text
@@ -35,6 +36,17 @@ requires **both** complexes to vanish outside the same interval.
 `postcompose_ses` transports SES additivity along an additive-group homomorphism.
 These are finite signed sums, not an Euler construction for arbitrary
 homologically bounded complexes or an infinite sum.
+
+For cochain complexes, `cochain_euler_endpoints` identifies the finite-interval
+signed term sum with the cohomology sum plus **both** boundary-image terms:
+the outgoing image at `b` has sign `(-1)^b` and the incoming image at `a` has
+sign `(-1)^a`. Duality reverses arrows, not integer degrees.
+`cochain_euler_eq_homology` drops these terms when the neighboring terms vanish;
+`cochain_euler_eq_homology_of_bounded` uses termwise support in `[a,b]`.
+`cochain_euler_acyclic` gives zero for an acyclic cochain complex with vanishing
+neighboring terms. `cochain_euler_quasiIso` requires **both** complexes to be
+termwise supported in the same interval. These theorems retain arbitrary
+abelian categories and additive-commutative-group-valued SES-additive invariants.
 
 `term_sum_additive_of_shortExact` applies native degreewise exactness to the
 signed term sums of a short exact sequence of chain complexes on **any** integer
@@ -71,8 +83,10 @@ support or SES-additivity. `cochain_shift_homology_iso` is the actual native
 isomorphism `(K⟦n⟧).homology i ≅ K.homology (i+n)`;
 `cochain_shift_homology_sum` uses it to translate homology sums without a
 term-support hypothesis (but requires SES additivity to preserve the invariant
-across the isomorphism). No cochain Euler–Poincaré identity, derived-category
-identity or K₀ presentation follows from these statements.
+across the isomorphism). The separate finite-interval cochain Euler identities
+above require their stated boundary or term-support hypotheses; neither family
+provides a homology-only bounded Euler construction, a derived-category identity
+or a K₀ presentation.
 
 `lengthInvariant R` on `FGModuleCat R` is the integer cast of finite module
 length. `lengthInvariant_ses R` requires a commutative, Noetherian, Artinian
@@ -91,6 +105,11 @@ sequence or a nonidentity exact functor.
 in cochain degree `-1`: its signed term and homology sums equal `2` in
 `ZMod 3`, while shifts by `+1` and `-1` give signed values `1`. It also checks
 an enlarged interval, an empty interval and native shifted term support.
+`HomologicalAlgebraTest.AdditiveEuler.Cochain` checks negative and shifted
+`ZMod 3` cohomology sums and a genuine two-term cochain complex whose
+identity differential has a nonzero image: both singleton endpoint corrections
+and full-interval cancellation are exercised. The identity quasi-isomorphism
+is only a smoke test, not a nontrivial quasi-isomorphism example.
 
 ## Building and checking
 
@@ -105,8 +124,8 @@ env LEAN_NUM_THREADS=2 lake exe cache get
 env LEAN_NUM_THREADS=2 LAKE_JOBS=2 lake --wfail --no-ansi build
 ```
 
-The default build checks all four library modules, both root imports and the
-three public-import test modules. On a host with a matching mathlib cache,
+The default build checks all five library modules, both root imports and the
+four public-import test modules. On a host with a matching mathlib cache,
 budget seconds to a few minutes and up to 8 GiB memory as *planning estimates*,
 not guaranteed requirements. First-time cache retrieval downloads thousands of
 files and varies with network and storage; do not run a full mathlib source
@@ -120,15 +139,17 @@ The mathematical motivation is Charles A. Weibel, *The K-book*, Chapter II,
 original proof exposition, including exact-sequence and exact-functor guidance;
 Formalization Worker A developed the core, finite-length and exact-functor Lean
 proofs and clients, and independently reviewed the native cochain-shift proof.
-Formalization Worker B developed the native cochain-shift Lean proofs and clients
-and independently reviewed the exact-sequence/exact-functor component.
+Formalization Worker B developed the native cochain-shift and finite-interval
+cochain Euler Lean proofs and clients and independently reviewed the
+exact-sequence/exact-functor component.
 The upstream mathlib `Single` development credits Kim Morrison (2021),
-`SingleHomology` credits Joël Riou (2023), and `ShiftSequence` credits Joël Riou
-(2024). Review and publication of this transfer are separate,
+`SingleHomology` credits Joël Riou (2023), `ShiftSequence` credits Joël Riou
+(2024), and opposite-complex work credits Johan Commelin, Amelia Livingston
+and Joël Riou (2022). Review and publication of this transfer are separate,
 revision-specific decisions. Precise passage correspondence and
 source-coverage decisions belong to the source-maintainer record. This library
 does **not** claim the K₀ presentation, a homologically-bounded abelian
-category, a cochain Euler–Poincaré formula, a derived-category result, a long
+category, a homology-only bounded Euler formula, a derived-category result, a long
 exact sequence or completion of a source. The source PDF is
 not distributed.
 

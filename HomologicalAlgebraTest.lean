@@ -7,6 +7,7 @@ module
 public import HomologicalAlgebraTest.AdditiveEuler
 public import HomologicalAlgebraTest.AdditiveEuler.Functoriality
 public import HomologicalAlgebraTest.AdditiveEuler.Shift
+public import HomologicalAlgebraTest.AdditiveEuler.Cochain
 
 /-!
 # Public-import client tests
