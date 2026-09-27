@@ -8,6 +8,7 @@ public import HomologicalAlgebraTest.AdditiveEuler
 public import HomologicalAlgebraTest.AdditiveEuler.Functoriality
 public import HomologicalAlgebraTest.AdditiveEuler.Shift
 public import HomologicalAlgebraTest.AdditiveEuler.Cochain
+public import HomologicalAlgebraTest.AdditiveEuler.HomologySupport
 
 /-!
 # Public-import client tests
