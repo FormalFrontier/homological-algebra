@@ -1,11 +1,77 @@
 # Homological Algebra
 
-Reusable additive Euler invariants for integer-indexed chain and cochain
-complexes in an abelian category. The library uses mathlib's native short exact
-sequences, images, cycles, homology and quasi-isomorphisms; it has no source-repository or
-incubator dependency. Authors: Formal Frontier Agents. Licensed under Apache-2.0
+Reusable finite Euler invariants for chain and cochain complexes in an abelian
+category, and fixed-arrow relative paths for integer cochain maps in a
+preadditive category with binary biproducts and pullbacks. The library reuses
+mathlib's native short exact sequences, homology and path objects; it has no
+source-repository or incubator dependency. Authors: Formal Frontier Agents.
+Licensed under Apache-2.0
 (see [LICENSE](LICENSE)). Review, acceptance and publication are recorded for
 exact revisions; development branches are not official releases.
+
+## Headline results
+
+Building on mathlib's abelian categories, native complexes and homology, the
+Euler results apply to `μ : C → Γ`, where `C` is abelian and `Γ` is any additive
+commutative group, including groups with torsion. Except where a weaker
+assumption is noted, `μ` is additive on every native short exact sequence;
+its zero and isomorphism laws follow rather than being assumed.
+
+- **Finite Euler identities, with explicit boundary terms.** For a chain or
+  cochain complex and a nonempty integer interval `[a,b]`, the signed term sum
+  equals the homology sum **plus** both endpoint-image corrections. The chain
+  corrections are `+(-1)^b μ(im d(b+1,b))` and
+  `+(-1)^a μ(im d(a,a-1))`; for cochains they are
+  `+(-1)^b μ(im d(b,b+1))` and `+(-1)^a μ(im d(a-1,a))`.
+  Neighboring zero terms remove these corrections, yielding Euler identities
+  and acyclic zero under the stated term bounds; quasi-isomorphism invariance
+  requires **both** complexes termwise supported in the same interval.
+  [Chain theorem](HomologicalAlgebra/AdditiveEuler.lean),
+  [cochain theorem](HomologicalAlgebra/AdditiveEuler/Cochain.lean).
+- **Additivity and exact-functor transport.** Native short exact sequences
+  of chain complexes give additive term sums even for an empty interval; for
+  homology sums, all three complexes must instead be termwise supported in
+  the same nonempty interval. A functor preserving finite limits and finite
+  colimits transports SES-additive invariants and compares mapped homology;
+  the finite homology-sum comparison itself needs no support bound.
+  [Exact-sequence and functorial results](HomologicalAlgebra/AdditiveEuler/Functoriality.lean).
+- **Finite support and native cochain shifts.** Signed sums over intervals
+  separately containing the support agree, even for nonnested or empty
+  intervals. The native shift by `n` uses degree `i+n`, moves term support
+  `[a,b]` to `[a-n,b-n]`, and translates term and homology sums with factor
+  `(-1)^n`. Term-sum reindexing needs neither support nor SES additivity;
+  homology-sum translation uses isomorphism invariance from additivity but
+  not a term-support bound.
+  [Support and shift theorems](HomologicalAlgebra/AdditiveEuler/Shift.lean).
+- **Homology-bounded cochain LES additivity.** For a short exact cochain
+  sequence `0 → A → B → D → 0`, the middle homology Euler sum equals the two
+  outer sums **minus** `(-1)^a μ(im δ_(a-1))` and
+  `(-1)^b μ(im δ_b)` for the native connecting maps and nonempty `[a,b]`.
+  Vanishing of `H^(a-1)(D)` and `H^(b+1)(A)`, or native `D.IsGE a` and
+  `A.IsLE b`, removes the corrections without termwise support or a bound
+  on the middle complex.
+  [Connecting-image results](HomologicalAlgebra/AdditiveEuler/HomologySupport.lean).
+- **Finite module length.** For a commutative **Noetherian Artinian** ring,
+  integer-valued length of finitely generated modules is additive on native
+  short exact sequences, supplying an Euler invariant. The bare definition
+  of `lengthInvariant` does not assert this for arbitrary commutative rings.
+  [Length instance](HomologicalAlgebra/AdditiveEuler/Length.lean) and
+  [nonsplit cochain client](HomologicalAlgebraTest/AdditiveEuler/HomologySupport.lean).
+- **Fixed-arrow cochain relative paths.** Under preadditivity, binary
+  biproducts and **pullbacks**, the pullback of a fixed arrow `f : B₁ ⟶ B`
+  along mathlib's native first path endpoint has a strict section,
+  strict endpoint equations for lifts from *chosen* homotopies, and a
+  homotopy equivalence to `B₁` whose inverse homotopy vanishes over the
+  first projection. The object depends on `f`, not the chosen source or
+  homotopy. This is not a quasi-isomorphism instance or a natural-in-arrow
+  framework. [Producer](HomologicalAlgebra/Cochain/RelativePath.lean),
+  [ordinary-import client](HomologicalAlgebraTest/Cochain/RelativePath.lean),
+  [standalone guide](docs/CochainRelativePath.md).
+
+The Euler statements concern finite sums, not an infinite Euler construction,
+a canonical invariant from homology bounds alone, or a derived-category or
+Grothendieck-group API. The relative-path construction has different,
+nonabelian hypotheses and does not depend on an Euler invariant.
 
 ## Using the library
 
@@ -17,7 +83,11 @@ and native cochain-shift module `HomologicalAlgebra.AdditiveEuler.Shift`, the
 finite-interval cochain Euler module `HomologicalAlgebra.AdditiveEuler.Cochain`,
 or the native long-exact-sequence module
 `HomologicalAlgebra.AdditiveEuler.HomologySupport`.
-The namespace is `CategoryTheory.AdditiveEuler`. For `μ : C → Γ` in an abelian category `C` and
+For the separate fixed-arrow path API, import
+`HomologicalAlgebra.Cochain.RelativePath` (or the aggregate
+`HomologicalAlgebra`); see [the guide](docs/CochainRelativePath.md).
+The additive Euler namespace is `CategoryTheory.AdditiveEuler` (the path
+construction uses `CochainComplex.RelativePath`). For `μ : C → Γ` in an abelian category `C` and
 additive commutative group `Γ`, the sole invariant hypothesis is
 
 ```text
@@ -137,6 +207,10 @@ and nonzero native connecting map. It checks the singleton `[0,0]` correction
 `0 = -1 + 1` on `[0,1]` under neighboring homology vanishing and native support
 bounds. Its shifted `ZMod 3` client checks the negative interval `[-2,-1]`
 with `0 = 2 + 1` using an explicitly SES-additive modular invariant.
+`HomologicalAlgebraTest.Cochain.RelativePath`, also built by default, checks
+eight ordinary-import examples for two distinct sources/chosen homotopies
+into the same fixed-arrow object, strict endpoint equations, the native
+path-component law, the relative contraction and literal equivalence maps.
 
 ## Building and checking
 
@@ -151,8 +225,8 @@ env LEAN_NUM_THREADS=2 lake exe cache get
 env LEAN_NUM_THREADS=2 lake --wfail build
 ```
 
-The default build checks all six library modules, both root imports and the
-five public-import test modules. On a host with a matching mathlib cache,
+The default build checks all seven library modules, both root imports and the
+six public-import test modules. On a host with a matching mathlib cache,
 budget seconds to a few minutes and up to 8 GiB memory as *planning estimates*,
 not guaranteed requirements. First-time cache retrieval downloads thousands of
 files and varies with network and storage; do not run a full mathlib source
@@ -179,6 +253,27 @@ review and a successful native build and private-inclusive standard-axiom audit;
 Prism accepted and integrated it into development `main` on 2026-09-27. At
 preparation of this successor's own release candidate, separate release review,
 protected promotion and verified GitHub publication had not yet occurred.
+That dated statement describes the 2026-09-27 preparation, not the current
+publication state: Prism subsequently recorded the reviewed official
+`4bc4ac0a3459189cc13e24ac631417d33e306242` publication with the same
+tree as the predecessor development main. The separate relative-path
+contribution transfers Formalization Worker B's original accepted Lean proof
+and client (Hive Task `hive-request-fae080dd07fdf5cf986cc600319c01ebf8271371`,
+UID `070c9eba-ff70-465a-8383-3ffdc2b110c1`) after Formalization Worker A's
+independent mathematical review (Hive Task
+`hive-request-213488f87188eb5d52235967c3d67b58d3ca1cbc`, UID
+`03bd08e1-93fa-41b1-9b64-2ed81b81433b`). Prism supplied the earlier
+mathematical exposition and accepted the incubator integration; the present
+module-name transfer is authored by a separate Worker B Task, and Folio
+prepared the original five-group documentation headlines. Neither the
+accepted donor evidence nor earlier destination publication alone certified
+the new destination branch. At transfer preparation on 2026-09-28, its own
+checks, review and acceptance were pending. Exact destination revision
+`f58ffbbf7becf28fc6a99ca74bd625fa269b34c2` subsequently passed the native
+both-root build and complete private-inclusive standard-axiom audit, received
+fresh independent Worker A review, and was accepted and integrated by Prism
+on 2026-09-28. This dated code-acceptance record is distinct from the separate
+revision-specific internal/public release review and verified publication.
 The upstream mathlib `Single` development credits Kim Morrison (2021),
 `SingleHomology` credits Joël Riou (2023), `ShiftSequence` credits Joël Riou
 (2024), and opposite-complex work credits Johan Commelin, Amelia Livingston

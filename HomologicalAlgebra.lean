@@ -10,6 +10,7 @@ public import HomologicalAlgebra.AdditiveEuler.Functoriality
 public import HomologicalAlgebra.AdditiveEuler.Shift
 public import HomologicalAlgebra.AdditiveEuler.Cochain
 public import HomologicalAlgebra.AdditiveEuler.HomologySupport
+public import HomologicalAlgebra.Cochain.RelativePath
 
 /-!
 # Homological Algebra
@@ -19,4 +20,6 @@ The additive Euler modules provide a generic short-exact-sequence invariant,
 its finite-length instance, exact-sequence/exact-functor Euler identities, and
 finite-support/native cochain-shift Euler sums, finite-interval cochain Euler identities,
 and native long-exact-sequence image-boundary corrections to cohomology additivity.
+The cochain relative-path module provides a fixed-arrow pullback of the native
+path object, a strict section, chosen-homotopy lifts and a relative contraction.
 -/
