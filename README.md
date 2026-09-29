@@ -5,6 +5,8 @@ category, and fixed-arrow relative paths for integer cochain maps in a
 preadditive category with binary biproducts and pullbacks. The library reuses
 mathlib's native short exact sequences, homology and path objects; it has no
 source-repository or incubator dependency. Authors: Formal Frontier Agents.
+It also provides a chosen-cokernel quotient-intersection pairing for arbitrary
+abelian categories, independently of the Euler and path APIs.
 Licensed under Apache-2.0
 (see [LICENSE](LICENSE)). Review, acceptance and publication are recorded for
 exact revisions; development branches are not official releases.
@@ -67,11 +69,22 @@ its zero and isomorphism laws follow rather than being assumed.
   framework. [Producer](HomologicalAlgebra/Cochain/RelativePath.lean),
   [ordinary-import client](HomologicalAlgebraTest/Cochain/RelativePath.lean),
   [standalone guide](docs/CochainRelativePath.md).
+- **Chosen quotient-intersection pairing.** For subobjects `L ≤ U` and any
+  `D` of an object in an abelian category, the specified map
+  `U/(L ⊓ D) ⟶ (U/L) × (B/D)` is monic. Its two components are the actual
+  chosen `cokernel.map` morphisms, with an aggregate equation after the chosen
+  cokernel projection. Neither projection is asserted monic, and no `L ≤ D`
+  hypothesis is needed. [Producer](HomologicalAlgebra/Abelian/QuotientIntersection.lean),
+  [ordinary-import client](HomologicalAlgebraTest/Abelian/QuotientIntersection.lean),
+  [standalone guide](docs/QuotientIntersection.md).
 
 The Euler statements concern finite sums, not an infinite Euler construction,
 a canonical invariant from homology bounds alone, or a derived-category or
 Grothendieck-group API. The relative-path construction has different,
 nonabelian hypotheses and does not depend on an Euler invariant.
+The abelian quotient-intersection pairing requires only `L ≤ U`, does not
+assume ordinary lifting of maps across quotient epis, and does not depend
+on the Euler or relative-path constructions.
 
 ## Using the library
 
@@ -86,6 +99,11 @@ or the native long-exact-sequence module
 For the separate fixed-arrow path API, import
 `HomologicalAlgebra.Cochain.RelativePath` (or the aggregate
 `HomologicalAlgebra`); see [the guide](docs/CochainRelativePath.md).
+For the chosen quotient-intersection pairing, import
+`HomologicalAlgebra.Abelian.QuotientIntersection` (or `HomologicalAlgebra`);
+the public declarations are in `CategoryTheory.Subobject`. See
+[the guide](docs/QuotientIntersection.md) for the exact cokernel squares,
+the `quotientIntersectionPair_fac` equation and a native closure client.
 The additive Euler namespace is `CategoryTheory.AdditiveEuler` (the path
 construction uses `CochainComplex.RelativePath`). For `μ : C → Γ` in an abelian category `C` and
 additive commutative group `Γ`, the sole invariant hypothesis is
@@ -211,6 +229,9 @@ with `0 = 2 + 1` using an explicitly SES-additive modular invariant.
 eight ordinary-import examples for two distinct sources/chosen homotopies
 into the same fixed-arrow object, strict endpoint equations, the native
 path-component law, the relative contraction and literal equivalence maps.
+`HomologicalAlgebraTest.Abelian.QuotientIntersection`, also built by default,
+checks the chosen components, aggregate equation, monicity and native
+subobject/product closure transfer, plus boundary and representative cases.
 
 ## Building and checking
 
@@ -225,8 +246,8 @@ env LEAN_NUM_THREADS=2 lake exe cache get
 env LEAN_NUM_THREADS=2 lake --wfail build
 ```
 
-The default build checks all seven library modules, both root imports and the
-six public-import test modules. On a host with a matching mathlib cache,
+The default build checks all eight library modules, both root imports and the
+seven public-import test modules. On a host with a matching mathlib cache,
 budget seconds to a few minutes and up to 8 GiB memory as *planning estimates*,
 not guaranteed requirements. First-time cache retrieval downloads thousands of
 files and varies with network and storage; do not run a full mathlib source
@@ -274,6 +295,29 @@ both-root build and complete private-inclusive standard-axiom audit, received
 fresh independent Worker A review, and was accepted and integrated by Prism
 on 2026-09-28. This dated code-acceptance record is distinct from the separate
 revision-specific internal/public release review and verified publication.
+The chosen quotient-intersection construction and client preserve Formalization
+Worker B's isolated Lean proof (Hive Task
+`hive-request-59643abfde1a8dd0ffae0b74aeb5518528184e0a`, UID
+`ebab1c52-31bc-4958-a9b9-dd1e2af1f886`), independently reviewed by
+Formalization Worker A (Hive Task
+`hive-request-043c1a45f09fcb84652dcb8d6d12ae7b7ea2d2de`, UID
+`6fa72f02-d851-498f-aee8-4153f483fbf9`) and accepted by Prism in the
+isolated incubator. Prism supplied the original bounded mathematical
+exposition and home choice. Formalization Worker B (Hive Task
+`hive-request-91a19ea3ef3b49cdeaf5331d2328a9efccb3dea9`, UID
+`cff40757-b7f6-4129-a7e7-c0158508e901`) authored this bounded module-name
+transfer, not a new proof. At that transfer's preparation on September 29,
+2026, destination checks and acceptance were pending. Exact destination
+`3c988935e773c51be6387e3fdb8e1e8a755d3704` subsequently passed the native
+both-root build and complete private/generated standard-axiom audit, received
+fresh independent Worker A mapped review (Hive Task
+`hive-request-ea32421a8f837416638c6e19b57c629a30246d9a`, UID
+`857dea85-e952-4d2e-aa25-cafa0f1c8a70`), and was accepted and integrated by
+Prism on September 29, 2026. Prism prepared the subsequent lifecycle and
+credit update without changing mathematical code. These are dated code-level
+facts; release approval, protected promotion and verified publication are
+separate exact-revision decisions. Isolated donor evidence alone did not
+establish the destination graph.
 The upstream mathlib `Single` development credits Kim Morrison (2021),
 `SingleHomology` credits Joël Riou (2023), `ShiftSequence` credits Joël Riou
 (2024), and opposite-complex work credits Johan Commelin, Amelia Livingston

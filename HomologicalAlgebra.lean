@@ -11,6 +11,7 @@ public import HomologicalAlgebra.AdditiveEuler.Shift
 public import HomologicalAlgebra.AdditiveEuler.Cochain
 public import HomologicalAlgebra.AdditiveEuler.HomologySupport
 public import HomologicalAlgebra.Cochain.RelativePath
+public import HomologicalAlgebra.Abelian.QuotientIntersection
 
 /-!
 # Homological Algebra
@@ -22,4 +23,6 @@ finite-support/native cochain-shift Euler sums, finite-interval cochain Euler id
 and native long-exact-sequence image-boundary corrections to cohomology additivity.
 The cochain relative-path module provides a fixed-arrow pullback of the native
 path object, a strict section, chosen-homotopy lifts and a relative contraction.
+The abelian quotient-intersection module provides a chosen-cokernel pairing
+and its monicity for subobjects L ≤ U and any third subobject D.
 -/
