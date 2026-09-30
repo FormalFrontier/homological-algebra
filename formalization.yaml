@@ -2,7 +2,7 @@
 version: "v0.4"
 project:
   name: Formal Frontier Homological Algebra
-  description: Finite Euler sums for chain and cochain complexes, with native exact-sequence, exact-functor and shift results, plus fixed-arrow relative paths of integer cochain maps in preadditive categories with binary biproducts and pullbacks, and an independent chosen-cokernel quotient-intersection pairing in abelian categories.
+  description: Finite Euler sums for chain and cochain complexes, with native exact-sequence, exact-functor and shift results, plus fixed-arrow relative paths of integer cochain maps in preadditive categories with binary biproducts and pullbacks, and an independent chosen-cokernel quotient-intersection pairing in abelian categories. It also constructs native quadrant bicomplex product totals over arbitrary rings and proves all-integer-degree acyclicity from exact horizontal rows, including the boundary row.
   authors: [Formal Frontier Agents]
   responsible_maintainers: [Anchor, Atlas, Beacon, Lattice, Prism]
   license: Apache-2.0
@@ -43,8 +43,18 @@ sources:
     type: original-proof
     relationship: adapts
     note: Prism developed the bounded original mathematical exposition, independently reviewed on the source side. Formalization Worker B authored the original accepted isolated proof and client (Hive Task hive-request-59643abfde1a8dd0ffae0b74aeb5518528184e0a, UID ebab1c52-31bc-4958-a9b9-dd1e2af1f886), independently reviewed by Worker A (Hive Task hive-request-043c1a45f09fcb84652dcb8d6d12ae7b7ea2d2de, UID 6fa72f02-d851-498f-aee8-4153f483fbf9). Separate Worker B Hive Task hive-request-91a19ea3ef3b49cdeaf5331d2328a9efccb3dea9, UID cff40757-b7f6-4129-a7e7-c0158508e901, transferred the mathematics to this destination with the producer body unchanged and the client import renamed. At transfer preparation on 2026-09-29, destination-specific checks and review were pending. Exact destination 3c988935e773c51be6387e3fdb8e1e8a755d3704 subsequently passed the native both-root build and private/generated standard-axiom audit, received fresh independent Worker A mapped review (Hive Task hive-request-ea32421a8f837416638c6e19b57c629a30246d9a, UID 857dea85-e952-4d2e-aa25-cafa0f1c8a70), and was accepted and integrated by Prism on 2026-09-29. Prism prepared the subsequent lifecycle and credit update without changing mathematical code. Separate exact-revision release decisions are not implied by this code history. No external source asset or source correspondence is included; imported mathlib retains upstream authorship and Apache-2.0 rights.
+  - title: Original quadrant product-total assembly and native Lean implementation (2026)
+    authors: [Formalization Worker A]
+    contributors:
+      - name: Formalization Worker B
+        role: Independent mathematical and Lean code review; scoped and actual-parent registration reviews; separate bounded destination transfer
+      - name: Prism
+        role: Incubation acceptance and destination home selection, not authorship of the original mathematics or Lean proof
+    type: original-proof
+    relationship: adapts
+    note: Formalization Worker A developed the original mathematical assembly (UID 5431f7b8-147a-4c63-b517-a0fcfa0b8021), original Lean implementation and ordinary client (UID f09e994a-0323-449d-b61e-09424d9bca27), and aggregate registration (UID a7b12f46-1810-48bd-86f1-68655875d540). Worker B independently reviewed the mathematics (UID f1e68d0f-519f-42e6-adca-8518e8b6e999) and original Lean code (UID 1038024f-fc62-440a-be8f-17db640f5a59), and reviewed the scoped and actual-parent registration (UIDs b186e2c0-ac3f-4aed-b99b-31c5c4c0fd88 and 37080ebc-1f2a-40d2-8808-921b08fe4f84). Separate Worker B UID 0f1065ab-6fce-4f1b-940d-e153e7c5121f maps the accepted proof to this library without a new mathematical proof. Prism accepted incubation and chose this home, distinct from original authorship. No external source asset, source-specific correspondence or coverage is included. Destination checks and review remain pending on 2026-09-30; upstream mathlib and this library retain separate Apache-2.0 attribution. These dated pending statements describe product-total transfer preparation. Exact destination d610ea1c86bba786da5d896a3788748ec3d3855c subsequently passed original native run1237, including both roots and all525 actual-origin declarations (212 private), with only propext, Classical.choice and Quot.sound. Fresh independent Worker A Task hive-request-a0fe9769664de6d1e05e169f29740841a65ec217 (UID cb63297a-904b-467d-ba44-c63b12c11516) approved the exact mapped candidate; Prism accepted and integrated it on 2026-09-30, then prepared this lifecycle/credit update without changing mathematical code. This is code acceptance, not separate exact-revision release approval, protected promotion, verified publication or source coverage.
 status:
-  scope: SES-additive finite-interval chain and cochain Euler identities, including both cochain endpoint images, neighbor-vanishing and term-bounded equalities, acyclic zero and common-term-supported quasi-isomorphism invariance; finite-length module instance, degreewise-SES signed term and bounded homology additivity, exact-functor transport and mapped homology comparison; finite-support independence and reindexing, actual native cochain-shift term and homology sums, with negative-degree split-SES, identity-functor, negative/shifted ZMod 3 and nonzero-identity-differential boundary clients; native exact-pair invariant identity and finite-interval cochain long-exact-sequence homology additivity with both connecting-image corrections for a ≤ b including singleton intervals, neighboring homology-vanishing and native outer-complex IsGE/IsLE corollaries, and nonsplit rational nonzero-connecting-map and shifted ZMod 3 clients. No empty-interval LES additivity, canonical interval-independent invariant, source-coverage, K0, homology-only bounded Euler, derived quotient or derived-category result, unrestricted long-exact-sequence theory or homologically bounded-category claim. Fixed-arrow integer cochain relative paths add the native path-object pullback, strict section and chosen-homotopy lifts, relative contraction and literal homotopy equivalence under preadditivity, binary biproducts and pullbacks. The cylinder and integer endpoint lemmas need no pullbacks. No naturality in arbitrary arrows or native quasi-isomorphism instance is claimed; the destination mathematics was checked, independently reviewed and accepted at f58ffbbf7becf28fc6a99ca74bd625fa269b34c2 on 2026-09-28. Release review and publication are separate revision-specific decisions. Added independently is the chosen quotient-intersection pairing in any abelian category, for subobjects L ≤ U and arbitrary D, with chosen cokernel components, aggregate factorization and monicity of the pair; neither component is asserted monic and no L ≤ D is needed. The isolated donor was independently reviewed and accepted. Exact destination 3c988935e773c51be6387e3fdb8e1e8a755d3704 subsequently passed the native both-root build and complete private/generated standard-axiom audit, received fresh independent mapped review, and was accepted and integrated by Prism on 2026-09-29. This is code acceptance, not a claim of separate release approval or official publication.
+  scope: SES-additive finite-interval chain and cochain Euler identities, including both cochain endpoint images, neighbor-vanishing and term-bounded equalities, acyclic zero and common-term-supported quasi-isomorphism invariance; finite-length module instance, degreewise-SES signed term and bounded homology additivity, exact-functor transport and mapped homology comparison; finite-support independence and reindexing, actual native cochain-shift term and homology sums, with negative-degree split-SES, identity-functor, negative/shifted ZMod 3 and nonzero-identity-differential boundary clients; native exact-pair invariant identity and finite-interval cochain long-exact-sequence homology additivity with both connecting-image corrections for a ≤ b including singleton intervals, neighboring homology-vanishing and native outer-complex IsGE/IsLE corollaries, and nonsplit rational nonzero-connecting-map and shifted ZMod 3 clients. No empty-interval LES additivity, canonical interval-independent invariant, source-coverage, K0, homology-only bounded Euler, derived quotient or derived-category result, unrestricted long-exact-sequence theory or homologically bounded-category claim. Fixed-arrow integer cochain relative paths add the native path-object pullback, strict section and chosen-homotopy lifts, relative contraction and literal homotopy equivalence under preadditivity, binary biproducts and pullbacks. The cylinder and integer endpoint lemmas need no pullbacks. No naturality in arbitrary arrows or native quasi-isomorphism instance is claimed; the destination mathematics was checked, independently reviewed and accepted at f58ffbbf7becf28fc6a99ca74bd625fa269b34c2 on 2026-09-28. Release review and publication are separate revision-specific decisions. Added independently is the chosen quotient-intersection pairing in any abelian category, for subobjects L ≤ U and arbitrary D, with chosen cokernel components, aggregate factorization and monicity of the pair; neither component is asserted monic and no L ≤ D is needed. The isolated donor was independently reviewed and accepted. Exact destination 3c988935e773c51be6387e3fdb8e1e8a755d3704 subsequently passed the native both-root build and complete private/generated standard-axiom audit, received fresh independent mapped review, and was accepted and integrated by Prism on 2026-09-29. This is code acceptance, not a claim of separate release approval or official publication. At September 30, 2026, the separately accepted product-total mathematics and isolated Lean proof are mapped into a pending destination candidate with unrestricted diagonal products, signed native integer total, map laws and acyclicity from all exact horizontal rows; destination checks, mapped review, acceptance and publication are not yet established. Its client uses zero vertical maps and does not test infinitely many nonzero cells or nonzero vertical maps. These dated pending statements describe product-total transfer preparation. Exact destination d610ea1c86bba786da5d896a3788748ec3d3855c subsequently passed original native run1237, including both roots and all525 actual-origin declarations (212 private), with only propext, Classical.choice and Quot.sound. Fresh independent Worker A Task hive-request-a0fe9769664de6d1e05e169f29740841a65ec217 (UID cb63297a-904b-467d-ba44-c63b12c11516) approved the exact mapped candidate; Prism accepted and integrated it on 2026-09-30, then prepared this lifecycle/credit update without changing mathematical code. This is code acceptance, not separate exact-revision release approval, protected promotion, verified publication or source coverage.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: [propext, Classical.choice, Quot.sound]
@@ -149,12 +159,150 @@ status:
       file: HomologicalAlgebra/Abelian/QuotientIntersection.lean
     - declaration: CategoryTheory.Subobject.mono_quotientIntersectionPair
       file: HomologicalAlgebra/Abelian/QuotientIntersection.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.Bicomplex
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.Diag
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.firstRow
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.firstColumn
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.diagonalIndex
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.primitiveIndex
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.diagonalIndex_surjective
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.primitiveIndex_of_row
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.cycleIndex
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.Product
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.degree
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.horizontalIndex
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.verticalIndex
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.cycleIndex_horizontal
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.cycleIndex_vertical
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.horizontal
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.vertical
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.horizontalMap
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.verticalMap
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.horizontalMap_apply
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.verticalMap_apply_zero
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.verticalMap_apply_pos
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.differential
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.differential_eq
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.differential_apply_zero
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.differential_apply_pos
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.horizontal_square
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.vertical_square
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.horizontal_vertical_comm
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.differential_square
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.productTotal
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.mapDegree
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.mapDegree_apply
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.map_horizontal
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.map_vertical
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.map_differential
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.productTotal_d
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.nextHorizontalIndex
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.nextVerticalIndex
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.productTotal_d_apply_zero
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.productTotal_d_apply_pos
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.productTotalMap
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.productTotalMap_f
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.mapDegree_id
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.mapDegree_comp
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.productTotalMap_id
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.productTotalMap_comp
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.row_lift
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.cycle_equation
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.horizontal_at_zero
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.first_kernel
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.residual_kernel
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.vertical_square_apply
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.cycle_equation_step
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.coordinate
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.LiftState
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.initialState_exists
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.nextState_exists
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.liftStates
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.liftStates_first
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.liftStates_step
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.primitive
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.primitive_apply_index
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.primitive_apply_early
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.nextHorizontalIndex_diag
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.nextVerticalIndex_diag_succ
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.nextVerticalIndex_diag_first_early
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.primitive_boundary_index
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
+    - declaration: CategoryTheory.QuadrantProductTotal.acyclic_productTotal
+      file: HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean
 automation:
   methods:
     - method: agent
       framework: Codex and Hive
-      prompting_notes: Agent-assisted accepted source research, native Lean formalization, independently reviewed incubator extensions and separate module-name promotions including native LES Euler support. This candidate ports already accepted native fixed-arrow relative-path mathematics by module-name mapping, with ordinary-import clients and Folio-prepared README headlines; destination-specific checks and fresh review were completed at f58ffbbf7becf28fc6a99ca74bd625fa269b34c2 on 2026-09-28. This bounded quotient-intersection promotion copies the accepted isolated producer byte-for-byte and changes only the client producer import, plus root registration and prose; no new proof or generalization is claimed. Destination native both-root build and private-inclusive transitive standard-axiom audit succeeded at 3c988935e773c51be6387e3fdb8e1e8a755d3704 on 2026-09-29; this lifecycle and credit update leaves all mathematical/build/dependency/checker inputs unchanged.
+      prompting_notes: Agent-assisted accepted source research, native Lean formalization, independently reviewed incubator extensions and separate module-name promotions including native LES Euler support. This candidate ports already accepted native fixed-arrow relative-path mathematics by module-name mapping, with ordinary-import clients and Folio-prepared README headlines; destination-specific checks and fresh review were completed at f58ffbbf7becf28fc6a99ca74bd625fa269b34c2 on 2026-09-28. This bounded quotient-intersection promotion copies the accepted isolated producer byte-for-byte and changes only the client producer import, plus root registration and prose; no new proof or generalization is claimed. Destination native both-root build and private-inclusive transitive standard-axiom audit succeeded at 3c988935e773c51be6387e3fdb8e1e8a755d3704 on 2026-09-29; this lifecycle and credit update leaves all mathematical/build/dependency/checker inputs unchanged. The 2026-09-30 quadrant product-total candidate is a bounded namespace/import transfer of previously accepted proofs plus registration and standalone documentation; the earlier isolated checks do not audit the new destination origins or roots. Ordinary destination CI and fresh independent mapped review remain pending; no new mathematics or release is claimed. These dated pending statements describe product-total transfer preparation. Exact destination d610ea1c86bba786da5d896a3788748ec3d3855c subsequently passed original native run1237, including both roots and all525 actual-origin declarations (212 private), with only propext, Classical.choice and Quot.sound. Fresh independent Worker A Task hive-request-a0fe9769664de6d1e05e169f29740841a65ec217 (UID cb63297a-904b-467d-ba44-c63b12c11516) approved the exact mapped candidate; Prism accepted and integrated it on 2026-09-30, then prepared this lifecycle/credit update without changing mathematical code. This is code acceptance, not separate exact-revision release approval, protected promotion, verified publication or source coverage.
   notes: Project-wide inference cost, elapsed time and peak memory are not measured.
 review:
   status: "other: review and acceptance are revision-specific; consult the release records"
-  notes: Prism is responsible within the shared maintainer team. Mathematical predecessors were independently reviewed and accepted in the incubator, including the exact-sequence/exact-functor, native-shift, finite-interval cochain Euler and native LES extensions. At original LES-transfer preparation, the exact-functor, shift and cochain destination transfers were accepted for promotion maturity but unintegrated, this LES transfer was stacked on the accepted-unmerged cochain branch, and the initial public-release state and earlier accepted parentless proposal were frozen and untouched. At CI-aware LES successor preparation on 2026-09-27, those destination predecessors had been integrated and their own reviewed releases verified; the unchanged LES mathematics, client, roots and README were combined with the accepted CI configuration. At successor revision ef938d0db20983e91e950e79d263c58652b72593, independent affected review, native complete-graph build and private-inclusive standard-axiom audit were completed; Prism accepted and integrated the code on development main on 2026-09-27. At preparation of this successor's own release candidate, separate internal/public release review, protected promotion and actual GitHub publication had not yet occurred. No source correspondence or source coverage is asserted here. The dated LES release-preparation statement above is historical; the prior destination tree was subsequently published as official 4bc4ac0a3459189cc13e24ac631417d33e306242. At relative-path transfer preparation on 2026-09-28, new destination checks, review and acceptance were pending. Exact f58ffbbf7becf28fc6a99ca74bd625fa269b34c2 subsequently passed its native both-root build and complete private-inclusive standard-axiom audit, received fresh independent Worker A review and was accepted and integrated by Prism on 2026-09-28. This records code acceptance, not a claim that the separate revision-specific release review or publication has occurred; no source coverage is asserted. On 2026-09-29 the separately accepted isolated quotient-intersection proof and client were transferred with module-name mapping onto development main parent 25684b28ecada4aefa45ecb2234c1e0a71dce47d; at transfer preparation its destination checks and review were pending. Exact destination 3c988935e773c51be6387e3fdb8e1e8a755d3704 subsequently passed original native run1161, including both roots and all366 actual-origin declarations (171 private), with only propext, Classical.choice and Quot.sound. Fresh independent Worker A Task hive-request-ea32421a8f837416638c6e19b57c629a30246d9a (UID 857dea85-e952-4d2e-aa25-cafa0f1c8a70) approved the exact mapped candidate; Prism accepted and integrated it on 2026-09-29. Isolated evidence alone did not certify the new origins or roots. This dated code history is not an assertion of separate exact-revision release approval, protected promotion or verified publication. No source correspondence or coverage is asserted.
+  notes: Prism is responsible within the shared maintainer team. Mathematical predecessors were independently reviewed and accepted in the incubator, including the exact-sequence/exact-functor, native-shift, finite-interval cochain Euler and native LES extensions. At original LES-transfer preparation, the exact-functor, shift and cochain destination transfers were accepted for promotion maturity but unintegrated, this LES transfer was stacked on the accepted-unmerged cochain branch, and the initial public-release state and earlier accepted parentless proposal were frozen and untouched. At CI-aware LES successor preparation on 2026-09-27, those destination predecessors had been integrated and their own reviewed releases verified; the unchanged LES mathematics, client, roots and README were combined with the accepted CI configuration. At successor revision ef938d0db20983e91e950e79d263c58652b72593, independent affected review, native complete-graph build and private-inclusive standard-axiom audit were completed; Prism accepted and integrated the code on development main on 2026-09-27. At preparation of this successor's own release candidate, separate internal/public release review, protected promotion and actual GitHub publication had not yet occurred. No source correspondence or source coverage is asserted here. The dated LES release-preparation statement above is historical; the prior destination tree was subsequently published as official 4bc4ac0a3459189cc13e24ac631417d33e306242. At relative-path transfer preparation on 2026-09-28, new destination checks, review and acceptance were pending. Exact f58ffbbf7becf28fc6a99ca74bd625fa269b34c2 subsequently passed its native both-root build and complete private-inclusive standard-axiom audit, received fresh independent Worker A review and was accepted and integrated by Prism on 2026-09-28. This records code acceptance, not a claim that the separate revision-specific release review or publication has occurred; no source coverage is asserted. On 2026-09-29 the separately accepted isolated quotient-intersection proof and client were transferred with module-name mapping onto development main parent 25684b28ecada4aefa45ecb2234c1e0a71dce47d; at transfer preparation its destination checks and review were pending. Exact destination 3c988935e773c51be6387e3fdb8e1e8a755d3704 subsequently passed original native run1161, including both roots and all366 actual-origin declarations (171 private), with only propext, Classical.choice and Quot.sound. Fresh independent Worker A Task hive-request-ea32421a8f837416638c6e19b57c629a30246d9a (UID 857dea85-e952-4d2e-aa25-cafa0f1c8a70) approved the exact mapped candidate; Prism accepted and integrated it on 2026-09-29. Isolated evidence alone did not certify the new origins or roots. This dated code history is not an assertion of separate exact-revision release approval, protected promotion or verified publication. No source correspondence or coverage is asserted. At product-total transfer preparation on 2026-09-30, its mathematical proof and isolated Lean code had been independently reviewed and accepted before the bounded seven-path module-name mapping; the new destination both-root build, complete private/generated transitive standard-axiom audit, fresh author-distinct review, maintainer code acceptance and separate official release remain pending. Existing historical verified claims do not apply to these renamed origins. No source correspondence or coverage is inferred. These dated pending statements describe product-total transfer preparation. Exact destination d610ea1c86bba786da5d896a3788748ec3d3855c subsequently passed original native run1237, including both roots and all525 actual-origin declarations (212 private), with only propext, Classical.choice and Quot.sound. Fresh independent Worker A Task hive-request-a0fe9769664de6d1e05e169f29740841a65ec217 (UID cb63297a-904b-467d-ba44-c63b12c11516) approved the exact mapped candidate; Prism accepted and integrated it on 2026-09-30, then prepared this lifecycle/credit update without changing mathematical code. This is code acceptance, not separate exact-revision release approval, protected promotion, verified publication or source coverage.

@@ -11,6 +11,7 @@ public import HomologicalAlgebraTest.AdditiveEuler.Cochain
 public import HomologicalAlgebraTest.AdditiveEuler.HomologySupport
 public import HomologicalAlgebraTest.Cochain.RelativePath
 public import HomologicalAlgebraTest.Abelian.QuotientIntersection
+public import HomologicalAlgebraTest.Homology.ProductTotalAcyclicity
 
 /-!
 # Public-import client tests
@@ -18,4 +19,5 @@ public import HomologicalAlgebraTest.Abelian.QuotientIntersection
 Checks of the additive Euler library through its public imports.
 Checks of the fixed-arrow relative-path API through an ordinary producer import.
 Checks of the quotient-intersection pairing through an ordinary producer import.
+Checks of the quadrant product-total API through an ordinary producer import.
 -/

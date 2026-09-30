@@ -7,6 +7,8 @@ mathlib's native short exact sequences, homology and path objects; it has no
 source-repository or incubator dependency. Authors: Formal Frontier Agents.
 It also provides a chosen-cokernel quotient-intersection pairing for arbitrary
 abelian categories, independently of the Euler and path APIs.
+For native quadrant bicomplexes of modules, it constructs unrestricted signed
+product totals and proves all-degree acyclicity from acyclic horizontal rows.
 Licensed under Apache-2.0
 (see [LICENSE](LICENSE)). Review, acceptance and publication are recorded for
 exact revisions; development branches are not official releases.
@@ -77,6 +79,18 @@ its zero and isomorphism laws follow rather than being assumed.
   hypothesis is needed. [Producer](HomologicalAlgebra/Abelian/QuotientIntersection.lean),
   [ordinary-import client](HomologicalAlgebraTest/Abelian/QuotientIntersection.lean),
   [standalone guide](docs/QuotientIntersection.md).
+- **Quadrant product-total acyclicity.** For any `[Ring R]`, a native quadrant
+  bicomplex of `ModuleCat R` has an unrestricted diagonal product total
+  `productTotal K` in integer degrees `p-r`. Exact horizontal rows at **every**
+  `r`, including `p=0`, give `(productTotal K).Acyclic` in **all integer
+  degrees**. At target `(r,p)` of degree `k-1` its differential is
+  `h(x_(r,p+1)) + (-1)^(k+1) δ(x_(r-1,p))`, with the second term zero at
+  `r=0`; the map, identity and composition laws require no row exactness.
+  Elementwise chosen lifts are not linear/natural splittings, and the result
+  does not assert an arbitrary-unbounded assembly or exact-products axiom.
+  [Producer](HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean),
+  [ordinary-import client](HomologicalAlgebraTest/Homology/ProductTotalAcyclicity.lean),
+  [standalone guide](docs/ProductTotalAcyclicity.md).
 
 The Euler statements concern finite sums, not an infinite Euler construction,
 a canonical invariant from homology bounds alone, or a derived-category or
@@ -104,6 +118,11 @@ For the chosen quotient-intersection pairing, import
 the public declarations are in `CategoryTheory.Subobject`. See
 [the guide](docs/QuotientIntersection.md) for the exact cokernel squares,
 the `quotientIntersectionPair_fac` equation and a native closure client.
+For the distinct quadrant product-total API, import
+`HomologicalAlgebra.Homology.ProductTotalAcyclicity` (or `HomologicalAlgebra`);
+its declarations live in `CategoryTheory.QuadrantProductTotal`. See
+[the guide](docs/ProductTotalAcyclicity.md) for signs, row exactness at the
+boundary, negative-degree primitives and the ordinary-import client.
 The additive Euler namespace is `CategoryTheory.AdditiveEuler` (the path
 construction uses `CochainComplex.RelativePath`). For `μ : C → Γ` in an abelian category `C` and
 additive commutative group `Γ`, the sole invariant hypothesis is
@@ -232,6 +251,10 @@ path-component law, the relative contraction and literal equivalence maps.
 `HomologicalAlgebraTest.Abelian.QuotientIntersection`, also built by default,
 checks the chosen components, aggregate equation, monicity and native
 subobject/product closure transfer, plus boundary and representative cases.
+`HomologicalAlgebraTest.Homology.ProductTotalAcyclicity`, also built by default,
+uses zero vertical maps and a nonsplit `ℤ → ZMod 2` row, testing signs at
+`-1,0,1`, a negative-degree early primitive and map identity. It does not
+test infinitely many nonzero cells or nonzero vertical maps.
 
 ## Building and checking
 
@@ -246,8 +269,8 @@ env LEAN_NUM_THREADS=2 lake exe cache get
 env LEAN_NUM_THREADS=2 lake --wfail build
 ```
 
-The default build checks all eight library modules, both root imports and the
-seven public-import test modules. On a host with a matching mathlib cache,
+The default build checks all nine library modules, both root imports and the
+eight public-import test modules. On a host with a matching mathlib cache,
 budget seconds to a few minutes and up to 8 GiB memory as *planning estimates*,
 not guaranteed requirements. First-time cache retrieval downloads thousands of
 files and varies with network and storage; do not run a full mathlib source
@@ -318,6 +341,34 @@ credit update without changing mathematical code. These are dated code-level
 facts; release approval, protected promotion and verified publication are
 separate exact-revision decisions. Isolated donor evidence alone did not
 establish the destination graph.
+The separate quadrant product-total mathematics was developed by Formalization
+Worker A (UID `5431f7b8-147a-4c63-b517-a0fcfa0b8021`) and independently
+reviewed by Worker B (UID `f1e68d0f-519f-42e6-adca-8518e8b6e999`).
+Worker A implemented the original Lean proof and client (UID
+`f09e994a-0323-449d-b61e-09424d9bca27`); Worker B independently reviewed
+the code (UID `1038024f-fc62-440a-be8f-17db640f5a59`). The aggregate
+registration was by Worker A (UID `a7b12f46-1810-48bd-86f1-68655875d540`),
+with scoped and actual-parent Worker B reviews (UIDs
+`b186e2c0-ac3f-4aed-b99b-31c5c4c0fd88` and
+`37080ebc-1f2a-40d2-8808-921b08fe4f84`). This bounded module-name
+transfer is by Worker B (UID `0f1065ab-6fce-4f1b-940d-e153e7c5121f`),
+not a new mathematical or Lean proof. Prism selected the home and accepted
+incubation; as of September 30, 2026, the destination transfer still awaits
+its own CI build, complete transitive standard-axiom audit, independent mapped
+review and maintainer acceptance. No new product-total release or source
+coverage follows from the earlier reviewed publication. No source asset is
+redistributed; this repository and upstream mathlib retain separate
+Apache-2.0 attribution.
+That dated pending statement describes transfer preparation. Exact destination
+`d610ea1c86bba786da5d896a3788748ec3d3855c` subsequently passed the native
+both-root build and complete private/generated transitive standard-axiom audit,
+received fresh independent Worker A mapped review (Hive Task
+`hive-request-a0fe9769664de6d1e05e169f29740841a65ec217`, UID
+`cb63297a-904b-467d-ba44-c63b12c11516`), and was accepted and integrated by
+Prism on September 30, 2026. Prism prepared this lifecycle/credit update without
+changing any mathematical code. This records code acceptance only; separate
+exact-revision release review, protected promotion and verified GitHub
+publication remain distinct decisions, not inferred from the donor or code pass.
 The upstream mathlib `Single` development credits Kim Morrison (2021),
 `SingleHomology` credits Joël Riou (2023), `ShiftSequence` credits Joël Riou
 (2024), and opposite-complex work credits Johan Commelin, Amelia Livingston
