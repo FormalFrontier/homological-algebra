@@ -7,6 +7,8 @@ mathlib's native short exact sequences, homology and path objects; it has no
 source-repository or incubator dependency. Authors: Formal Frontier Agents.
 It also provides a chosen-cokernel quotient-intersection pairing for arbitrary
 abelian categories, independently of the Euler and path APIs.
+Admissible subobject layers now expose a lower-cut left adjoint and reflector
+under subobject/product closure and admissibility of the chosen quotient `B/D`.
 For native quadrant bicomplexes of modules, it constructs unrestricted signed
 product totals and proves all-degree acyclicity from acyclic horizontal rows.
 Licensed under Apache-2.0
@@ -79,6 +81,18 @@ its zero and isomorphism laws follow rather than being assumed.
   hypothesis is needed. [Producer](HomologicalAlgebra/Abelian/QuotientIntersection.lean),
   [ordinary-import client](HomologicalAlgebraTest/Abelian/QuotientIntersection.lean),
   [standalone guide](docs/QuotientIntersection.md).
+- **Admissible layers and lower-cut reflection.** For a property `P` of the
+  chosen quotient `U/L`, layers `(L,U)` are ordered with lower endpoint
+  reversed and upper endpoint forward. `LowerBounded P B D` admits a
+  monotone inclusion without closure hypotheses or `P(B/D)`; if `P` is
+  closed under subobjects and binary products and `P (cokernel D.arrow)`,
+  intersection `(L,U) ↦ (L ⊓ D,U)` is its **left** adjoint. The canonical
+  monomorphism `U/(L ⊓ D) ⟶ (U/L) × (B/D)` proves admissibility without
+  `L ≤ D` or quotient closure. The unit, exact reflector identity and native
+  thin-category adjunction are public; no upper cut or transport to layers
+  in `D` is asserted. [Producer](HomologicalAlgebra/Abelian/AdmissibleLayers.lean),
+  [ordinary-import client](HomologicalAlgebraTest/Abelian/AdmissibleLayers.lean),
+  [standalone guide](docs/AdmissibleLayers.md).
 - **Quadrant product-total acyclicity.** For any `[Ring R]`, a native quadrant
   bicomplex of `ModuleCat R` has an unrestricted diagonal product total
   `productTotal K` in integer degrees `p-r`. Exact horizontal rows at **every**
@@ -118,6 +132,10 @@ For the chosen quotient-intersection pairing, import
 the public declarations are in `CategoryTheory.Subobject`. See
 [the guide](docs/QuotientIntersection.md) for the exact cokernel squares,
 the `quotientIntersectionPair_fac` equation and a native closure client.
+For quotient-admissible subobject layers and their lower-cut reflector, import
+`HomologicalAlgebra.Abelian.AdmissibleLayers` (or `HomologicalAlgebra`). The
+`CategoryTheory.AdmissibleLayer` API builds on that pairing; see
+[the guide](docs/AdmissibleLayers.md) for hypotheses and client examples.
 For the distinct quadrant product-total API, import
 `HomologicalAlgebra.Homology.ProductTotalAcyclicity` (or `HomologicalAlgebra`);
 its declarations live in `CategoryTheory.QuadrantProductTotal`. See
@@ -269,8 +287,8 @@ env LEAN_NUM_THREADS=2 lake exe cache get
 env LEAN_NUM_THREADS=2 lake --wfail build
 ```
 
-The default build checks all nine library modules, both root imports and the
-eight public-import test modules. On a host with a matching mathlib cache,
+The default build checks all ten library modules, both root imports and the
+nine public-import test modules. On a host with a matching mathlib cache,
 budget seconds to a few minutes and up to 8 GiB memory as *planning estimates*,
 not guaranteed requirements. First-time cache retrieval downloads thousands of
 files and varies with network and storage; do not run a full mathlib source
@@ -369,6 +387,39 @@ Prism on September 30, 2026. Prism prepared this lifecycle/credit update without
 changing any mathematical code. This records code acceptance only; separate
 exact-revision release review, protected promotion and verified GitHub
 publication remain distinct decisions, not inferred from the donor or code pass.
+The admissible-layer structure, lower-cut proof and twelve named interfaces
+originate with Formalization Worker A (Hive Task
+`hive-request-ba6db67752c1ca3a15187b47986f94305a3e0e92`, UID
+`0111a103-0798-47fc-8658-1da79cbdcf70`). Prism repaired the original
+Lean proof, authored the ordinary-import client and registered the accepted
+incubator development; separate Worker B assembly Tasks retained the unchanged
+mathematics. Fresh independent Worker A review of exact incubator U by Task
+`hive-request-88bdcbd446694585c0304ab7465c20cf4cef091e`, UID
+`bd91a92d-aff8-4db3-8480-bf18c582d763`, preceded its acceptance; that review
+is not a destination verdict. Prism corrected this review identity in the
+transfer metadata before destination review. This
+bounded transfer by Formalization Worker B (Hive Task
+`hive-request-0877a7a4c53d674094d1e4f1f6466950d4273367`, UID
+`ac2054d4-3442-4afd-a876-684bf1f7c5a4`) maps the producer and client to
+this library without changing any mathematical body. At transfer preparation on September 30,
+2026, destination-specific independent review, both-root native build,
+complete private/generated transitive standard-axiom audit and Prism's
+code acceptance are **pending**. Separate official release review and
+verified publication must follow; no source correspondence or coverage is
+claimed. The repository's Apache-2.0 license and mathlib's separate upstream
+attribution apply; no source asset is redistributed.
+Those dated pending statements describe the original transfer preparation, not
+the current destination state. Exact destination
+`987cd5a9731b33466d0bc7119eecb0c22522c944` subsequently passed original
+configured native run 1336: both roots built and all 566 actual-origin
+declarations (including 212 private) had only the permitted three standard
+axioms or no axioms. Fresh independent Worker A destination reviewer Hive Task
+`hive-request-ec5f5accaa5a4f711d6336acdb2984e1040cbc7d`, UID
+`97a4affa-d7d6-4e4d-b842-5f824a910f89`, approved the complete exact revision;
+Prism accepted its code and integrated it into protected development `main` on
+September 30, 2026 at 09:07:29 UTC. Its own independent release review, protected
+release promotion and verified GitHub publication remain separate pending owner
+actions; code acceptance is not publication or source coverage.
 The upstream mathlib `Single` development credits Kim Morrison (2021),
 `SingleHomology` credits Joël Riou (2023), `ShiftSequence` credits Joël Riou
 (2024), and opposite-complex work credits Johan Commelin, Amelia Livingston
