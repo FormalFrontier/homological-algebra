@@ -1,3 +1,8 @@
+/-
+SPDX-License-Identifier: Apache-2.0
+Authors: Formal Frontier Agents
+-/
+
 module
 
 public import HomologicalAlgebra.Abelian.QuotientIntersection
@@ -20,12 +25,10 @@ This API needs neither closure under quotients nor an admissibility assumption
 on either endpoint. It covers only the lower-cut operation; it does not assert
 an upper-cut construction or a comparison with layers in the object `D`.
 
-Original Lean construction: Formalization Worker A; Prism repaired the proof,
-exposed its exported data equations and authored the ordinary-import client.
-This transfer into Homological Algebra preserves the accepted incubator
-mathematical declarations and proofs unchanged. Destination-specific review,
-both-root build and complete standard-axiom audit, and maintainer acceptance
-are pending as of 2026-09-30.
+The original Lean construction is by the Formal Frontier core and LES
+contributor. Prism repaired its proof, exposed the exported data equations
+and authored the ordinary-import client. This module retains those accepted
+mathematical declarations and proofs in Homological Algebra.
 -/
 
 universe v u

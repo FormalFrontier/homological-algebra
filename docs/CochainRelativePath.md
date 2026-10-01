@@ -78,14 +78,13 @@ lake exe cache get
 lake build HomologicalAlgebra HomologicalAlgebraTest
 ```
 
-This module is a path-only transfer of the independently accepted incubator
-fixed-arrow construction, developed by Formalization Worker B from Prism's
-mathematical exposition and independently reviewed in its earlier home by
-Formalization Worker A. At transfer preparation on 2026-09-28, destination
-checks, independent review and maintainer code acceptance were still pending;
-those steps and protected main integration were completed later that day.
-Reviewed release and publication are separate from that code acceptance.
-Folio prepared the existing-result README headlines for this transfer.
-Mathlib's native path and cylinder constructions retain their upstream
-attribution. Apache-2.0 applies to this repository; neither a private
-source asset nor source-coverage decision is part of this library.
+Prism wrote the original mathematical exposition. A distinct Formal Frontier
+cochain-shift and path contributor authored the native fixed-arrow construction
+and ordinary client; the core and LES contributor independently reviewed the
+original mathematics and its bounded destination mapping. The transfer changed
+module names without a new proof. Folio wrote the first five README headlines,
+not this mathematical proof. Mathlib's path and cylinder constructions retain
+their upstream credit and Apache-2.0 license; original project code uses this
+repository's Apache-2.0 license. Neither a private source asset nor a
+source-coverage decision is part of this library. Release status belongs to
+the responsible maintainer's exact-revision records.

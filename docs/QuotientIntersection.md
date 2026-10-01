@@ -87,35 +87,18 @@ lake --wfail build
 Fetch the matching mathlib cache successfully **before** building. Both
 producer and client are imported by their corresponding default roots.
 A successful build does not replace the complete transitive standard-axiom
-audit, including private and generated declarations. The isolated incubator
-producer/client received their own independent review, acceptance, exact-input
-build and audit. The relocated destination subsequently passed its own native
-both-root build and complete private/generated standard-axiom audit at
-`3c988935e773c51be6387e3fdb8e1e8a755d3704`, received fresh mapped review,
-and was accepted and integrated by Prism on September 29, 2026. This is a
-dated code-acceptance statement, not an assertion of release approval or
-publication. The earlier isolated evidence alone did not certify the renamed
-module origins and expanded destination roots.
-
-This mathematical API is source-independent. Prism developed the bounded
-original mathematical exposition, which received independent source-side
-review. The original Lean implementation and client are by Formalization
-Worker B (Hive Task `hive-request-59643abfde1a8dd0ffae0b74aeb5518528184e0a`,
-UID `ebab1c52-31bc-4958-a9b9-dd1e2af1f886`); Formalization Worker A
-independently reviewed those isolated results (Hive Task
-`hive-request-043c1a45f09fcb84652dcb8d6d12ae7b7ea2d2de`, UID
-`6fa72f02-d851-498f-aee8-4153f483fbf9`). This module-name transfer is
-by a separate Formalization Worker B Task
-`hive-request-91a19ea3ef3b49cdeaf5331d2328a9efccb3dea9`, UID
-`cff40757-b7f6-4129-a7e7-c0158508e901`, without a new mathematics proof.
-Fresh independent destination review was by Worker A (Hive Task
-`hive-request-ea32421a8f837416638c6e19b57c629a30246d9a`, UID
-`857dea85-e952-4d2e-aa25-cafa0f1c8a70`); Prism authored the subsequent
-lifecycle and credit update, with the mathematical content unchanged.
-Source code is subject to this repository's Apache-2.0 `LICENSE`; imported
-mathlib retains its own Apache-2.0 authorship and credit.
+audit, including private and generated declarations. Prism wrote the bounded
+mathematical exposition and chose the library home. The Formal Frontier
+cochain-shift and path contributor authored the original isolated Lean proof
+and ordinary client, then performed a separate mathematics-preserving
+module-name transfer; the core and LES contributor independently reviewed the
+original and destination versions. Prism accepted the code and later edited
+lifecycle prose. Release status belongs to the responsible maintainer's
+exact-revision records. Original project code uses this repository's
+[Apache-2.0 license](../LICENSE); imported mathlib retains independent
+upstream authorship and Apache-2.0 credit. No source asset or source-level
+correspondence is included.
 
 No Q-comma equivalence, adjunction of layer categories, finite filtration,
 Quillen A theorem, dévissage result, or source-level correspondence is
-proved or claimed here. Code acceptance and integration are distinct from
-the responsible maintainer's and reviewer's exact-revision release decisions.
+proved or claimed here.

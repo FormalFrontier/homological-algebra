@@ -271,8 +271,10 @@ checks the chosen components, aggregate equation, monicity and native
 subobject/product closure transfer, plus boundary and representative cases.
 `HomologicalAlgebraTest.Homology.ProductTotalAcyclicity`, also built by default,
 uses zero vertical maps and a nonsplit `ℤ → ZMod 2` row, testing signs at
-`-1,0,1`, a negative-degree early primitive and map identity. It does not
-test infinitely many nonzero cells or nonzero vertical maps.
+`-1,0,1`, a negative-degree early primitive and map identity. Its nonsplit
+row repeats infinitely often overall, but with zero vertical maps and at most
+three nonzero cells on each diagonal. The client does not test infinitely
+supported diagonals or nonzero vertical maps.
 
 ## Building and checking
 
@@ -290,146 +292,54 @@ env LEAN_NUM_THREADS=2 lake --wfail build
 The default build checks all ten library modules, both root imports and the
 nine public-import test modules. On a host with a matching mathlib cache,
 budget seconds to a few minutes and up to 8 GiB memory as *planning estimates*,
-not guaranteed requirements. First-time cache retrieval downloads thousands of
-files and varies with network and storage; do not run a full mathlib source
-build if the cache fetch fails. Build and transitive axiom evidence belongs to
+not measured peak usage, a minimum, guaranteed requirements or permission
+for a particular support profile. `LEAN_NUM_THREADS=2` limits Lean runtime
+threading, not aggregate Lake process count or memory. Project-wide elapsed
+time and peak memory have not been measured. First-time cache retrieval
+downloads thousands of files and varies with network and storage; do not run
+a full mathlib source build if the cache fetch fails. Build and transitive
+axiom evidence belongs to
 the exact-revision development record, not a bundled validation framework.
 
 ## Provenance and limits
 
-The mathematical motivation is Charles A. Weibel, *The K-book*, Chapter II,
-§6: its SES-additive function and Euler argument. Prism authored the expanded
-original proof exposition, including exact-sequence and exact-functor guidance;
-Formalization Worker A developed the core, finite-length and exact-functor Lean
-proofs and clients, and independently reviewed the native cochain-shift proof.
-Formalization Worker B developed the native cochain-shift and finite-interval
-cochain Euler Lean proofs and clients and independently reviewed the
-exact-sequence/exact-functor component.
-Formalization Worker A developed the native long-exact-sequence Euler proof and
-nonsplit rational/shifted modular clients; Prism supplied the LES guidance and
-assembled the accepted incubator candidate. Formalization Worker B transferred
-that unchanged LES mathematics here with module-name and client-namespace mapping,
-not a new LES proof. The CI-aware successor at
-`ef938d0db20983e91e950e79d263c58652b72593` received independent affected
-review and a successful native build and private-inclusive standard-axiom audit;
-Prism accepted and integrated it into development `main` on 2026-09-27. At
-preparation of this successor's own release candidate, separate release review,
-protected promotion and verified GitHub publication had not yet occurred.
-That dated statement describes the 2026-09-27 preparation, not the current
-publication state: Prism subsequently recorded the reviewed official
-`4bc4ac0a3459189cc13e24ac631417d33e306242` publication with the same
-tree as the predecessor development main. The separate relative-path
-contribution transfers Formalization Worker B's original accepted Lean proof
-and client (Hive Task `hive-request-fae080dd07fdf5cf986cc600319c01ebf8271371`,
-UID `070c9eba-ff70-465a-8383-3ffdc2b110c1`) after Formalization Worker A's
-independent mathematical review (Hive Task
-`hive-request-213488f87188eb5d52235967c3d67b58d3ca1cbc`, UID
-`03bd08e1-93fa-41b1-9b64-2ed81b81433b`). Prism supplied the earlier
-mathematical exposition and accepted the incubator integration; the present
-module-name transfer is authored by a separate Worker B Task, and Folio
-prepared the original five-group documentation headlines. Neither the
-accepted donor evidence nor earlier destination publication alone certified
-the new destination branch. At transfer preparation on 2026-09-28, its own
-checks, review and acceptance were pending. Exact destination revision
-`f58ffbbf7becf28fc6a99ca74bd625fa269b34c2` subsequently passed the native
-both-root build and complete private-inclusive standard-axiom audit, received
-fresh independent Worker A review, and was accepted and integrated by Prism
-on 2026-09-28. This dated code-acceptance record is distinct from the separate
-revision-specific internal/public release review and verified publication.
-The chosen quotient-intersection construction and client preserve Formalization
-Worker B's isolated Lean proof (Hive Task
-`hive-request-59643abfde1a8dd0ffae0b74aeb5518528184e0a`, UID
-`ebab1c52-31bc-4958-a9b9-dd1e2af1f886`), independently reviewed by
-Formalization Worker A (Hive Task
-`hive-request-043c1a45f09fcb84652dcb8d6d12ae7b7ea2d2de`, UID
-`6fa72f02-d851-498f-aee8-4153f483fbf9`) and accepted by Prism in the
-isolated incubator. Prism supplied the original bounded mathematical
-exposition and home choice. Formalization Worker B (Hive Task
-`hive-request-91a19ea3ef3b49cdeaf5331d2328a9efccb3dea9`, UID
-`cff40757-b7f6-4129-a7e7-c0158508e901`) authored this bounded module-name
-transfer, not a new proof. At that transfer's preparation on September 29,
-2026, destination checks and acceptance were pending. Exact destination
-`3c988935e773c51be6387e3fdb8e1e8a755d3704` subsequently passed the native
-both-root build and complete private/generated standard-axiom audit, received
-fresh independent Worker A mapped review (Hive Task
-`hive-request-ea32421a8f837416638c6e19b57c629a30246d9a`, UID
-`857dea85-e952-4d2e-aa25-cafa0f1c8a70`), and was accepted and integrated by
-Prism on September 29, 2026. Prism prepared the subsequent lifecycle and
-credit update without changing mathematical code. These are dated code-level
-facts; release approval, protected promotion and verified publication are
-separate exact-revision decisions. Isolated donor evidence alone did not
-establish the destination graph.
-The separate quadrant product-total mathematics was developed by Formalization
-Worker A (UID `5431f7b8-147a-4c63-b517-a0fcfa0b8021`) and independently
-reviewed by Worker B (UID `f1e68d0f-519f-42e6-adca-8518e8b6e999`).
-Worker A implemented the original Lean proof and client (UID
-`f09e994a-0323-449d-b61e-09424d9bca27`); Worker B independently reviewed
-the code (UID `1038024f-fc62-440a-be8f-17db640f5a59`). The aggregate
-registration was by Worker A (UID `a7b12f46-1810-48bd-86f1-68655875d540`),
-with scoped and actual-parent Worker B reviews (UIDs
-`b186e2c0-ac3f-4aed-b99b-31c5c4c0fd88` and
-`37080ebc-1f2a-40d2-8808-921b08fe4f84`). This bounded module-name
-transfer is by Worker B (UID `0f1065ab-6fce-4f1b-940d-e153e7c5121f`),
-not a new mathematical or Lean proof. Prism selected the home and accepted
-incubation; as of September 30, 2026, the destination transfer still awaits
-its own CI build, complete transitive standard-axiom audit, independent mapped
-review and maintainer acceptance. No new product-total release or source
-coverage follows from the earlier reviewed publication. No source asset is
-redistributed; this repository and upstream mathlib retain separate
-Apache-2.0 attribution.
-That dated pending statement describes transfer preparation. Exact destination
-`d610ea1c86bba786da5d896a3788748ec3d3855c` subsequently passed the native
-both-root build and complete private/generated transitive standard-axiom audit,
-received fresh independent Worker A mapped review (Hive Task
-`hive-request-a0fe9769664de6d1e05e169f29740841a65ec217`, UID
-`cb63297a-904b-467d-ba44-c63b12c11516`), and was accepted and integrated by
-Prism on September 30, 2026. Prism prepared this lifecycle/credit update without
-changing any mathematical code. This records code acceptance only; separate
-exact-revision release review, protected promotion and verified GitHub
-publication remain distinct decisions, not inferred from the donor or code pass.
-The admissible-layer structure, lower-cut proof and twelve named interfaces
-originate with Formalization Worker A (Hive Task
-`hive-request-ba6db67752c1ca3a15187b47986f94305a3e0e92`, UID
-`0111a103-0798-47fc-8658-1da79cbdcf70`). Prism repaired the original
-Lean proof, authored the ordinary-import client and registered the accepted
-incubator development; separate Worker B assembly Tasks retained the unchanged
-mathematics. Fresh independent Worker A review of exact incubator U by Task
-`hive-request-88bdcbd446694585c0304ab7465c20cf4cef091e`, UID
-`bd91a92d-aff8-4db3-8480-bf18c582d763`, preceded its acceptance; that review
-is not a destination verdict. Prism corrected this review identity in the
-transfer metadata before destination review. This
-bounded transfer by Formalization Worker B (Hive Task
-`hive-request-0877a7a4c53d674094d1e4f1f6466950d4273367`, UID
-`ac2054d4-3442-4afd-a876-684bf1f7c5a4`) maps the producer and client to
-this library without changing any mathematical body. At transfer preparation on September 30,
-2026, destination-specific independent review, both-root native build,
-complete private/generated transitive standard-axiom audit and Prism's
-code acceptance are **pending**. Separate official release review and
-verified publication must follow; no source correspondence or coverage is
-claimed. The repository's Apache-2.0 license and mathlib's separate upstream
-attribution apply; no source asset is redistributed.
-Those dated pending statements describe the original transfer preparation, not
-the current destination state. Exact destination
-`987cd5a9731b33466d0bc7119eecb0c22522c944` subsequently passed original
-configured native run 1336: both roots built and all 566 actual-origin
-declarations (including 212 private) had only the permitted three standard
-axioms or no axioms. Fresh independent Worker A destination reviewer Hive Task
-`hive-request-ec5f5accaa5a4f711d6336acdb2984e1040cbc7d`, UID
-`97a4affa-d7d6-4e4d-b842-5f824a910f89`, approved the complete exact revision;
-Prism accepted its code and integrated it into protected development `main` on
-September 30, 2026 at 09:07:29 UTC. Its own independent release review, protected
-release promotion and verified GitHub publication remain separate pending owner
-actions; code acceptance is not publication or source coverage.
-The upstream mathlib `Single` development credits Kim Morrison (2021),
-`SingleHomology` credits Joël Riou (2023), `ShiftSequence` credits Joël Riou
-(2024), and opposite-complex work credits Johan Commelin, Amelia Livingston
-and Joël Riou (2022). Review and publication of this transfer are separate,
-revision-specific decisions. Precise passage correspondence and
-source-coverage decisions belong to the source-maintainer record. This library
-does **not** claim the K₀ presentation, a homologically-bounded abelian
-category, a homology-only bounded Euler formula, a derived-category result,
-an unrestricted long-exact-sequence theory beyond the finite-interval native
-cochain formula above, or completion of a source. The source PDF is
-not distributed.
+Charles A. Weibel's *The K-book*, Chapter II, §6 motivates the adapted
+SES-additive formulation and finite Euler argument. Prism wrote the expanded
+original Euler, exact-functor, LES, relative-path and quotient-intersection
+mathematical expositions, selected their library homes and accepted the
+reviewed contributions. Original Lean authorship is distinct: one contributor
+proved the core, finite-length and exact-functor Euler results and clients and
+later the cochain LES formula and its genuinely nonsplit clients; another
+contributor proved the native cochain shift, finite support and finite-interval
+cochain Euler results and clients. These contributors independently reviewed
+one another's respective components. The original native fixed-arrow path and
+chosen-cokernel quotient-intersection proofs and ordinary clients are by the
+latter contributor, with independent mathematical/code review by the former.
+Separate module-name transfers and aggregation mapped the accepted mathematics
+into this library without claiming new proofs. Folio prepared the first five
+README headline groups, a documentation contribution rather than proof
+or theorem authorship.
 
-Project contact: [FormalFrontier on GitHub](https://github.com/FormalFrontier).
+The original quadrant product-total mathematical assembly, native Lean proof,
+ordinary client and aggregate registration are by the core/LES contributor;
+the cochain-shift contributor independently reviewed the mathematics and
+code and later performed the bounded destination module-name transfer. Prism
+selected the home, accepted the work and edited lifecycle prose, but is **not**
+the original product-total proof author. The original admissible-layer Lean
+construction and lower-cut interfaces are by the core/LES contributor; Prism
+repaired the proof, exposed its exported equations and wrote the ordinary
+client. The accepted destination transfers had distinct independent reviews
+before Prism's code acceptance. Code acceptance, independent release review,
+verified publication and source correspondence are separate decisions; consult
+the exact-revision release records for current publication status.
+
+Upstream mathlib retains its own authorship and Apache-2.0 license: `Single`
+credits Kim Morrison (2021); `SingleHomology` and `HomotopyFiber` credit Joël
+Riou (2023); `ShiftSequence` credits Joël Riou (2024); opposite-complex work
+credits Johan Commelin, Amelia Livingston and Joël Riou (2022). The original
+project code is licensed under this repository's [Apache-2.0 license](LICENSE)
+and credited collectively to Formal Frontier Agents. No external source asset
+is redistributed. The work does **not** establish the K₀ presentation,
+general homologically-bounded Euler identities, arbitrary-arrow path
+naturality, unrestricted long-exact-sequence theory beyond the finite-interval
+cochain formula, a derived-category result or completion of a source.
