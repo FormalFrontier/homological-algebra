@@ -11,9 +11,11 @@ Admissible subobject layers now expose a lower-cut left adjoint and reflector
 under subobject/product closure and admissibility of the chosen quotient `B/D`.
 For native quadrant bicomplexes of modules, it constructs unrestricted signed
 product totals and proves all-degree acyclicity from acyclic horizontal rows.
+For snake inputs in abelian categories, it supplies exterior maps with kernel
+and cokernel universal properties and proves the eight-object sequence exact
+at its six interior objects, without assuming either exterior object vanishes.
 Licensed under Apache-2.0
-(see [LICENSE](LICENSE)). Review, acceptance and publication are recorded for
-exact revisions; development branches are not official releases.
+(see [LICENSE](LICENSE)).
 
 ## Headline results
 
@@ -93,6 +95,21 @@ its zero and isomorphism laws follow rather than being assumed.
   in `D` is asserted. [Producer](HomologicalAlgebra/Abelian/AdmissibleLayers.lean),
   [ordinary-import client](HomologicalAlgebraTest/Abelian/AdmissibleLayers.lean),
   [standalone guide](docs/AdmissibleLayers.md).
+- **Snake sequence with exterior objects.** For
+  `ShortComplex.SnakeInput C` in any abelian category, the two rows are exact,
+  the upper second arrow is epic and the lower first arrow is monic. Maps from
+  the kernel of the upper first arrow and to the cokernel of the lower second
+  arrow exhibit respectively the kernel of the first and cokernel of the last
+  middle arrows. Together with the middle six-term identification and four
+  middle exactness positions from Mathlib, these prove exactness at all six
+  interior objects of the eight-object sequence. A mod-three example proves
+  both exterior objects nonzero and distinguishes the positive connector from
+  its negative independently of the endpoint exactness theorem; its combined
+  exactness example uses that theorem. This generalizes the abelian-group diagram
+  in Neukirch–Schmidt–Wingberg, *Cohomology of Number Fields*, corrected second
+  edition, (1.3.1), without identifying the connector with a separate boundary.
+  [Producer](HomologicalAlgebra/Abelian/SnakeLemma.lean),
+  [ordinary-import client](HomologicalAlgebraTest/Abelian/SnakeLemma.lean).
 - **Quadrant product-total acyclicity.** For any `[Ring R]`, a native quadrant
   bicomplex of `ModuleCat R` has an unrestricted diagonal product total
   `productTotal K` in integer degrees `p-r`. Exact horizontal rows at **every**
@@ -141,6 +158,10 @@ For the distinct quadrant product-total API, import
 its declarations live in `CategoryTheory.QuadrantProductTotal`. See
 [the guide](docs/ProductTotalAcyclicity.md) for signs, row exactness at the
 boundary, negative-degree primitives and the ordinary-import client.
+For the snake endpoint maps and eight-object exact sequence, import
+`HomologicalAlgebra.Abelian.SnakeLemma` (or `HomologicalAlgebra`); its declarations
+live in `CategoryTheory.ShortComplex.SnakeInput`. The sequence is exact at its
+six interior objects without asserting that either exterior object vanishes.
 The additive Euler namespace is `CategoryTheory.AdditiveEuler` (the path
 construction uses `CochainComplex.RelativePath`). For `μ : C → Γ` in an abelian category `C` and
 additive commutative group `Γ`, the sole invariant hypothesis is
@@ -275,6 +296,11 @@ uses zero vertical maps and a nonsplit `ℤ → ZMod 2` row, testing signs at
 row repeats infinitely often overall, but with zero vertical maps and at most
 three nonzero cells on each diagonal. The client does not test infinitely
 supported diagonals or nonzero vertical maps.
+`HomologicalAlgebraTest.Abelian.SnakeLemma`, also built by default, checks
+the endpoint arrow equations and their factorization through an ordinary import;
+it independently establishes exact rows, nonzero exterior objects and a
+positive connector different from its negative modulo three. Its full
+eight-object exactness example uses the proved endpoint theorem.
 
 ## Building and checking
 
@@ -289,57 +315,37 @@ env LEAN_NUM_THREADS=2 lake exe cache get
 env LEAN_NUM_THREADS=2 lake --wfail build
 ```
 
-The default build checks all ten library modules, both root imports and the
-nine public-import test modules. On a host with a matching mathlib cache,
+The default build elaborates all eleven library modules, both root imports and
+the ten public-import test modules. On a host with a matching mathlib cache,
 budget seconds to a few minutes and up to 8 GiB memory as *planning estimates*,
 not measured peak usage, a minimum, guaranteed requirements or permission
 for a particular support profile. `LEAN_NUM_THREADS=2` limits Lean runtime
 threading, not aggregate Lake process count or memory. Project-wide elapsed
 time and peak memory have not been measured. First-time cache retrieval
 downloads thousands of files and varies with network and storage; do not run
-a full mathlib source build if the cache fetch fails. Build and transitive
-axiom evidence belongs to
-the exact-revision development record, not a bundled validation framework.
+a full mathlib source build if the cache fetch fails.
 
 ## Provenance and limits
 
-Charles A. Weibel's *The K-book*, Chapter II, §6 motivates the adapted
-SES-additive formulation and finite Euler argument. Prism wrote the expanded
-original Euler, exact-functor, LES, relative-path and quotient-intersection
-mathematical expositions, selected their library homes and accepted the
-reviewed contributions. Original Lean authorship is distinct: one contributor
-proved the core, finite-length and exact-functor Euler results and clients and
-later the cochain LES formula and its genuinely nonsplit clients; another
-contributor proved the native cochain shift, finite support and finite-interval
-cochain Euler results and clients. These contributors independently reviewed
-one another's respective components. The original native fixed-arrow path and
-chosen-cokernel quotient-intersection proofs and ordinary clients are by the
-latter contributor, with independent mathematical/code review by the former.
-Separate module-name transfers and aggregation mapped the accepted mathematics
-into this library without claiming new proofs. Folio prepared the first five
-README headline groups, a documentation contribution rather than proof
-or theorem authorship.
+Prism wrote the original Euler, exact-functor, LES, relative-path and
+quotient-intersection mathematical expositions, distinct from the original
+Lean proof authors. The [contributor credits](CREDITS.md)
+distinguish proof, independent mathematical/code review, admissible-layer
+repair and documentation contributions and preserve upstream Mathlib notices.
+Formal Frontier Agents developed this work with AI assistance.
 
-The original quadrant product-total mathematical assembly, native Lean proof,
-ordinary client and aggregate registration are by the core/LES contributor;
-the cochain-shift contributor independently reviewed the mathematics and
-code and later performed the bounded destination module-name transfer. Prism
-selected the home, accepted the work and edited lifecycle prose, but is **not**
-the original product-total proof author. The original admissible-layer Lean
-construction and lower-cut interfaces are by the core/LES contributor; Prism
-repaired the proof, exposed its exported equations and wrote the ordinary
-client. The accepted destination transfers had distinct independent reviews
-before Prism's code acceptance. Code acceptance, independent release review,
-verified publication and source correspondence are separate decisions; consult
-the exact-revision release records for current publication status.
-
-Upstream mathlib retains its own authorship and Apache-2.0 license: `Single`
-credits Kim Morrison (2021); `SingleHomology` and `HomotopyFiber` credit Joël
-Riou (2023); `ShiftSequence` credits Joël Riou (2024); opposite-complex work
-credits Johan Commelin, Amelia Livingston and Joël Riou (2022). The original
-project code is licensed under this repository's [Apache-2.0 license](LICENSE)
-and credited collectively to Formal Frontier Agents. No external source asset
-is redistributed. The work does **not** establish the K₀ presentation,
+The work does **not** establish the K₀ presentation,
 general homologically-bounded Euler identities, arbitrary-arrow path
 naturality, unrestricted long-exact-sequence theory beyond the finite-interval
 cochain formula, a derived-category result or completion of a source.
+
+## References
+
+- Charles A. Weibel, *The K-book*, Chapter II, §6: motivates the adapted
+  SES-additive formulation and finite Euler argument.
+- Jürgen Neukirch, Alexander Schmidt and Kay Wingberg, *Cohomology of Number
+  Fields*, corrected second edition, (1.3.1): the abelian-group snake diagram
+  motivates the eight-object sequence in arbitrary abelian categories.
+- Mathlib's native short exact sequences, homology, shifts and path objects;
+  `CategoryTheory.ShortComplex.SnakeInput.snake_lemma` provides the middle
+  six-term snake sequence.

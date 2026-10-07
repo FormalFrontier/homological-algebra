@@ -13,6 +13,7 @@ public import HomologicalAlgebra.AdditiveEuler.HomologySupport
 public import HomologicalAlgebra.Cochain.RelativePath
 public import HomologicalAlgebra.Abelian.QuotientIntersection
 public import HomologicalAlgebra.Abelian.AdmissibleLayers
+public import HomologicalAlgebra.Abelian.SnakeLemma
 public import HomologicalAlgebra.Homology.ProductTotalAcyclicity
 
 /-!
@@ -29,6 +30,9 @@ The abelian quotient-intersection module provides a chosen-cokernel pairing
 and its monicity for subobjects L ≤ U and any third subobject D.
 The admissible-layer module provides a reversed-lower/forward-upper order
 and a left-adjoint lower-cut reflector for quotient-admissible subobject pairs.
+The snake module supplies canonical endpoint maps and their kernel and cokernel
+universal properties for an eight-object sequence in any abelian category. Its
+six interior positions are exact, using Mathlib's six-term snake lemma in the middle.
 The homology module constructs signed quadrant product totals of native bicomplexes
 and proves their acyclicity in all integer degrees from acyclic horizontal rows.
 -/

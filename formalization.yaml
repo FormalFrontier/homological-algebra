@@ -2,7 +2,7 @@
 version: "v0.4"
 project:
   name: Formal Frontier Homological Algebra
-  description: Finite Euler sums for chain and cochain complexes, with native exact-sequence, exact-functor and shift results, plus fixed-arrow relative paths of integer cochain maps in preadditive categories with binary biproducts and pullbacks, and an independent chosen-cokernel quotient-intersection pairing in abelian categories. It also constructs native quadrant bicomplex product totals over arbitrary rings and proves all-integer-degree acyclicity when every horizontal row is acyclic, including exactness at horizontal degree p=0 in each row. Includes admissible layers of chosen quotients, a reversed-lower/forward-upper order, and a lower-cut left-adjoint reflector under subobject/product closure and P(cokernel D.arrow), without quotient closure or endpoint admissibility.
+  description: Finite Euler sums for chain and cochain complexes, with native exact-sequence, exact-functor and shift results, plus fixed-arrow relative paths of integer cochain maps in preadditive categories with binary biproducts and pullbacks, and an independent chosen-cokernel quotient-intersection pairing in abelian categories. It also constructs native quadrant bicomplex product totals over arbitrary rings and proves all-integer-degree acyclicity when every horizontal row is acyclic, including exactness at horizontal degree p=0 in each row. Includes admissible layers of chosen quotients, a reversed-lower/forward-upper order, and a lower-cut left-adjoint reflector under subobject/product closure and P(cokernel D.arrow), without quotient closure or endpoint admissibility. Also supplies the two exterior snake-sequence maps and proves the four middle exactness positions for an eight-object sequence in abelian categories; the endpoint universal properties and all six interior exactness positions hold without vanishing of the exterior objects.
   authors: [Formal Frontier Agents]
   responsible_maintainers: [Anchor, Atlas, Beacon, Lattice, Prism]
   license: Apache-2.0
@@ -13,60 +13,72 @@ sources:
     location: Chapter II, Section 6 (additive functions and Euler characteristics)
     relationship: adapts
     note: Motivates the SES-additive formulation and Euler argument; no K0 presentation or whole-source coverage is claimed.
-  - title: Original proof exposition for SES-additive Euler invariants (2026)
+  - title: Cohomology of Number Fields
+    authors: [Jürgen Neukirch, Alexander Schmidt, Kay Wingberg]
+    type: book
+    location: Corrected second edition, (1.3.1)
+    relationship: adapts
+    note: The abelian-group snake diagram motivates an arbitrary-abelian-category endpoint construction. The endpoint universal properties and exactness at all six interior objects hold without assuming zero exterior objects; no source-coverage decision is claimed.
+  - title: Original proof exposition for SES-additive Euler invariants
     authors: [Prism]
     contributors:
       - name: Formal Frontier core and LES contributor
         role: Original core, length, exact-functor and cochain LES Lean proofs and clients; independent native-shift review
       - name: Formal Frontier cochain-shift and path contributor
-        role: Original native shift, finite support and finite-interval cochain Euler Lean proofs and clients; independent exact-functor review and separate LES module-name transfer
+        role: Original native shift, finite support and finite-interval cochain Euler Lean proofs and clients; independent exact-functor review
     type: original-proof
     relationship: adapts
-    note: Prism wrote the expanded Euler, exact-functor, degreewise-SES and LES expositions and selected the home. The two distinct original Lean contributors wrote and independently reviewed the stated components; the later LES module-name transfer did not author a new proof. No external source asset is redistributed. Mathlib Single credits Kim Morrison (2021), SingleHomology credits Joël Riou (2023), ShiftSequence credits Joël Riou (2024), and opposite-complex work credits Johan Commelin, Amelia Livingston and Joël Riou (2022).
-  - title: Original fixed-arrow cochain relative-path exposition and native implementation (2026)
+    note: Prism wrote the expanded Euler, exact-functor, degreewise-SES and LES expositions. The two distinct original Lean contributors wrote and independently reviewed the stated components. No external source asset is redistributed. Mathlib Single credits Kim Morrison (2021), SingleHomology credits Joël Riou (2023), ShiftSequence credits Joël Riou (2024), and opposite-complex work credits Johan Commelin, Amelia Livingston and Joël Riou (2022).
+  - title: Original fixed-arrow cochain relative-path exposition and native implementation
     authors: [Prism, Formal Frontier cochain-shift and path contributor]
     contributors:
       - name: Formal Frontier core and LES contributor
-        role: Independent review of original fixed-arrow native mathematics and later destination mapping
+        role: Independent mathematical and Lean review of the original fixed-arrow construction and client
       - name: Folio
         role: Original five-result README headline documentation, not proof authorship
     type: original-proof
     relationship: adapts
-    note: Prism wrote the bounded mathematical exposition and accepted the home. The distinct cochain-shift and path contributor authored the original Lean construction and ordinary client and a later mathematics-preserving module-name transfer; the core and LES contributor independently reviewed the original and destination work. Mathlib HomotopyFiber and path-object credit remains with Joël Riou (2023) under upstream Apache-2.0. No external source asset or source-specific correspondence is included.
-  - title: Original chosen-cokernel quotient-intersection construction and Lean implementation (2026)
+    note: Prism wrote the bounded mathematical exposition. The distinct cochain-shift and path contributor authored the original Lean construction and ordinary client; the core and LES contributor independently reviewed their mathematics and code. Mathlib HomotopyFiber and path-object credit remains with Joël Riou (2023) under upstream Apache-2.0. No external source asset or source-specific correspondence is included.
+  - title: Original chosen-cokernel quotient-intersection construction and Lean implementation
     authors: [Prism, Formal Frontier cochain-shift and path contributor]
     contributors:
       - name: Formal Frontier core and LES contributor
-        role: Independent isolated and destination Lean proof/client reviews
+        role: Independent mathematical and Lean review of the original proof and ordinary client
       - name: Formal Frontier cochain-shift and path contributor
-        role: Bounded destination module-name transfer distinct from original proof
+        role: Original Lean proof and ordinary client; mathematics-preserving library adaptation
     type: original-proof
     relationship: adapts
-    note: Prism wrote the original bounded mathematical exposition, selected the destination home and accepted code. The cochain-shift and path contributor authored the original isolated Lean proof and ordinary client, then separately transferred their names without a new mathematical proof. The core and LES contributor independently reviewed the isolated and mapped work. Mathlib and project retain separate Apache-2.0 attribution; no external source asset or source correspondence is included.
-  - title: Original quadrant product-total assembly and native Lean implementation (2026)
+    note: Prism wrote the original bounded mathematical exposition. The cochain-shift and path contributor authored the original Lean proof and ordinary client; library adaptation did not add a new mathematical proof. The core and LES contributor independently reviewed the original mathematics and code. Mathlib and project retain separate Apache-2.0 attribution; no external source asset or source correspondence is included.
+  - title: Original quadrant product-total assembly and native Lean implementation
     authors: [Formal Frontier core and LES contributor]
     contributors:
       - name: Formal Frontier cochain-shift and path contributor
-        role: Independent mathematical, original Lean code and aggregate reviews; separate bounded destination module-name transfer
-      - name: Prism
-        role: Incubation acceptance, destination home selection and lifecycle editing; not original mathematical or Lean proof authorship
+        role: Independent mathematical, original Lean-code and aggregate-API review; mathematics-preserving library adaptation
     type: original-proof
     relationship: adapts
-    note: The core and LES contributor developed the original mathematical assembly, native Lean proof and ordinary client and registered the aggregate API. The distinct cochain-shift and path contributor independently reviewed the mathematics, code and aggregation, then separately mapped the same declarations into the destination without a new proof. Another independent destination review preceded Prism's code acceptance. No source asset is distributed; original mathlib definitions retain separate upstream credit and Apache-2.0 rights.
-  - title: Original admissible-layer lower-cut reflector and Lean construction (2026)
+    note: The core and LES contributor developed the original mathematical assembly, native Lean proof and ordinary client and registered the aggregate API. The distinct cochain-shift and path contributor independently reviewed the mathematics, code and aggregation; library adaptation did not add a new proof. Prism did not author the original product-total proof. No source asset is distributed; original mathlib definitions retain separate upstream credit and Apache-2.0 rights.
+  - title: Original admissible-layer lower-cut reflector and Lean construction
     authors: [Formal Frontier core and LES contributor, Prism]
     contributors:
       - name: Formal Frontier cochain-shift and path contributor
-        role: Distinct incubator assembly and destination module-name transfer without a new proof
+        role: Assembly and mathematics-preserving library adaptation of existing interfaces, not original proof authorship
     type: original-proof
     relationship: adapts
-    note: The core and LES contributor authored the original layer structure and lower-cut Lean interfaces. Prism repaired the proof, exposed exported equations, authored the ordinary-import client and accepted integration. The cochain-shift and path contributor assembled and transferred the accepted result without a new proof. The core and LES contributor independently reviewed Prism's repair and the destination mapping, with these review scopes kept distinct. No external source asset or source correspondence is included; mathlib retains separate upstream Apache-2.0 attribution.
+    note: The core and LES contributor authored the original layer structure and lower-cut Lean interfaces. Prism repaired the proof, exposed exported equations and authored the ordinary-import client. The cochain-shift and path contributor adapted the existing interfaces without authoring their proofs. The core and LES contributor independently reviewed Prism's repair. No external source asset or source correspondence is included; mathlib retains separate upstream Apache-2.0 attribution.
 status:
-  scope: SES-additive finite-interval chain and cochain Euler identities with both endpoint-image corrections, neighbor-vanishing and term-bounded corollaries, acyclic zero and quasi-isomorphism invariance when both complexes share a term-support bound; finite-length module instance for commutative Noetherian Artinian rings; degreewise-SES signed term and bounded homology additivity; exact-functor transport and mapped homology comparison under finite-limit and finite-colimit preservation; finite-support invariance, native cochain shift by i+n with support shift -n, and negative-degree, torsion and identity-differential examples. The nonempty-interval cochain LES homology sum subtracts both connecting-image corrections and has outer-homology-vanishing and native IsGE/IsLE corollaries without a bound on the middle complex; its rational client is genuinely nonsplit. No empty-interval LES formula, canonical infinite/homology-only Euler invariant, general derived-category result or K0 presentation is claimed. For a fixed arrow, the integer cochain relative path uses preadditivity, binary biproducts and pullbacks and gives strict section/endpoints and chosen-homotopy lifts, with a relative contraction rather than a strict second inverse; the native-cylinder endpoint law requires no pullbacks. No arbitrary-arrow naturality or new quasi-isomorphism instance is claimed. The chosen quotient-intersection pair is monic in arbitrary abelian categories with independent universes for L ≤ U and arbitrary D; neither projection is asserted monic, nor is L ≤ D or quotient lifting assumed. Its property-transfer client uses subobject/product closure. Admissible layers reverse the lower order and have an inclusion requiring no closure and a lower-cut left adjoint, unit and exact reflector identity under subobject/product closure and P(cokernel D.arrow); no upper cut, ambient-D transport, Q-comma or filtration theorem is claimed. Product totals over any Ring use unrestricted diagonal products in degree p-r with horizontal plus signed vertical differential and zero vertical contribution at r=0; map laws need no exactness and acyclicity in every integer degree assumes every horizontal row acyclic including p=0. Chosen primitives are not linear/natural splittings and require no convergence or exact-products assumption. The nonsplit mod-two client repeats a nonzero row infinitely often overall but has zero vertical maps and only finitely many nonzero cells on each diagonal (at most three); it does not test infinitely supported diagonals or nonzero vertical maps. No source-coverage decision follows from these library results.
+  scope: SES-additive finite-interval chain and cochain Euler identities with both endpoint-image corrections, neighbor-vanishing and term-bounded corollaries, acyclic zero and quasi-isomorphism invariance when both complexes share a term-support bound; finite-length module instance for commutative Noetherian Artinian rings; degreewise-SES signed term and bounded homology additivity; exact-functor transport and mapped homology comparison under finite-limit and finite-colimit preservation; finite-support invariance, native cochain shift by i+n with support shift -n, and negative-degree, torsion and identity-differential examples. The nonempty-interval cochain LES homology sum subtracts both connecting-image corrections and has outer-homology-vanishing and native IsGE/IsLE corollaries without a bound on the middle complex; its rational client is genuinely nonsplit. No empty-interval LES formula, canonical infinite/homology-only Euler invariant, general derived-category result or K0 presentation is claimed. For a fixed arrow, the integer cochain relative path uses preadditivity, binary biproducts and pullbacks and gives strict section/endpoints and chosen-homotopy lifts, with a relative contraction rather than a strict second inverse; the native-cylinder endpoint law requires no pullbacks. No arbitrary-arrow naturality or new quasi-isomorphism instance is claimed. The chosen quotient-intersection pair is monic in arbitrary abelian categories with independent universes for L ≤ U and arbitrary D; neither projection is asserted monic, nor is L ≤ D or quotient lifting assumed. Its property-transfer client uses subobject/product closure. Admissible layers reverse the lower order and have an inclusion requiring no closure and a lower-cut left adjoint, unit and exact reflector identity under subobject/product closure and P(cokernel D.arrow); no upper cut, ambient-D transport, Q-comma or filtration theorem is claimed. Product totals over any Ring use unrestricted diagonal products in degree p-r with horizontal plus signed vertical differential and zero vertical contribution at r=0; map laws need no exactness and acyclicity in every integer degree assumes every horizontal row acyclic including p=0. Chosen primitives are not linear/natural splittings and require no convergence or exact-products assumption. The nonsplit mod-two client repeats a nonzero row infinitely often overall but has zero vertical maps and only finitely many nonzero cells on each diagonal (at most three); it does not test infinitely supported diagonals or nonzero vertical maps. No source-coverage decision follows from these library results. For an arbitrary abelian category and ShortComplex.SnakeInput, the eight-object snake diagram has canonical endpoint maps with kernel and cokernel universal properties; its six interior positions are exact using the Mathlib middle six-term snake lemma. Its mod-three test has nonzero exterior objects and a positive connector different from its negative independently of the full-exactness theorem; the combined example uses that theorem.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: [propext, Classical.choice, Quot.sound]
   main_results:
+    - declaration: CategoryTheory.ShortComplex.SnakeInput.composableArrowsWithEndpoints_middle_exact
+      file: HomologicalAlgebra/Abelian/SnakeLemma.lean
+    - declaration: CategoryTheory.ShortComplex.SnakeInput.kernelToL₀X₁IsKernel
+      file: HomologicalAlgebra/Abelian/SnakeLemma.lean
+    - declaration: CategoryTheory.ShortComplex.SnakeInput.L₃X₃ToCokernelIsCokernel
+      file: HomologicalAlgebra/Abelian/SnakeLemma.lean
+    - declaration: CategoryTheory.ShortComplex.SnakeInput.snake_lemma_with_endpoints
+      file: HomologicalAlgebra/Abelian/SnakeLemma.lean
     - declaration: CategoryTheory.AdditiveEuler.euler_endpoints
       file: HomologicalAlgebra/AdditiveEuler.lean
     - declaration: CategoryTheory.AdditiveEuler.euler_eq_homology_of_bounded
@@ -333,8 +345,7 @@ automation:
   methods:
     - method: agent
       framework: Codex and Hive
-      prompting_notes: Agent-assisted proof development, interactive Lean feedback, human-directed mathematical exposition, independent contributor review and bounded mathematics-preserving module-name transfers. Prism prepared source-independent mathematical scopes and accepted the reviewed code. Documentation and header changes do not imply a new proof; review and checking decisions are tied to exact release inputs. Tool assistance is disclosed without implying human authorship or unmeasured performance results.
+      prompting_notes: AI-assisted mathematical exposition, Lean formalization and documentation with interactive Lean feedback; Codex and Hive supported the work.
   notes: Project-wide inference cost, elapsed time and peak memory are not measured.
 review:
-  status: "other: review and acceptance are revision-specific; consult the release records"
-  notes: Prism is the responsible maintainer within the shared team. Original mathematical and Lean contributions and separate destination mappings were independently reviewed for their accepted revisions, including private and generated proof-integrity checks; the existing private official release preserves that accepted mathematics. Project authorship, rights and source correspondence remain separate questions. Later revisions require affected review and applicable checks; metadata is not itself acceptance or evidence of publication. No source-level formalization status follows from release approval.
+  status: "other: mathematical results and Lean proofs independently reviewed"
