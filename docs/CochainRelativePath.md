@@ -78,13 +78,12 @@ lake exe cache get
 lake build HomologicalAlgebra HomologicalAlgebraTest
 ```
 
-Prism wrote the original mathematical exposition. A distinct Formal Frontier
-cochain-shift and path contributor authored the native fixed-arrow construction
-and ordinary client; the core and LES contributor independently reviewed the
-original mathematics and its bounded destination mapping. The transfer changed
-module names without a new proof. Folio wrote the first five README headlines,
-not this mathematical proof. Mathlib's path and cylinder constructions retain
-their upstream credit and Apache-2.0 license; original project code uses this
+Prism wrote the original mathematical exposition, not the Lean proof. The
+Formal Frontier cochain-shift and path contributor authored the fixed-arrow
+construction and ordinary client and adapted the module names without
+changing the proof. The core and LES contributor provided independent
+mathematical review. Folio wrote the first five README headlines, not this
+mathematical proof. Mathlib's path and cylinder constructions retain their
+upstream credit and Apache-2.0 license; original project code uses this
 repository's Apache-2.0 license. Neither a private source asset nor a
-source-coverage decision is part of this library. Release status belongs to
-the responsible maintainer's exact-revision records.
+source-coverage decision is part of this library.

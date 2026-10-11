@@ -27,8 +27,7 @@ an upper-cut construction or a comparison with layers in the object `D`.
 
 The original Lean construction is by the Formal Frontier core and LES
 contributor. Prism repaired its proof, exposed the exported data equations
-and authored the ordinary-import client. This module retains those accepted
-mathematical declarations and proofs in Homological Algebra.
+and authored the ordinary-import client.
 -/
 
 universe v u

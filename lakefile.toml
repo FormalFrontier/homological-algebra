@@ -2,6 +2,12 @@ name = "homological_algebra"
 version = "0.1.0"
 defaultTargets = ["HomologicalAlgebra", "HomologicalAlgebraTest"]
 
+[leanOptions]
+autoImplicit = false
+relaxedAutoImplicit = false
+weak.linter.mathlibStandardSet = true
+weak.linter.style.header = false
+
 [[require]]
 name = "mathlib"
 git = "https://github.com/leanprover-community/mathlib4.git"

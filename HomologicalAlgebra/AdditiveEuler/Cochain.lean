@@ -39,7 +39,7 @@ private theorem opposite_ses (S : ShortComplex Cᵒᵖ) (hS : S.ShortExact) :
   simpa only [ShortComplex.unop_X₁, ShortComplex.unop_X₂, ShortComplex.unop_X₃,
     add_comm] using hμ S.unop hS.unop
 
-private theorem opposite_image (f : X ⟶ Y) :
+private theorem opposite_image {X Y : C} (f : X ⟶ Y) :
     μ (image f.op).unop = μ (image f) :=
   invariant_iso μ hμ (imageOpUnop f)
 

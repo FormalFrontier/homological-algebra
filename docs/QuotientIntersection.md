@@ -87,15 +87,13 @@ lake --wfail build
 Fetch the matching mathlib cache successfully **before** building. Both
 producer and client are imported by their corresponding default roots.
 A successful build does not replace the complete transitive standard-axiom
-audit, including private and generated declarations. Prism wrote the bounded
-mathematical exposition and chose the library home. The Formal Frontier
-cochain-shift and path contributor authored the original isolated Lean proof
-and ordinary client, then performed a separate mathematics-preserving
-module-name transfer; the core and LES contributor independently reviewed the
-original and destination versions. Prism accepted the code and later edited
-lifecycle prose. Release status belongs to the responsible maintainer's
-exact-revision records. Original project code uses this repository's
-[Apache-2.0 license](../LICENSE); imported mathlib retains independent
+audit, including private and generated declarations. Prism wrote this
+mathematical exposition and chose the library placement, but did not author
+the original Lean proof. The Formal Frontier cochain-shift and path
+contributor authored that proof and the ordinary client and adapted the
+module names without changing the mathematics. The core and LES contributor
+provided independent mathematical review. Original project code uses this
+repository's [Apache-2.0 license](../LICENSE); imported mathlib retains independent
 upstream authorship and Apache-2.0 credit. No source asset or source-level
 correspondence is included.
 

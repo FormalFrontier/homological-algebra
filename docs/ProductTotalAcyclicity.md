@@ -72,14 +72,12 @@ and the ordinary client are imported by their respective default roots
 `HomologicalAlgebra` and `HomologicalAlgebraTest`. A successful build alone
 does not replace the complete transitive standard-axiom audit including
 private and generated declarations. The original mathematical assembly,
-Lean proof, ordinary client and aggregate registration came from the Formal
-Frontier core and LES contributor. The distinct cochain-shift and path
-contributor independently reviewed mathematics, Lean code and aggregation,
-then performed a separate, mathematics-preserving destination module-name
-transfer. Another independent mapped review preceded Prism's code acceptance.
-Prism chose the destination home and accepted the work but did not write its
-original mathematical or Lean proof. Release decisions belong to the
-responsible maintainer's exact-revision records.
+Lean proof, ordinary client and aggregate registration are by the Formal
+Frontier core and LES contributor. The cochain-shift and path contributor
+provided independent review of the mathematics, Lean code and aggregation
+and adapted the module names without changing the mathematics. Prism chose
+the library placement but did not author the original mathematical or Lean
+proof.
 
 Mathlib definitions and lemmas retain their original upstream authorship and
 Apache-2.0 licensing; the project code uses this repository's
