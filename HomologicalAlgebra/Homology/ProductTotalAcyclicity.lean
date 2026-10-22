@@ -112,10 +112,14 @@ theorem cycleIndex_vertical (k : ℤ) (n : ℕ)
   · dsimp [verticalIndex, cycleIndex, diagonalIndex]
   · rfl
 
+/-- The horizontal contribution at `(r,p)`, obtained by applying the row differential
+to the input coordinate `(r,p+1)`. -/
 def horizontal (K : Bicomplex R) (k : ℤ) (i : Diag (k - 1)) :
     Product K k →ₗ[R] (K.X i.1.1).X i.1.2 :=
   ((K.X i.1.1).d (i.1.2 + 1) i.1.2).hom ∘ₗ LinearMap.proj (horizontalIndex i)
 
+/-- The unsigned vertical contribution at `(r,p)`, using the vertical differential
+from `(r-1,p)` when `r > 0`, and zero when `r = 0`. -/
 def vertical (K : Bicomplex R) (k : ℤ) (i : Diag (k - 1)) :
     Product K k →ₗ[R] (K.X i.1.1).X i.1.2 :=
   if hi : 0 < i.1.1 then
@@ -254,15 +258,14 @@ theorem differential_square (K : Bicomplex R) (k : ℤ) :
       simpa using congrArg (fun unit : ℤˣ => (unit : ℤ)) (Int.negOnePow_succ k)
     rw [show k - 1 + 1 = k by omega]
     omega
-  simp [differential_eq, LinearMap.add_comp, LinearMap.comp_add,
+  simp only [differential_eq, LinearMap.add_comp, LinearMap.comp_add,
     LinearMap.smul_comp, LinearMap.comp_smul,
-    horizontal_square, vertical_square, horizontal_vertical_comm]
-  have hs' : (Int.negOnePow k : ℤ) = -(Int.negOnePow (k + 1) : ℤ) := by
-    simpa only [show k - 1 + 1 = k by omega] using hs
-  rw [hs']
-  simp
+    horizontal_square, vertical_square, horizontal_vertical_comm,
+    smul_zero, zero_add, add_zero]
+  rw [hs, neg_smul]
+  abel
 
-/-- The native integer-indexed chain complex of unrestricted diagonal products. -/
+/-- The integer-indexed chain complex of unrestricted diagonal products. -/
 def productTotal (K : Bicomplex R) :
     HomologicalComplex (ModuleCat.{u} R) (ComplexShape.down ℤ) := by
   refine HomologicalComplex.mk (degree K) (fun i j => ?_) ?_ ?_
@@ -539,6 +542,9 @@ abbrev coordinate (K : Bicomplex R) (k : ℤ) (x : Product K k) (n : ℕ) :
     (K.X (firstRow k + n)).X (firstColumn k + n) :=
   x (diagonalIndex k n)
 
+/-- Elements in bidegree `(r,p+1)` for which the vertical differential from row `r` to
+row `r+1` annihilates the difference between the `n`th diagonal coordinate of `x`
+and their horizontal boundary, where `r = firstRow k + n` and `p = firstColumn k + n`. -/
 abbrev LiftState (K : Bicomplex R) (k : ℤ) (x : Product K k) (n : ℕ) :=
   {b : (K.X (firstRow k + n)).X (firstColumn k + n + 1) //
     (K.d (firstRow k + n) (firstRow k + n + 1)).f (firstColumn k + n)

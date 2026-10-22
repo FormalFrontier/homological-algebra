@@ -8,11 +8,11 @@ public import HomologicalAlgebra.AdditiveEuler
 public import Mathlib.Algebra.Homology.HomotopyCategory.ShiftSequence
 
 /-!
-# Finite-support Euler sums and native cochain shifts
+# Finite-support Euler sums and cochain shifts
 
 Signed sums over any two intervals agree when each contains the support of the
 summand. Translation of signed sums has no support or additivity requirement.
-For native cochain complexes, both the terms and homology of `K⟦n⟧` are those
+For cochain complexes, both the terms and homology of `K⟦n⟧` are those
 of `K` in degree `i + n`; the latter comparison uses mathlib's shift isomorphism.
 All statements hold for additive-commutative-group values, including torsion.
 -/
@@ -96,7 +96,7 @@ theorem term_sum_eq_of_support {c : ComplexShape ℤ} (K : HomologicalComplex C 
 
 omit hμ
 
-/-- Native cochain shifting sends an `IsZero` term bound `[a, b]` to
+/-- Cochain shifting sends an `IsZero` term bound `[a, b]` to
 `[a - n, b - n]`, with no Euler-invariant assumption. -/
 theorem cochain_shift_term_support (K : CochainComplex C ℤ) (a b n : ℤ)
     (hK : ∀ j, j < a ∨ b < j → IsZero (K.X j)) :
@@ -105,7 +105,7 @@ theorem cochain_shift_term_support (K : CochainComplex C ℤ) (a b n : ℤ)
   rw [CochainComplex.shiftFunctor_obj_X']
   exact hK (i + n) (by omega)
 
-/-- Term Euler sums of the actual cochain shift translate without support
+/-- Term Euler sums of the cochain shift translate without support
 bounds or short-exact-sequence additivity. -/
 theorem cochain_shift_term_sum (K : CochainComplex C ℤ) (a b n : ℤ) :
     (∑ i ∈ Finset.Icc (a - n) (b - n),
@@ -115,14 +115,22 @@ theorem cochain_shift_term_sum (K : CochainComplex C ℤ) (a b n : ℤ) :
   simpa only [CochainComplex.shiftFunctor_obj_X'] using
     signed_sum_translate (fun j => μ (K.X j)) a b n
 
-/-- Native homology shift comparison, with target degree `i + n`. -/
-def cochain_shift_homology_iso (K : CochainComplex C ℤ) (n i : ℤ) :
+/-- Homology shift comparison, with target degree `i + n`. -/
+def cochainShiftHomologyIso (K : CochainComplex C ℤ) (n i : ℤ) :
     (K⟦n⟧).homology i ≅ K.homology (i + n) :=
   (CochainComplex.ShiftSequence.shiftIso C n i (i + n) (by omega)).app K
 
+-- Retain the deprecated spelling for downstream compatibility.
+@[expose, inherit_doc cochainShiftHomologyIso,
+  deprecated cochainShiftHomologyIso (since := "2026-10-21"),
+  nolint defsWithUnderscore]
+def cochain_shift_homology_iso (K : CochainComplex C ℤ) (n i : ℤ) :
+    (K⟦n⟧).homology i ≅ K.homology (i + n) :=
+  cochainShiftHomologyIso K n i
+
 include hμ
 
-/-- Homology Euler sums translate via the actual native homology shift
+/-- Homology Euler sums translate via the homology shift
 isomorphism. No termwise support is needed. -/
 theorem cochain_shift_homology_sum (K : CochainComplex C ℤ) (a b n : ℤ) :
     (∑ i ∈ Finset.Icc (a - n) (b - n),
@@ -136,7 +144,7 @@ theorem cochain_shift_homology_sum (K : CochainComplex C ℤ) (a b n : ℤ) :
           (Int.negOnePow i : ℤ) • μ (K.homology (i + n)) := by
       apply Finset.sum_congr rfl
       intro i _
-      rw [invariant_iso μ hμ (cochain_shift_homology_iso K n i)]
+      rw [invariant_iso μ hμ (cochainShiftHomologyIso K n i)]
     _ = _ := signed_sum_translate (fun j => μ (K.homology j)) a b n
 
 end CategoryTheory.AdditiveEuler

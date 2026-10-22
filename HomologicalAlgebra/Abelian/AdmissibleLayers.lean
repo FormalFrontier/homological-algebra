@@ -39,7 +39,9 @@ open Limits
 /-- A nested pair of subobjects with an admissible chosen quotient. -/
 structure AdmissibleLayer {C : Type u} [Category.{v} C] [Abelian C]
     (P : ObjectProperty C) (B : C) where
+  /-- The lower endpoint of the layer, as a subobject of `B`. -/
   lower : Subobject B
+  /-- The upper endpoint of the layer, containing `lower`. -/
   upper : Subobject B
   lower_le_upper : lower ≤ upper
   admissible : P (cokernel (Subobject.ofLE lower upper lower_le_upper))

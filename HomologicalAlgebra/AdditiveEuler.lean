@@ -72,6 +72,7 @@ theorem cycles_image_zero :
   apply (cancel_mono (image.ι (K.d i (i - 1)))).1
   simp
 
+/-- The cycles inclusion is a kernel of `factorThruImage (K.d i (i - 1))`. -/
 def cyclesImageIsKernel :
     IsLimit (KernelFork.ofι (K.iCycles i) (cycles_image_zero K i)) := by
   refine KernelFork.IsLimit.ofι' _ _ ?_
@@ -85,6 +86,7 @@ theorem cycles_image_shortExact :
       (cycles_image_zero K i)).ShortExact where
   exact := ShortComplex.exact_of_f_is_kernel _ (cyclesImageIsKernel K i)
 
+/-- The inclusion of the incoming differential's image into the cycles at degree `i`. -/
 def imageToCycles : image (K.d (i + 1) i) ⟶ K.cycles i :=
   K.liftCycles (image.ι (K.d (i + 1) i)) (i - 1) (by simp) (by
     apply (cancel_epi (factorThruImage (K.d (i + 1) i))).1
@@ -108,6 +110,7 @@ theorem imageToCycles_homologyπ : imageToCycles K i ≫ K.homologyπ i = 0 := b
   apply (cancel_epi (factorThruImage (K.d (i + 1) i))).1
   simp [← Category.assoc]
 
+/-- The projection from cycles to homology is a cokernel of `imageToCycles K i`. -/
 def imageCyclesIsCokernel :
     IsColimit (CokernelCofork.ofπ (K.homologyπ i) (imageToCycles_homologyπ K i)) := by
   refine CokernelCofork.IsColimit.ofπ' _ _ ?_

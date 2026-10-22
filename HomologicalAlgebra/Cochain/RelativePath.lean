@@ -125,6 +125,9 @@ theorem isPullbackAt (f : B₁ ⟶ B) (j : ℤ) :
   exact (IsPullback.of_hasPullback f (HomologicalComplex.pathObject.π₀ B)).map
     (HomologicalComplex.eval C (ComplexShape.up ℤ) j)
 
+/-- The `(i,j)` component of the contraction from `fst f ≫ sectionMap f` to the
+identity on `obj f`. Its first projection is zero, and its second projection
+is the path-object contraction precomposed with `(snd f).f i`. -/
 def component (f : B₁ ⟶ B) (i j : ℤ) : (obj f).X i ⟶ (obj f).X j :=
   (isPullbackAt f j).lift 0
     ((snd f).f i ≫ (HomologicalComplex.pathObject.π₀CompιHomotopy B hcℤ).hom i j)

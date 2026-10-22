@@ -159,9 +159,9 @@ theorem diskBottom_homology_length : lengthInvariant ℚ (diskBottom.homology 0)
   exact rational_line_length
 
 theorem diskSequence_boundary_length :
-    lengthInvariant ℚ (cochain_homology_boundary_image diskSequence
+    lengthInvariant ℚ (cochainHomologyBoundaryImage diskSequence
       diskSequence_shortExact 0) = 1 := by
-  unfold cochain_homology_boundary_image
+  unfold cochainHomologyBoundaryImage
   have hmono : Mono (diskSequence_shortExact.δ 0 (0 + 1) (by simp)) :=
     diskSequence_shortExact.mono_δ 0 (0 + 1) (by simp)
       ((identityCochain_acyclic 0).isZero_homology)
@@ -190,9 +190,9 @@ theorem diskSequence_singleton_endpoint :
     lengthInvariant ℚ (diskSequence.X₂.homology 0) =
       lengthInvariant ℚ (diskSequence.X₁.homology 0) +
       lengthInvariant ℚ (diskSequence.X₃.homology 0) -
-      lengthInvariant ℚ (cochain_homology_boundary_image diskSequence
+      lengthInvariant ℚ (cochainHomologyBoundaryImage diskSequence
         diskSequence_shortExact (-1)) -
-      lengthInvariant ℚ (cochain_homology_boundary_image diskSequence
+      lengthInvariant ℚ (cochainHomologyBoundaryImage diskSequence
         diskSequence_shortExact 0) := by
   have h := cochain_homology_euler_endpoints (lengthInvariant ℚ)
     (lengthInvariant_ses ℚ) diskSequence diskSequence_shortExact 0 0 (le_refl 0)
@@ -204,9 +204,9 @@ theorem diskSequence_singleton_endpoint_correction :
     lengthInvariant ℚ (diskSequence.X₂.homology 0) =
       lengthInvariant ℚ (diskSequence.X₁.homology 0) +
       lengthInvariant ℚ (diskSequence.X₃.homology 0) -
-      lengthInvariant ℚ (cochain_homology_boundary_image diskSequence
+      lengthInvariant ℚ (cochainHomologyBoundaryImage diskSequence
         diskSequence_shortExact 0) := by
-  have hleft : lengthInvariant ℚ (cochain_homology_boundary_image diskSequence
+  have hleft : lengthInvariant ℚ (cochainHomologyBoundaryImage diskSequence
       diskSequence_shortExact (-1)) = 0 := by
     apply image_zero_of_source (lengthInvariant ℚ) (lengthInvariant_ses ℚ) _
     change IsZero (diskBottom.homology (-1))
@@ -235,10 +235,10 @@ theorem diskSequence_endpoint_correction :
       (∑ i ∈ Finset.Icc (-1 : ℤ) 0,
         (Int.negOnePow i : ℤ) • lengthInvariant ℚ (diskSequence.X₃.homology i)) -
       (Int.negOnePow (-1 : ℤ) : ℤ) •
-        lengthInvariant ℚ (cochain_homology_boundary_image diskSequence
+        lengthInvariant ℚ (cochainHomologyBoundaryImage diskSequence
           diskSequence_shortExact (-2)) -
       (Int.negOnePow (0 : ℤ) : ℤ) •
-        lengthInvariant ℚ (cochain_homology_boundary_image diskSequence
+        lengthInvariant ℚ (cochainHomologyBoundaryImage diskSequence
           diskSequence_shortExact 0) :=
   cochain_homology_euler_endpoints (lengthInvariant ℚ)
     (lengthInvariant_ses ℚ) diskSequence diskSequence_shortExact (-1) 0 (by omega)
@@ -375,16 +375,17 @@ theorem negativeDiskSequence_top_sum :
   have hminus2 : explicitModularLength ((diskTop⟦(2 : ℤ)⟧).homology (-2)) = 0 :=
     invariant_of_isZero explicitModularLength explicitModularLength_ses
       (IsZero.of_iso (diskTop_homology_isZero 0 (by omega))
-        (cochain_shift_homology_iso diskTop 2 (-2)))
+        (cochainShiftHomologyIso diskTop 2 (-2)))
   have hminus1 : explicitModularLength ((diskTop⟦(2 : ℤ)⟧).homology (-1)) = 1 := by
     have h := invariant_iso explicitModularLength explicitModularLength_ses
-      (cochain_shift_homology_iso diskTop 2 (-1))
+      (cochainShiftHomologyIso diskTop 2 (-1))
     have h' : explicitModularLength ((diskTop⟦(2 : ℤ)⟧).homology (-1)) =
         explicitModularLength (diskTop.homology 1) := by
       simpa only [show (-1 : ℤ) + 2 = 1 by omega] using h
     exact h'.trans diskTop_explicit_modular_length
   rw [show Finset.Icc (-2 : ℤ) (-1) = {(-2), (-1)} by decide]
-  simp [hminus2, hminus1]
+  simp only [Finset.sum_insert (by decide : (-2 : ℤ) ∉ {(-1 : ℤ)}),
+    Finset.sum_singleton, hminus2, hminus1, smul_zero, zero_add]
   decide
 
 theorem negativeDiskSequence_bottom_sum :
@@ -395,7 +396,7 @@ theorem negativeDiskSequence_bottom_sum :
     (Int.negOnePow i : ℤ) • explicitModularLength ((diskBottom⟦(2 : ℤ)⟧).homology i)) = 1
   have hminus2 : explicitModularLength ((diskBottom⟦(2 : ℤ)⟧).homology (-2)) = 1 := by
     have h := invariant_iso explicitModularLength explicitModularLength_ses
-      (cochain_shift_homology_iso diskBottom 2 (-2))
+      (cochainShiftHomologyIso diskBottom 2 (-2))
     have h' : explicitModularLength ((diskBottom⟦(2 : ℤ)⟧).homology (-2)) =
         explicitModularLength (diskBottom.homology 0) := by
       simpa only [show (-2 : ℤ) + 2 = 0 by omega] using h
@@ -403,7 +404,7 @@ theorem negativeDiskSequence_bottom_sum :
   have hminus1 : explicitModularLength ((diskBottom⟦(2 : ℤ)⟧).homology (-1)) = 0 :=
     invariant_of_isZero explicitModularLength explicitModularLength_ses
       (IsZero.of_iso (diskBottom_homology_isZero 1 (by omega))
-        (cochain_shift_homology_iso diskBottom 2 (-1)))
+        (cochainShiftHomologyIso diskBottom 2 (-1)))
   rw [show Finset.Icc (-2 : ℤ) (-1) = {(-2), (-1)} by decide]
   simp [hminus2, hminus1]
 
@@ -416,7 +417,7 @@ theorem negativeDiskSequence_middle_sum :
   have hzero : IsZero (negativeDiskSequence.X₂.homology i) := by
     change IsZero ((identityCochain⟦(2 : ℤ)⟧).homology i)
     exact IsZero.of_iso ((identityCochain_acyclic (i + 2)).isZero_homology)
-      (cochain_shift_homology_iso identityCochain 2 i)
+      (cochainShiftHomologyIso identityCochain 2 i)
   rw [invariant_of_isZero explicitModularLength explicitModularLength_ses hzero, smul_zero]
 
 theorem negativeDiskSequence_modular_balance : (0 : ZMod 3) = 2 + 1 := by

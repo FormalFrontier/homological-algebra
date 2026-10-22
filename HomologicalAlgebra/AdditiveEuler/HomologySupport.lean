@@ -13,7 +13,7 @@ import Mathlib.Tactic.Abel
 /-!
 # Homology-supported cochain Euler additivity
 
-The native cochain long exact sequence gives an image-boundary correction to
+The cochain long exact sequence gives an image-boundary correction to
 short-exact-sequence additivity of signed homology sums. Vanishing *homology*
 at the neighboring degrees, rather than vanishing terms, removes the correction.
 -/
@@ -36,7 +36,7 @@ variable (hμ : ∀ S : ShortComplex C, S.ShortExact → μ S.X₂ = μ S.X₁ +
 
 include hμ
 
-/-- Additivity across an exact pair, with the native image factorizations at
+/-- Additivity across an exact pair, with the image factorizations at
 both ends; the pair itself need not be short exact. -/
 theorem invariant_exact_pair_images (S : ShortComplex C) (hS : S.Exact) :
     μ S.X₂ = μ (image S.f) + μ (image S.g) := by
@@ -55,18 +55,26 @@ theorem invariant_exact_pair_images (S : ShortComplex C) (hS : S.Exact) :
             epi_g := by dsimp [T]; infer_instance }
   exact hμ T hT
 
-/-- The image of the native connecting homomorphism from degree `i` to `i+1`. -/
-@[expose] def cochain_homology_boundary_image (S : ShortComplex (CochainComplex C ℤ))
+/-- The image of the connecting homomorphism from degree `i` to `i+1`. -/
+@[expose] def cochainHomologyBoundaryImage (S : ShortComplex (CochainComplex C ℤ))
     (hS : S.ShortExact) (i : ℤ) : C :=
   image (hS.δ i (i + 1) (by simp))
 
-/-- Three consecutive positions of the native long exact sequence give the
+-- Retain the deprecated spelling for downstream compatibility.
+@[expose, inherit_doc cochainHomologyBoundaryImage,
+  deprecated cochainHomologyBoundaryImage (since := "2026-10-21"),
+  nolint defsWithUnderscore]
+def cochain_homology_boundary_image (S : ShortComplex (CochainComplex C ℤ))
+    (hS : S.ShortExact) (i : ℤ) : C :=
+  cochainHomologyBoundaryImage S hS i
+
+/-- Three consecutive positions of the long exact sequence give the
 image-boundary correction, without a termwise support hypothesis. -/
 theorem cochain_homology_local_additivity
     (S : ShortComplex (CochainComplex C ℤ)) (hS : S.ShortExact) (i : ℤ) :
     μ (S.X₂.homology i) = μ (S.X₁.homology i) + μ (S.X₃.homology i) -
-      μ (cochain_homology_boundary_image S hS (i - 1)) -
-      μ (cochain_homology_boundary_image S hS i) := by
+      μ (cochainHomologyBoundaryImage S hS (i - 1)) -
+      μ (cochainHomologyBoundaryImage S hS i) := by
   obtain ⟨j, rfl⟩ : ∃ j : ℤ, i = j + 1 := ⟨i - 1, by omega⟩
   simp only [add_sub_cancel_right]
   have h₁ := invariant_exact_pair_images μ hμ _
@@ -74,7 +82,7 @@ theorem cochain_homology_local_additivity
   have h₂ := invariant_exact_pair_images μ hμ _ (hS.homology_exact₂ (j + 1))
   have h₃ := invariant_exact_pair_images μ hμ _
     (hS.homology_exact₃ (j + 1) (j + 1 + 1) (by simp))
-  dsimp [cochain_homology_boundary_image] at *
+  dsimp [cochainHomologyBoundaryImage] at *
   rw [h₂, h₁, h₃]
   abel
 
@@ -106,16 +114,16 @@ theorem cochain_homology_euler_endpoints
     (∑ i ∈ Finset.Icc a b, (Int.negOnePow i : ℤ) • μ (S.X₂.homology i)) =
       (∑ i ∈ Finset.Icc a b, (Int.negOnePow i : ℤ) • μ (S.X₁.homology i)) +
       (∑ i ∈ Finset.Icc a b, (Int.negOnePow i : ℤ) • μ (S.X₃.homology i)) -
-      (Int.negOnePow a : ℤ) • μ (cochain_homology_boundary_image S hS (a - 1)) -
-      (Int.negOnePow b : ℤ) • μ (cochain_homology_boundary_image S hS b) := by
+      (Int.negOnePow a : ℤ) • μ (cochainHomologyBoundaryImage S hS (a - 1)) -
+      (Int.negOnePow b : ℤ) • μ (cochainHomologyBoundaryImage S hS b) := by
   have hboundary := signed_boundary_interval
-    (fun i => μ (cochain_homology_boundary_image S hS i)) a b hab
+    (fun i => μ (cochainHomologyBoundaryImage S hS i)) a b hab
   calc
     _ = (∑ i ∈ Finset.Icc a b, (Int.negOnePow i : ℤ) • μ (S.X₁.homology i)) +
           (∑ i ∈ Finset.Icc a b, (Int.negOnePow i : ℤ) • μ (S.X₃.homology i)) -
           (∑ i ∈ Finset.Icc a b, ((Int.negOnePow i : ℤ) •
-            μ (cochain_homology_boundary_image S hS (i - 1)) +
-            (Int.negOnePow i : ℤ) • μ (cochain_homology_boundary_image S hS i))) := by
+            μ (cochainHomologyBoundaryImage S hS (i - 1)) +
+            (Int.negOnePow i : ℤ) • μ (cochainHomologyBoundaryImage S hS i))) := by
       rw [← Finset.sum_add_distrib, ← Finset.sum_sub_distrib]
       apply Finset.sum_congr rfl
       intro i _
@@ -135,14 +143,14 @@ theorem cochain_homology_sum_additive_of_endpoints
       (∑ i ∈ Finset.Icc a b, (Int.negOnePow i : ℤ) • μ (S.X₁.homology i)) +
         (∑ i ∈ Finset.Icc a b, (Int.negOnePow i : ℤ) • μ (S.X₃.homology i)) := by
   rw [cochain_homology_euler_endpoints μ hμ S hS a b hab]
-  have hin : μ (cochain_homology_boundary_image S hS (a - 1)) = 0 := by
+  have hin : μ (cochainHomologyBoundaryImage S hS (a - 1)) = 0 := by
     apply image_zero_of_source μ hμ _ hbelow
-  have hout : μ (cochain_homology_boundary_image S hS b) = 0 := by
+  have hout : μ (cochainHomologyBoundaryImage S hS b) = 0 := by
     apply image_zero_of_target μ hμ _ habove
   rw [hin, hout]
   simp
 
-/-- Additivity assuming only the native cohomological bounds on the two
+/-- Additivity assuming only the cohomological bounds on the two
 outer complexes; no bound on the middle complex or its terms is required. -/
 theorem cochain_homology_sum_additive_of_supported
     (S : ShortComplex (CochainComplex C ℤ)) (hS : S.ShortExact)

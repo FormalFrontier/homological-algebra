@@ -29,12 +29,13 @@ open scoped BigOperators ZeroObject
 
 namespace CategoryTheory.AdditiveEuler
 
-/-- Integer-valued length on finitely generated modules; SES additivity needs the ring hypotheses below. -/
+/-- Integer-valued length on finitely generated modules; SES additivity needs the ring
+hypotheses below. -/
 @[expose] def lengthInvariant (R : Type*) [CommRing R] (M : FGModuleCat R) : ℤ :=
   ((Module.length R M).toNat : ℤ)
 
 /-- Finite lengths of finitely generated modules over a commutative Noetherian Artinian ring
-make their integer-valued length additive on native short exact sequences. -/
+make their integer-valued length additive on short exact sequences. -/
 theorem lengthInvariant_ses (R : Type*) [CommRing R] [IsNoetherianRing R]
     [IsArtinianRing R] (S : ShortComplex (FGModuleCat R)) (hS : S.ShortExact) :
     lengthInvariant R S.X₂ = lengthInvariant R S.X₁ + lengthInvariant R S.X₃ := by

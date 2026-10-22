@@ -13,7 +13,7 @@ public import Mathlib.Algebra.Homology.ShortComplex.PreservesHomology
 Finite signed term sums respect short exact sequences of complexes in every interval,
 including empty intervals. With termwise support bounds, the same holds for homology
 sums. An exact functor transports an additive invariant, termwise support, and the
-native homology comparison isomorphism; no homological boundedness assumption is used.
+homology comparison isomorphism; no homological boundedness assumption is used.
 -/
 
 public section
@@ -95,19 +95,28 @@ theorem precompose_exact_ses (S : ShortComplex C) (hS : S.ShortExact) :
 
 omit hν
 
-/-- The native homology comparison for a degreewise mapped chain complex. -/
-def map_homology_iso (K : ChainComplex C ℤ) (i : ℤ) :
+/-- The homology comparison for a degreewise mapped chain complex. -/
+def mapHomologyIso (K : ChainComplex C ℤ) (i : ℤ) :
     ((F.mapHomologicalComplex (ComplexShape.down ℤ)).obj K).homology i ≅
       F.obj (K.homology i) := by
   exact (K.sc i).mapHomologyIso F
 
+-- Retain the deprecated spelling for downstream compatibility.
+@[expose, inherit_doc mapHomologyIso,
+  deprecated mapHomologyIso (since := "2026-10-21"),
+  nolint defsWithUnderscore]
+def map_homology_iso (K : ChainComplex C ℤ) (i : ℤ) :
+    ((F.mapHomologicalComplex (ComplexShape.down ℤ)).obj K).homology i ≅
+      F.obj (K.homology i) :=
+  mapHomologyIso F K i
+
 include hν
 
-/-- Exact functors preserve additive homology values through the native comparison. -/
+/-- Exact functors preserve additive homology values through the comparison isomorphism. -/
 theorem invariant_map_homology (K : ChainComplex C ℤ) (i : ℤ) :
     ν (((F.mapHomologicalComplex (ComplexShape.down ℤ)).obj K).homology i) =
       ν (F.obj (K.homology i)) :=
-  invariant_iso ν hν (map_homology_iso F K i)
+  invariant_iso ν hν (mapHomologyIso F K i)
 
 /-- Homology-sum compatibility requires no termwise support bounds. -/
 theorem homology_sum_map (K : ChainComplex C ℤ) (a b : ℤ) :

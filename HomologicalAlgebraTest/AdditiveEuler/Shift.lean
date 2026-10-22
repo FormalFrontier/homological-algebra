@@ -108,7 +108,7 @@ theorem cochainRationalNegative_negative_term_sum :
 def cochainRationalNegative_positive_homology_iso :
     (cochainRationalNegative⟦(1 : ℤ)⟧).homology (-2) ≅
       cochainRationalNegative.homology (-1) := by
-  simpa using cochain_shift_homology_iso cochainRationalNegative 1 (-2)
+  simpa using cochainShiftHomologyIso cochainRationalNegative 1 (-2)
 
 theorem cochainRationalNegative_positive_homology_comparison :
     cochainModularLength ((cochainRationalNegative⟦(1 : ℤ)⟧).homology (-2)) =
