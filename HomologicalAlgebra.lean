@@ -15,6 +15,7 @@ public import HomologicalAlgebra.Abelian.QuotientIntersection
 public import HomologicalAlgebra.Abelian.AdmissibleLayers
 public import HomologicalAlgebra.Abelian.SnakeLemma
 public import HomologicalAlgebra.Homology.ProductTotalAcyclicity
+public import HomologicalAlgebra.ChainComplex.Projective
 
 /-!
 # Homological Algebra
@@ -35,4 +36,7 @@ universal properties for an eight-object sequence in any abelian category. Its
 six interior positions are exact, using Mathlib's six-term snake lemma in the middle.
 The homology module constructs signed quadrant product totals of native bicomplexes
 and proves their acyclicity in all integer degrees from acyclic horizontal rows.
+The chain-complex module characterizes quasi-isomorphisms between termwise
+bounded-below integer complexes of projective objects as the particular forward
+maps of homotopy equivalences.
 -/

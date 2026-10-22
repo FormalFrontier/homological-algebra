@@ -131,6 +131,24 @@ The abelian quotient-intersection pairing requires only `L ≤ U`, does not
 assume ordinary lifting of maps across quotient epis, and does not depend
 on the Euler or relative-path constructions.
 
+### Bounded-below projective integer chains
+
+`HomologicalAlgebra.ChainComplex.Projective` provides
+`ChainComplex.quasiIso_iff_of_projective_of_isZero_below`. For an abelian category
+`C`, integer chain complexes `K, L` with projective terms, independent integers
+`a, b`, and termwise zero objects `K.X i` for `i < a` and `L.X i` for `i < b`,
+it says that a particular `f : K ⟶ L` is a quasi-isomorphism if and only if
+`∃ e : HomotopyEquiv K L, e.hom = f`. There is no bounded-above or
+enough-projectives assumption, and object and morphism universes are independent.
+
+The proof uses Mathlib's negation embedding, extension isomorphisms and
+bounded-projective cochain criterion; it introduces no new indexing or
+boundedness definition. For nonnegative chains use Mathlib's existing
+`ChainComplex.quasiIso_iff_of_projective` directly.
+The stalk client in `HomologicalAlgebraTest.ChainComplex.Projective` applies the
+integer criterion to the zero endomorphism of a stalk on a nonzero projective
+object, and records the sharp lower-support cutoff of that stalk.
+
 ## Using the library
 
 Import `HomologicalAlgebra` or the focused public modules
@@ -201,8 +219,8 @@ env LEAN_NUM_THREADS=2 lake exe cache get
 env LEAN_NUM_THREADS=2 lake --wfail build
 ```
 
-The default build elaborates all eleven library modules, both root imports and
-the ten public-import test modules. On a host with a matching mathlib cache,
+The default build elaborates both root modules and the library and test modules
+they import. On a host with a matching mathlib cache,
 budget seconds to a few minutes and up to 8 GiB memory as *planning estimates*,
 not measured peak usage, a minimum, guaranteed requirements or permission
 for a particular support profile. `LEAN_NUM_THREADS=2` limits Lean runtime

@@ -42,6 +42,11 @@ mathlib retains its own authorship and Apache-2.0 license: `Single` credits
 Kim Morrison (2021); `SingleHomology` and `HomotopyFiber` credit Joël Riou
 (2023); `ShiftSequence` credits Joël Riou (2024); opposite-complex work credits
 Johan Commelin, Amelia Livingston and Joël Riou (2022).
+The bounded-below integer-chain criterion follows the extension proof of
+Mathlib's `ChainComplex.quasiIso_iff_of_projective` and its K-projective cochain
+criterion (`DerivedCategory/KProjective` and `HomotopyCategory/KProjective`,
+Joël Riou, 2025), using the complex-extension API (`Embedding/Extend`,
+Joël Riou, 2024).
 
 The original project code is licensed under this repository's
 [Apache-2.0 license](LICENSE) and credited collectively to Formal Frontier

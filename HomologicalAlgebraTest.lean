@@ -14,6 +14,7 @@ public import HomologicalAlgebraTest.Abelian.QuotientIntersection
 public import HomologicalAlgebraTest.Abelian.AdmissibleLayers
 public import HomologicalAlgebraTest.Abelian.SnakeLemma
 public import HomologicalAlgebraTest.Homology.ProductTotalAcyclicity
+public import HomologicalAlgebraTest.ChainComplex.Projective
 
 /-!
 # Public-import client tests

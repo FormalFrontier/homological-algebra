@@ -20,6 +20,17 @@ The Euler declarations lie in `CategoryTheory.AdditiveEuler`.
 | [`HomologicalAlgebra.AdditiveEuler.HomologySupport`](../HomologicalAlgebra/AdditiveEuler/HomologySupport.lean) | Cochain long-exact-sequence connecting-image corrections. |
 | [`HomologicalAlgebra.AdditiveEuler.Length`](../HomologicalAlgebra/AdditiveEuler/Length.lean) | Finite module length as an Euler invariant. |
 
+## Construction names and compatibility
+
+Use the following construction names in new code. Earlier spellings remain
+available as deprecated definitions forwarding to the same constructions.
+
+| Earlier spelling | Preferred name |
+| --- | --- |
+| `map_homology_iso` | `mapHomologyIso` |
+| `cochain_shift_homology_iso` | `cochainShiftHomologyIso` |
+| `cochain_homology_boundary_image` | `cochainHomologyBoundaryImage` |
+
 ## Invariants and chain Euler identities
 
 The additive Euler namespace is `CategoryTheory.AdditiveEuler` (the path
@@ -61,7 +72,7 @@ abelian categories and additive-commutative-group-valued SES-additive invariants
 ## Connecting images and homology bounds
 
 For a short exact sequence `S` of cochain complexes, the native connecting map
-`δᵢ : Hⁱ(S.X₃) ⟶ Hⁱ⁺¹(S.X₁)` defines `cochain_homology_boundary_image S hS i`
+`δᵢ : Hⁱ(S.X₃) ⟶ Hⁱ⁺¹(S.X₁)` defines `cochainHomologyBoundaryImage S hS i`
 as its image. `invariant_exact_pair_images` applies SES additivity to an exact
 pair without requiring it to be short exact.
 `cochain_homology_local_additivity` expresses the invariant of each middle
@@ -87,7 +98,7 @@ interval, including an empty interval; it needs no support bound.
 **all three** complexes have zero terms outside it. It does not assert that their
 homologies form a short exact sequence. `precompose_exact_ses` transports the
 SES-additivity of `ν` along a functor `F` preserving finite limits and finite
-colimits. `map_homology_iso` is the native comparison between homology of the
+colimits. `mapHomologyIso` is the native comparison between homology of the
 mapped complex and the image of homology under `F`;
 `invariant_map_homology` and `homology_sum_map` give invariant values and finite
 signed sums via this isomorphism, without support assumptions.
@@ -115,7 +126,7 @@ For the **native** cochain shift `K⟦n⟧`,
 `cochain_shift_term_support` transports a zero-term support bound `[a,b]` to
 `[a-n,b-n]` in degrees `i` corresponding to the original degree `i+n`.
 `cochain_shift_term_sum` reindexes the actual shifted terms without either
-support or SES-additivity. `cochain_shift_homology_iso` is the actual native
+support or SES-additivity. `cochainShiftHomologyIso` is the actual native
 isomorphism `(K⟦n⟧).homology i ≅ K.homology (i+n)`;
 `cochain_shift_homology_sum` uses it to translate homology sums without a
 term-support hypothesis (but requires SES additivity to preserve the invariant

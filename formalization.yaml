@@ -91,7 +91,7 @@ status:
       file: HomologicalAlgebra/AdditiveEuler/Functoriality.lean
     - declaration: CategoryTheory.AdditiveEuler.homology_sum_additive_of_shortExact
       file: HomologicalAlgebra/AdditiveEuler/Functoriality.lean
-    - declaration: CategoryTheory.AdditiveEuler.map_homology_iso
+    - declaration: CategoryTheory.AdditiveEuler.mapHomologyIso
       file: HomologicalAlgebra/AdditiveEuler/Functoriality.lean
     - declaration: CategoryTheory.AdditiveEuler.euler_map_bounded
       file: HomologicalAlgebra/AdditiveEuler/Functoriality.lean
@@ -105,7 +105,7 @@ status:
       file: HomologicalAlgebra/AdditiveEuler/Shift.lean
     - declaration: CategoryTheory.AdditiveEuler.cochain_shift_term_sum
       file: HomologicalAlgebra/AdditiveEuler/Shift.lean
-    - declaration: CategoryTheory.AdditiveEuler.cochain_shift_homology_iso
+    - declaration: CategoryTheory.AdditiveEuler.cochainShiftHomologyIso
       file: HomologicalAlgebra/AdditiveEuler/Shift.lean
     - declaration: CategoryTheory.AdditiveEuler.cochain_shift_homology_sum
       file: HomologicalAlgebra/AdditiveEuler/Shift.lean
