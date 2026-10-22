@@ -10,6 +10,7 @@ public import HomologicalAlgebraTest.AdditiveEuler.Shift
 public import HomologicalAlgebraTest.AdditiveEuler.Cochain
 public import HomologicalAlgebraTest.AdditiveEuler.HomologySupport
 public import HomologicalAlgebraTest.Cochain.RelativePath
+public import HomologicalAlgebraTest.Cochain.KProjective
 public import HomologicalAlgebraTest.Abelian.QuotientIntersection
 public import HomologicalAlgebraTest.Abelian.AdmissibleLayers
 public import HomologicalAlgebraTest.Abelian.SnakeLemma

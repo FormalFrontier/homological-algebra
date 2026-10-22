@@ -19,6 +19,13 @@ Licensed under Apache-2.0
 
 ## Headline results
 
+For integer cochain complexes in any abelian category,
+`CochainComplex.isKProjective_iff_acyclic_homComplex` characterizes K-projectivity
+by acyclicity of the abelian-group-valued Hom complex into every acyclic target.
+It requires neither boundedness nor degreewise projectivity, and the object and
+morphism universes of the category are independent.
+[Producer](HomologicalAlgebra/Cochain/KProjective.lean).
+
 Building on mathlib's abelian categories, native complexes and homology, the
 Euler results apply to `μ : C → Γ`, where `C` is abelian and `Γ` is any additive
 commutative group, including groups with torsion. Except where a weaker
