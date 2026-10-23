@@ -4,19 +4,20 @@ Authors: Formal Frontier Agents
 -/
 module
 
+public import HomologicalAlgebraTest.Abelian.AdmissibleLayers
+public import HomologicalAlgebraTest.Abelian.QuotientIntersection
+public import HomologicalAlgebraTest.Abelian.SnakeLemma
 public import HomologicalAlgebraTest.AdditiveEuler
-public import HomologicalAlgebraTest.AdditiveEuler.Functoriality
-public import HomologicalAlgebraTest.AdditiveEuler.Shift
 public import HomologicalAlgebraTest.AdditiveEuler.Cochain
+public import HomologicalAlgebraTest.AdditiveEuler.Functoriality
 public import HomologicalAlgebraTest.AdditiveEuler.HomologySupport
-public import HomologicalAlgebraTest.Cochain.RelativePath
+public import HomologicalAlgebraTest.AdditiveEuler.Shift
+public import HomologicalAlgebraTest.ChainComplex.Projective
+public import HomologicalAlgebraTest.Cochain.HomComplexFunctoriality
 public import HomologicalAlgebraTest.Cochain.HomComplexVanishing
 public import HomologicalAlgebraTest.Cochain.KProjective
-public import HomologicalAlgebraTest.Abelian.QuotientIntersection
-public import HomologicalAlgebraTest.Abelian.AdmissibleLayers
-public import HomologicalAlgebraTest.Abelian.SnakeLemma
+public import HomologicalAlgebraTest.Cochain.RelativePath
 public import HomologicalAlgebraTest.Homology.ProductTotalAcyclicity
-public import HomologicalAlgebraTest.ChainComplex.Projective
 
 /-!
 # Public-import client tests

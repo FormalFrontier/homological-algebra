@@ -48,6 +48,11 @@ criterion (`DerivedCategory/KProjective` and `HomotopyCategory/KProjective`,
 Joël Riou, 2025), using the complex-extension API (`Embedding/Extend`,
 Joël Riou, 2024).
 
+The Hom-complex component operations and homology-to-homotopy-category
+comparisons use Joël Riou's `HomComplex` and `HomComplexShift` modules in
+Mathlib (2023), and his `HomComplexCohomology` module (2025). The integer-stalk
+examples also use his `HomComplexSingle` constructions (2023).
+
 The original project code is licensed under this repository's
 [Apache-2.0 license](LICENSE) and credited collectively to Formal Frontier
 Agents. No external source asset is redistributed.

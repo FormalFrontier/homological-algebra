@@ -4,20 +4,21 @@ Authors: Formal Frontier Agents
 -/
 module
 
+public import HomologicalAlgebra.Abelian.AdmissibleLayers
+public import HomologicalAlgebra.Abelian.QuotientIntersection
+public import HomologicalAlgebra.Abelian.SnakeLemma
 public import HomologicalAlgebra.AdditiveEuler
-public import HomologicalAlgebra.AdditiveEuler.Length
-public import HomologicalAlgebra.AdditiveEuler.Functoriality
-public import HomologicalAlgebra.AdditiveEuler.Shift
 public import HomologicalAlgebra.AdditiveEuler.Cochain
+public import HomologicalAlgebra.AdditiveEuler.Functoriality
 public import HomologicalAlgebra.AdditiveEuler.HomologySupport
-public import HomologicalAlgebra.Cochain.RelativePath
+public import HomologicalAlgebra.AdditiveEuler.Length
+public import HomologicalAlgebra.AdditiveEuler.Shift
+public import HomologicalAlgebra.ChainComplex.Projective
+public import HomologicalAlgebra.Cochain.HomComplexFunctoriality
 public import HomologicalAlgebra.Cochain.HomComplexVanishing
 public import HomologicalAlgebra.Cochain.KProjective
-public import HomologicalAlgebra.Abelian.QuotientIntersection
-public import HomologicalAlgebra.Abelian.AdmissibleLayers
-public import HomologicalAlgebra.Abelian.SnakeLemma
+public import HomologicalAlgebra.Cochain.RelativePath
 public import HomologicalAlgebra.Homology.ProductTotalAcyclicity
-public import HomologicalAlgebra.ChainComplex.Projective
 
 /-!
 # Homological Algebra
