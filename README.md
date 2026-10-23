@@ -40,6 +40,17 @@ It requires neither boundedness nor degreewise projectivity, and the object and
 morphism universes of the category are independent.
 [Producer](HomologicalAlgebra/Cochain/KProjective.lean).
 
+For integer cochain complexes in any abelian category, a quasi-isomorphism
+`q : X ⟶ Y` induces a quasi-isomorphism
+`HomComplex.prePostcomp (𝟙 K) q` whenever `K` is K-projective, by
+`CochainComplex.IsKProjective.quasiIso_prePostcomp`. The other complexes `X, Y`
+are arbitrary. This applies in all integer degrees with independent object and
+morphism universes, without boundedness, enough projectives or injectives, or
+products in the coefficient category. This formulation of K-projectivity follows
+Spaltenstein, *Resolutions of unbounded complexes*, §1; the proof uses Joël Riou's
+Hom-complex, homotopy-category and derived-category comparisons in Mathlib.
+[Producer](HomologicalAlgebra/Cochain/HomComplexQuasiIso.lean).
+
 Building on mathlib's abelian categories, native complexes and homology, the
 Euler results apply to `μ : C → Γ`, where `C` is abelian and `Γ` is any additive
 commutative group, including groups with torsion. Except where a weaker

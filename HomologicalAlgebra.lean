@@ -15,6 +15,7 @@ public import HomologicalAlgebra.AdditiveEuler.Length
 public import HomologicalAlgebra.AdditiveEuler.Shift
 public import HomologicalAlgebra.ChainComplex.Projective
 public import HomologicalAlgebra.Cochain.HomComplexFunctoriality
+public import HomologicalAlgebra.Cochain.HomComplexQuasiIso
 public import HomologicalAlgebra.Cochain.HomComplexVanishing
 public import HomologicalAlgebra.Cochain.KProjective
 public import HomologicalAlgebra.Cochain.RelativePath
