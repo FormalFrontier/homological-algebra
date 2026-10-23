@@ -19,6 +19,15 @@ Licensed under Apache-2.0
 
 ## Headline results
 
+For integer cochain complexes in any preadditive category,
+`CochainComplex.HomComplex.isZero_homology_zero_iff` identifies vanishing of
+degree-zero Hom cohomology with null-homotopy of every cochain map. Object and
+morphism universes are independent; neither an abelian ambient category nor a
+zero object is required. The Hom complex is the canonical complex of abelian
+groups, not a complex formed using products in the ambient category.
+Its degree-zero cohomology is nonzero for the rational stalk ℚ[0] mapped to
+itself. [Producer](HomologicalAlgebra/Cochain/HomComplexVanishing.lean).
+
 For integer cochain complexes in any abelian category,
 `CochainComplex.isKProjective_iff_acyclic_homComplex` characterizes K-projectivity
 by acyclicity of the abelian-group-valued Hom complex into every acyclic target.

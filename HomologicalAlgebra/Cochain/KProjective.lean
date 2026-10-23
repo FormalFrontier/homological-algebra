@@ -5,7 +5,7 @@ Authors: Formal Frontier Agents
 module
 
 public import Mathlib.Algebra.Homology.HomotopyCategory.KProjective
-public import Mathlib.Algebra.Homology.HomotopyCategory.HomComplexCohomology
+public import HomologicalAlgebra.Cochain.HomComplexVanishing
 
 /-!
 # K-projectivity and acyclicity of Hom complexes
@@ -66,18 +66,7 @@ lemma isKProjective_iff_acyclic_homComplex (K : CochainComplex C ℤ) :
       (HomComplex K L).Acyclic := by
   refine ⟨fun _ L hL ↦ IsKProjective.acyclic_homComplex K L hL, fun h ↦ ?_⟩
   refine ⟨fun {L} f hL ↦ ?_⟩
-  have hz := (h L hL 0).isZero_homology
-  rw [IsZero.iff_id_eq_zero] at hz
-  let e := homologyAddEquiv K L 0
-  have hclass : CohomologyClass.mk (Cocycle.ofHom f) = 0 := by
-    apply e.symm.injective
-    have hx := ConcreteCategory.congr_hom hz
-      (e.symm (CohomologyClass.mk (Cocycle.ofHom f)))
-    simpa using hx
-  obtain ⟨β, hβ⟩ :=
-    (mem_coboundaries_iff (Cocycle.ofHom f) (-1) (by simp)).mp
-      ((CohomologyClass.mk_eq_zero_iff _).mp hclass)
-  exact ⟨(Cochain.equivHomotopy f 0).symm
-    ⟨β, by simpa only [Cochain.ofHom_zero, add_zero, Cocycle.ofHom_coe] using hβ.symm⟩⟩
+  exact (HomComplex.isZero_homology_zero_iff K L).mp
+    ((h L hL 0).isZero_homology) f
 
 end CochainComplex

@@ -11,6 +11,7 @@ public import HomologicalAlgebra.AdditiveEuler.Shift
 public import HomologicalAlgebra.AdditiveEuler.Cochain
 public import HomologicalAlgebra.AdditiveEuler.HomologySupport
 public import HomologicalAlgebra.Cochain.RelativePath
+public import HomologicalAlgebra.Cochain.HomComplexVanishing
 public import HomologicalAlgebra.Cochain.KProjective
 public import HomologicalAlgebra.Abelian.QuotientIntersection
 public import HomologicalAlgebra.Abelian.AdmissibleLayers
