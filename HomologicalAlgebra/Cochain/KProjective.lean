@@ -43,20 +43,13 @@ is acyclic. This recovers the Hom-complex condition in Spaltenstein,
 *Resolutions of unbounded complexes*, §1. -/
 lemma IsKProjective.acyclic_homComplex (K L : CochainComplex C ℤ)
     [K.IsKProjective] (hL : L.Acyclic) : (HomComplex K L).Acyclic := by
-  intro n
-  rw [HomologicalComplex.exactAt_iff_isZero_homology, IsZero.iff_id_eq_zero]
-  ext x
-  change x = 0
-  let e := (homologyAddEquiv K L n).trans
-    (CohomologyClass.homAddEquiv (K := K) (L := L) (n := n))
-  apply e.injective
-  obtain ⟨f, hf⟩ := (HomotopyCategory.quotient C (.up ℤ)).map_surjective (e x)
+  apply (HomComplex.acyclic_iff K L).mpr
+  intro n f
   have hshift : (L⟦n⟧).Acyclic := by
     intro i
     exact ShortComplex.exact_of_iso
       ((shiftShortComplexFunctorIso C n i (n + i) rfl).app L).symm (hL (n + i))
-  rw [map_zero, ← hf, HomotopyCategory.eq_of_homotopy f 0
-    (IsKProjective.homotopyZero f hshift), Functor.map_zero]
+  exact ⟨IsKProjective.homotopyZero f hshift⟩
 
 /-- A cochain complex is K-projective if and only if its abelian-group-valued
 Hom complex into every acyclic complex is acyclic. This is the characterization
