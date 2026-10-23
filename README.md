@@ -19,14 +19,19 @@ Licensed under Apache-2.0
 
 ## Headline results
 
-For integer cochain complexes in any preadditive category,
+For integer cochain complexes `K, L` in any preadditive category and any
+integer `n`, `CochainComplex.HomComplex.isZero_homology_iff` identifies
+vanishing of degree-`n` Hom cohomology with null-homotopy of every cochain map
+`K ⟶ L⟦n⟧`. The criterion `CochainComplex.HomComplex.acyclic_iff` identifies
+acyclicity of the Hom complex with null-homotopy of every such map for every
+integer `n`. The degree-zero specialization
 `CochainComplex.HomComplex.isZero_homology_zero_iff` identifies vanishing of
-degree-zero Hom cohomology with null-homotopy of every cochain map. Object and
-morphism universes are independent; neither an abelian ambient category nor a
-zero object is required. The Hom complex is the canonical complex of abelian
-groups, not a complex formed using products in the ambient category.
-Its degree-zero cohomology is nonzero for the rational stalk ℚ[0] mapped to
-itself. [Producer](HomologicalAlgebra/Cochain/HomComplexVanishing.lean).
+degree-zero Hom cohomology with null-homotopy of every unshifted map `K ⟶ L`.
+Object and morphism universes are independent; neither an abelian ambient
+category nor a zero object is required. The Hom complex is the canonical
+complex of abelian groups, not a complex formed using products in the ambient
+category. Its degree-zero cohomology is nonzero for the rational stalk ℚ[0]
+mapped to itself. [Producer](HomologicalAlgebra/Cochain/HomComplexVanishing.lean).
 
 For integer cochain complexes in any abelian category,
 `CochainComplex.isKProjective_iff_acyclic_homComplex` characterizes K-projectivity

@@ -86,7 +86,8 @@ private noncomputable def stalkClassHom (n : ℤ) :
     exact (congrArg (CohomologyClass.mk (K := stalk 0) (L := stalk n) (n := n)) hc).trans
       (CohomologyClass.mk_add (stalkCocycle n a) (stalkCocycle n b))
 
-private lemma stalkClass_ne_zero (n k : ℤ) (hk : k ≠ 0) :
+/-- A nonzero integer gives a nonzero cohomology class between integer stalks. -/
+lemma stalkClass_ne_zero (n k : ℤ) (hk : k ≠ 0) :
     stalkClass n k ≠ 0 := by
   intro h
   have hb : stalkCocycle n k ∈ coboundaries (stalk 0) (stalk n) n :=

@@ -71,6 +71,10 @@ status:
   sorry_in_definitions: 0
   axioms: [propext, Classical.choice, Quot.sound]
   main_results:
+    - declaration: CochainComplex.HomComplex.isZero_homology_iff
+      file: HomologicalAlgebra/Cochain/HomComplexVanishing.lean
+    - declaration: CochainComplex.HomComplex.acyclic_iff
+      file: HomologicalAlgebra/Cochain/HomComplexVanishing.lean
     - declaration: CategoryTheory.ShortComplex.SnakeInput.composableArrowsWithEndpoints_middle_exact
       file: HomologicalAlgebra/Abelian/SnakeLemma.lean
     - declaration: CategoryTheory.ShortComplex.SnakeInput.kernelToL₀X₁IsKernel
