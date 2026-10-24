@@ -53,6 +53,16 @@ It requires neither boundedness nor degreewise projectivity, and the object and
 morphism universes of the category are independent.
 [Producer](HomologicalAlgebra/Cochain/KProjective.lean).
 
+- **K-injectivity via product Hom complexes.** For `C : Type u` with
+  `Category.{v} C` and `Abelian C`, object and morphism universes are independent.
+  `CochainComplex.isKInjective_iff_acyclic_homComplex` says that an integer cochain
+  complex `L` is K-injective if and only if `HomComplex K L` is acyclic for every
+  acyclic integer cochain complex `K`. This is the canonical `AddCommGrpCat.{v}`-valued
+  product Hom complex, using unrestricted products of abelian groups, not
+  products in `C`. No boundedness, conditions on individual terms, or
+  enough-projectives/injectives hypotheses are required.
+  [Producer](HomologicalAlgebra/Cochain/KInjective.lean).
+
 For integer cochain complexes in an arbitrary preadditive category,
 `CochainComplex.HomComplex.quasiIso_prePostcomp_of_homotopyEquiv` makes
 `HomComplex.prePostcomp eK.hom eL.hom` a quasi-isomorphism from the Hom complex
@@ -231,6 +241,8 @@ or the native long-exact-sequence module
 For Hom-complex homotopy invariance and contractions in either variable, use
 `HomologicalAlgebra.Cochain.HomComplexFunctoriality`; see
 [Hom-complex homotopy and contractibility](docs/HomComplexHomotopy.md).
+For the K-injectivity characterization, import
+`HomologicalAlgebra.Cochain.KInjective` (or `HomologicalAlgebra`).
 For the separate fixed-arrow path API, import
 `HomologicalAlgebra.Cochain.RelativePath` (or the aggregate
 `HomologicalAlgebra`); see [the guide](docs/CochainRelativePath.md).

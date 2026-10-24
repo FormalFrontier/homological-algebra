@@ -10,6 +10,7 @@ import Mathlib.Algebra.Category.ModuleCat.Injective
 import Mathlib.Algebra.Homology.HomotopyCategory.KInjective
 import Mathlib.Algebra.Homology.SingleHomology
 import HomologicalAlgebra.Cochain.HomComplexQuasiIso
+public import HomologicalAlgebra.Cochain.KInjective
 
 /-!
 # The rational stalk as a nonzero K-injective complex
@@ -24,13 +25,36 @@ All complexes use the additive structure supplied by the abelian category.
 The degree-zero homology is nonzero, as witnessed by the canonical stalk
 homology isomorphism with ℚ. Thus the model is neither acyclic nor contractible;
 nonzero chain groups alone would not establish this nonvacuity condition.
+The same rational stalk satisfies the product-Hom acyclicity criterion. Generic
+clients recover null-homotopies and verify the zero-target boundary case.
 -/
 
 @[expose] public section
 
 open CategoryTheory Limits HomologicalComplex
 
+universe v u
+
 namespace CochainComplex
+
+section
+
+variable {C : Type u} [Category.{v} C] [Abelian C]
+
+example (L : CochainComplex C ℤ)
+    (h : ∀ (K : CochainComplex C ℤ), K.Acyclic → (HomComplex K L).Acyclic)
+    (K : CochainComplex C ℤ) (hK : K.Acyclic) (f : K ⟶ L) :
+    Nonempty (Homotopy f 0) := by
+  let _ : L.IsKInjective := (isKInjective_iff_acyclic_homComplex L).mpr h
+  exact IsKInjective.nonempty_homotopy_zero f hK
+
+example (L : CochainComplex C ℤ) (hL : IsZero L) :
+    ∀ (K : CochainComplex C ℤ), K.Acyclic → (HomComplex K L).Acyclic := by
+  have : L.IsKInjective :=
+    ⟨fun {K} f _ ↦ ⟨Homotopy.ofEq (hL.eq_of_tgt f 0)⟩⟩
+  exact (isKInjective_iff_acyclic_homComplex L).mp this
+
+end
 
 private noncomputable abbrev integerModuleAbelian : Abelian (ModuleCat.{0} ℤ) :=
   inferInstance
@@ -73,5 +97,11 @@ example {K L : CochainComplex (ModuleCat.{0} ℤ) ℤ} (f : K ⟶ L) [QuasiIso f
   let : Abelian (ModuleCat.{0} ℤ) := integerModuleAbelian
   let : rationalStalk.IsKInjective := rationalStalk_isKInjective
   exact IsKInjective.quasiIso_prePostcomp rationalStalk f
+
+example (K : CochainComplex (ModuleCat.{0} ℤ) ℤ) (hK : K.Acyclic) :
+    (HomComplex K rationalStalk).Acyclic := by
+  let : Abelian (ModuleCat.{0} ℤ) := integerModuleAbelian
+  exact (isKInjective_iff_acyclic_homComplex rationalStalk).mp
+    rationalStalk_isKInjective K hK
 
 end CochainComplex

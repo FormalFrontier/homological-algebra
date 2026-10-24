@@ -17,6 +17,7 @@ public import HomologicalAlgebra.ChainComplex.Projective
 public import HomologicalAlgebra.Cochain.HomComplexFunctoriality
 public import HomologicalAlgebra.Cochain.HomComplexQuasiIso
 public import HomologicalAlgebra.Cochain.HomComplexVanishing
+public import HomologicalAlgebra.Cochain.KInjective
 public import HomologicalAlgebra.Cochain.KProjective
 public import HomologicalAlgebra.Cochain.RelativePath
 public import HomologicalAlgebra.Homology.ProductTotalAcyclicity
@@ -33,6 +34,8 @@ The cochain relative-path module provides a fixed-arrow pullback of the native
 path object, a strict section, chosen-homotopy lifts and a relative contraction.
 The K-projectivity module characterizes K-projective complexes by acyclicity of their
 abelian-group-valued Hom complexes into all acyclic complexes.
+The K-injectivity module characterizes K-injective complexes by acyclicity of their
+canonical abelian-group-valued Hom complexes from all acyclic complexes.
 The abelian quotient-intersection module provides a chosen-cokernel pairing
 and its monicity for subobjects L ≤ U and any third subobject D.
 The admissible-layer module provides a reversed-lower/forward-upper order
