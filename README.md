@@ -19,6 +19,19 @@ Licensed under Apache-2.0
 
 ## Headline results
 
+- **Hom-complex homotopy invariance and contraction in either variable.**
+  For integer cochain complexes `K, L` in `C : Type u` with only
+  `Category.{v} C` and `Preadditive C`,
+  `CochainComplex.HomComplex.prePostcompHomotopy` returns a joint `Homotopy`
+  from homotopies in both inputs. A supplied `Homotopy (𝟙 K) 0` or
+  `Homotopy (𝟙 L) 0` gives a `Homotopy (𝟙 (HomComplex K L)) 0`, hence
+  acyclicity in every integer degree. Object and morphism universes are
+  independent, and the integer-indexed Hom complex uses unrestricted products
+  of abelian groups. No boundedness, support, finiteness, projectivity,
+  enough-projectives, abelian-category, zero-object, biproduct or additional
+  linearity assumptions are needed.
+  [Producer](HomologicalAlgebra/Cochain/HomComplexFunctoriality.lean).
+
 For integer cochain complexes `K, L` in any preadditive category and any
 integer `n`, `CochainComplex.HomComplex.isZero_homology_iff` identifies
 vanishing of degree-`n` Hom cohomology with null-homotopy of every cochain map
@@ -191,6 +204,9 @@ and native cochain-shift module `HomologicalAlgebra.AdditiveEuler.Shift`, the
 finite-interval cochain Euler module `HomologicalAlgebra.AdditiveEuler.Cochain`,
 or the native long-exact-sequence module
 `HomologicalAlgebra.AdditiveEuler.HomologySupport`.
+For Hom-complex homotopy invariance and contractions in either variable, use
+`HomologicalAlgebra.Cochain.HomComplexFunctoriality`; see
+[Hom-complex homotopy and contractibility](docs/HomComplexHomotopy.md).
 For the separate fixed-arrow path API, import
 `HomologicalAlgebra.Cochain.RelativePath` (or the aggregate
 `HomologicalAlgebra`); see [the guide](docs/CochainRelativePath.md).
