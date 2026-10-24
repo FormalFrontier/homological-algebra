@@ -5,6 +5,7 @@ Authors: Formal Frontier Agents
 module
 
 public import HomologicalAlgebra.Cochain.HomComplexFunctoriality
+public import HomologicalAlgebra.Cochain.HomComplexQuasiIso
 public import Mathlib.Algebra.Homology.HomotopyCategory.HomComplexSingle
 public import Mathlib.Algebra.Homology.HomotopyCategory.MappingCone
 
@@ -277,5 +278,107 @@ example : Nonempty (Homotopy (𝟙 identityCone) 0) ∧
     simp
   refine ⟨fun x y => (homologyAddEquiv (stalk 0) identityCone 0).injective ?_⟩
   exact (hz _).trans (hz _).symm
+
+private lemma stalkCocycle_coefficient
+    (φ : Cochain (stalk 0) (stalk 0) 0) :
+    (stalkCocycle 0 (coefficient φ)).1 = φ := by
+  let ψ : Cochain (stalk 0) (stalk 0) 0 := (stalkCocycle 0 (coefficient φ)).1
+  suffices h : ψ = φ from h
+  apply Cochain.ext
+  intro p q hpq
+  by_cases hp : p = 0
+  · subst p
+    have hq : q = 0 := by omega
+    subst q
+    change ψ.v 0 0 (zero_add 0) = φ.v 0 0 (zero_add 0)
+    have hv : ψ.v 0 0 (zero_add 0) =
+        (stalkIso 0).hom ≫ times (coefficient φ) ≫ (stalkIso 0).inv :=
+      Cochain.fromSingleMk_v (X := Z) (K := stalk 0) (p := 0) (q := 0) (n := 0)
+        (times (coefficient φ) ≫ (stalkIso 0).inv) (zero_add 0)
+    rw [hv]
+    let f : Z ⟶ Z :=
+      (stalkIso 0).inv ≫ φ.v 0 0 (zero_add 0) ≫ (stalkIso 0).hom
+    have hf : f = times (coefficient φ) := by
+      apply AddCommGrpCat.ext
+      intro x
+      have hx := map_zsmul (AddCommGrpCat.Hom.hom f) x (1 : ℤ)
+      simpa [f, coefficient, times, AddCommGrpCat.hom_zsmul,
+        AddMonoidHom.zsmul_apply, ConcreteCategory.id_apply, mul_comm] using hx
+    have ht := congrArg
+      (fun g : Z ⟶ Z => (stalkIso 0).hom ≫ g ≫ (stalkIso 0).inv) hf
+    simpa [f, Category.assoc] using ht.symm
+  · have hq : q ≠ 0 := by omega
+    exact (HomologicalComplex.isZero_single_obj_X (.up ℤ) 0 Z q hq).eq_of_tgt _ _
+
+/-- The degree-zero cohomology of the endomorphism complex of `ℤ[0]` is `ℤ`. -/
+private noncomputable def stalkHomologyZeroEquiv :
+    (HomComplex (stalk 0) (stalk 0)).homology 0 ≃+ ℤ := by
+  refine (homologyAddEquiv (stalk 0) (stalk 0) 0).trans
+    (AddEquiv.ofBijective (stalkClassHom 0) ⟨?_, ?_⟩).symm
+  · intro a b h
+    by_contra hab
+    apply stalkClass_ne_zero 0 (a - b) (sub_ne_zero.mpr hab)
+    change stalkClassHom 0 (a - b) = 0
+    rw [map_sub, h, sub_self]
+  · intro x
+    obtain ⟨z, rfl⟩ := CohomologyClass.mk_surjective x
+    refine ⟨coefficient z.1, ?_⟩
+    change CohomologyClass.mk (stalkCocycle 0 (coefficient z.1)) = CohomologyClass.mk z
+    exact congrArg (CohomologyClass.mk (K := stalk 0) (L := stalk 0) (n := 0))
+      (Subtype.ext (stalkCocycle_coefficient z.1))
+
+/- Both invariance criteria preserve the nonzero identity class on the integer stalk. -/
+example :
+    QuasiIso (prePostcomp (HomotopyEquiv.refl (stalk 0)).hom
+      (HomotopyEquiv.refl (stalk 0)).hom) ∧
+    QuasiIso (prePostcomp (𝟙 (stalk 0)) (𝟙 (stalk 0))) ∧
+    stalkHomologyZeroEquiv (stalkHomology 0 1) = 1 ∧
+    (stalkCocycle 0 1).1 = Cochain.ofHom (𝟙 (stalk 0)) ∧
+    HomologicalComplex.homologyMap (prePostcomp (𝟙 (stalk 0)) (𝟙 (stalk 0))) 0
+      (stalkHomology 0 1) = stalkHomology 0 1 ∧
+    HomologicalComplex.homologyMap (prePostcomp (𝟙 (stalk 0)) (𝟙 (stalk 0))) 0
+      (stalkHomology 0 1) ≠ 0 := by
+  have hequiv : QuasiIso (prePostcomp (HomotopyEquiv.refl (stalk 0)).hom
+      (HomotopyEquiv.refl (stalk 0)).hom) :=
+    quasiIso_prePostcomp_of_homotopyEquiv
+      (HomotopyEquiv.refl (stalk 0)) (HomotopyEquiv.refl (stalk 0))
+  have hquotient : QuasiIso (prePostcomp (𝟙 (stalk 0)) (𝟙 (stalk 0))) :=
+    quasiIso_prePostcomp_of_isIso_quotient_map (𝟙 (stalk 0)) (𝟙 (stalk 0))
+  have hgenerator : stalkHomologyZeroEquiv (stalkHomology 0 1) = 1 := by
+    have hwitness : stalkHomologyZeroEquiv.symm 1 = stalkHomology 0 1 := by
+      change (homologyAddEquiv (stalk 0) (stalk 0) 0).symm (stalkClassHom 0 1) =
+        (homologyAddEquiv (stalk 0) (stalk 0) 0).symm (stalkClass 0 1)
+      rfl
+    rw [← hwitness]
+    exact stalkHomologyZeroEquiv.apply_symm_apply 1
+  have hcoefficient : coefficient (Cochain.ofHom (𝟙 (stalk 0))) = 1 := by
+    change ((stalkIso 0).inv ≫ 𝟙 ((stalk 0).X 0) ≫ (stalkIso 0).hom) (1 : ℤ) = 1
+    simp
+  have hidentity : (stalkCocycle 0 1).1 = Cochain.ofHom (𝟙 (stalk 0)) := by
+    simpa only [hcoefficient] using
+      stalkCocycle_coefficient (Cochain.ofHom (𝟙 (stalk 0)))
+  have hid : prePostcomp (𝟙 (stalk 0)) (𝟙 (stalk 0)) =
+      𝟙 (HomComplex (stalk 0) (stalk 0)) := by
+    simpa only [stalkMap_eq_zsmul, one_zsmul, one_mul] using stalk_action 0 1 1
+  have himage : HomologicalComplex.homologyMap
+      (prePostcomp (𝟙 (stalk 0)) (𝟙 (stalk 0))) 0 (stalkHomology 0 1) =
+        stalkHomology 0 1 := by
+    rw [hid]
+    have hMap : HomologicalComplex.homologyMap
+        (𝟙 (HomComplex (stalk 0) (stalk 0))) 0 =
+          𝟙 ((HomComplex (stalk 0) (stalk 0)).homology 0) :=
+      CategoryTheory.Functor.map_id
+        (HomologicalComplex.homologyFunctor AddCommGrpCat (.up ℤ) 0)
+        (HomComplex (stalk 0) (stalk 0))
+    rw [hMap]
+    exact ConcreteCategory.id_apply _
+  have hnonzero : stalkHomology 0 1 ≠ 0 := by
+    intro hz
+    have h := hgenerator
+    rw [hz, map_zero] at h
+    norm_num at h
+  exact ⟨hequiv, hquotient, hgenerator, hidentity, himage, by
+    rw [himage]
+    exact hnonzero⟩
 
 end HomologicalAlgebraTest.HomComplexFunctoriality

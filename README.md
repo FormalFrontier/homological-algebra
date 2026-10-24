@@ -53,6 +53,22 @@ It requires neither boundedness nor degreewise projectivity, and the object and
 morphism universes of the category are independent.
 [Producer](HomologicalAlgebra/Cochain/KProjective.lean).
 
+For integer cochain complexes in an arbitrary preadditive category,
+`CochainComplex.HomComplex.quasiIso_prePostcomp_of_homotopyEquiv` makes
+`HomComplex.prePostcomp eK.hom eL.hom` a quasi-isomorphism from the Hom complex
+of `(K₁, L₁)` to that of `(K₂, L₂)`, for homotopy equivalences
+`eK : HomotopyEquiv K₂ K₁` and `eL : HomotopyEquiv L₁ L₂`.
+`CochainComplex.HomComplex.quasiIso_prePostcomp_of_isIso_quotient_map` more
+generally applies to `α : K₂ ⟶ K₁` and `β : L₁ ⟶ L₂` whose canonical
+homotopy-quotient images are isomorphisms. Object and morphism universes are
+independent, with no boundedness or support restrictions, products in the
+coefficient category, projectivity, injectivity, or enough-projective/injective
+hypotheses. The Hom complex is abelian-group-valued, so its homology requires
+neither an abelian coefficient category nor homology in that category. For the
+integer stalk ℤ[0], `H⁰(Hom(ℤ[0], ℤ[0])) ≃+ ℤ` sends the identity class to `1`,
+so degree-zero Hom cohomology is nonzero.
+[Producer](HomologicalAlgebra/Cochain/HomComplexQuasiIso.lean).
+
 For integer cochain complexes in any abelian category, a quasi-isomorphism
 `q : X ⟶ Y` induces a quasi-isomorphism
 `HomComplex.prePostcomp (𝟙 K) q` whenever `K` is K-projective, by

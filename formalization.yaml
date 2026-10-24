@@ -75,6 +75,10 @@ status:
       file: HomologicalAlgebra/Cochain/HomComplexVanishing.lean
     - declaration: CochainComplex.HomComplex.acyclic_iff
       file: HomologicalAlgebra/Cochain/HomComplexVanishing.lean
+    - declaration: CochainComplex.HomComplex.quasiIso_prePostcomp_of_homotopyEquiv
+      file: HomologicalAlgebra/Cochain/HomComplexQuasiIso.lean
+    - declaration: CochainComplex.HomComplex.quasiIso_prePostcomp_of_isIso_quotient_map
+      file: HomologicalAlgebra/Cochain/HomComplexQuasiIso.lean
     - declaration: CategoryTheory.ShortComplex.SnakeInput.composableArrowsWithEndpoints_middle_exact
       file: HomologicalAlgebra/Abelian/SnakeLemma.lean
     - declaration: CategoryTheory.ShortComplex.SnakeInput.kernelToL₀X₁IsKernel

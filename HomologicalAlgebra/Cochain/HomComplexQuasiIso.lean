@@ -15,10 +15,16 @@ public import HomologicalAlgebra.Cochain.KProjective
 /-!
 # Quasi-isomorphism invariance of Hom complexes
 
-Postcomposition by a quasi-isomorphism induces a quasi-isomorphism on the
-complex of morphisms from a K-projective complex. The other complexes are
-arbitrary. The Hom complex takes values in abelian groups, so no products
-in the coefficient category are required.
+Pre- and postcomposition by homotopy equivalences induce a quasi-isomorphism
+of Hom complexes over any preadditive category. More generally, it suffices
+that both maps become isomorphisms in the homotopy category. These statements
+apply to arbitrary integer-indexed complexes and require homology only for
+the resulting Hom complexes, which take values in abelian groups.
+
+Postcomposition by a quasi-isomorphism also induces a quasi-isomorphism on the
+complex of morphisms from a K-projective complex over an abelian category.
+The other complexes are arbitrary. No products in the coefficient category
+are required.
 
 The K-projectivity formulation follows Spaltenstein. The Hom-complex model
 and its additive comparisons with morphisms in the homotopy category are
@@ -36,6 +42,56 @@ open CategoryTheory Category
 universe v u
 
 namespace CochainComplex
+
+section
+
+variable {C : Type u} [Category.{v} C] [Preadditive C]
+
+namespace HomComplex
+
+/-- Pre- and postcomposition by homotopy equivalences induce a quasi-isomorphism
+of Hom complexes. The coefficient category need only be preadditive, and all
+four integer-indexed complexes may be unbounded. -/
+lemma quasiIso_prePostcomp_of_homotopyEquiv
+    {K1 K2 L1 L2 : CochainComplex C ℤ}
+    (eK : HomotopyEquiv K2 K1) (eL : HomotopyEquiv L1 L2) :
+    QuasiIso (prePostcomp eK.hom eL.hom) := by
+  classical
+  let e : HomotopyEquiv (HomComplex K1 L1) (HomComplex K2 L2) :=
+    { hom := prePostcomp eK.hom eL.hom
+      inv := prePostcomp eK.inv eL.inv
+      homotopyHomInvId := by
+        simpa only [prePostcomp_comp, prePostcomp_id] using
+          (prePostcompHomotopy eK.homotopyInvHomId eL.homotopyHomInvId)
+      homotopyInvHomId := by
+        simpa only [prePostcomp_comp, prePostcomp_id] using
+          (prePostcompHomotopy eK.homotopyHomInvId eL.homotopyInvHomId) }
+  exact e.quasiIso_hom
+
+/-- If both maps become isomorphisms in the homotopy category, their joint
+pre- and postcomposition map is a quasi-isomorphism of Hom complexes.
+No homology, projectivity, or injectivity assumptions on the coefficient
+category or on its complexes are required. -/
+lemma quasiIso_prePostcomp_of_isIso_quotient_map
+    {K1 K2 L1 L2 : CochainComplex C ℤ}
+    (α : K2 ⟶ K1) (β : L1 ⟶ L2)
+    [IsIso ((HomotopyCategory.quotient C (.up ℤ)).map α)]
+    [IsIso ((HomotopyCategory.quotient C (.up ℤ)).map β)] :
+    QuasiIso (prePostcomp α β) := by
+  have hα :=
+    (HomologicalComplex.isIso_quotient_map_iff_homotopyEquivalences α).1
+      (inferInstance : IsIso ((HomotopyCategory.quotient C (.up ℤ)).map α))
+  have hβ :=
+    (HomologicalComplex.isIso_quotient_map_iff_homotopyEquivalences β).1
+      (inferInstance : IsIso ((HomotopyCategory.quotient C (.up ℤ)).map β))
+  obtain ⟨eK, heK⟩ := hα
+  obtain ⟨eL, heL⟩ := hβ
+  simpa only [heK, heL] using
+    (quasiIso_prePostcomp_of_homotopyEquiv eK eL)
+
+end HomComplex
+
+end
 
 variable {C : Type u} [Category.{v} C] [Abelian C]
 
