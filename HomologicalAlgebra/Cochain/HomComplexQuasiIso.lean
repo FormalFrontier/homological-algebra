@@ -9,6 +9,7 @@ import Mathlib.Algebra.Homology.HomotopyCategory.ShiftSequence
 import Mathlib.CategoryTheory.Functor.ReflectsIso.Basic
 import Mathlib.CategoryTheory.Types.Basic
 
+public import Mathlib.Algebra.Homology.DerivedCategory.KInjective
 public import HomologicalAlgebra.Cochain.HomComplexFunctoriality
 public import HomologicalAlgebra.Cochain.KProjective
 
@@ -23,12 +24,14 @@ the resulting Hom complexes, which take values in abelian groups.
 
 Postcomposition by a quasi-isomorphism also induces a quasi-isomorphism on the
 complex of morphisms from a K-projective complex over an abelian category.
-The other complexes are arbitrary. No products in the coefficient category
-are required.
+Dually, precomposition by a quasi-isomorphism induces a quasi-isomorphism on
+the complex of morphisms to a K-injective complex. The other complexes are
+arbitrary. No products in the coefficient category are required.
 
-The K-projectivity formulation follows Spaltenstein. The Hom-complex model
-and its additive comparisons with morphisms in the homotopy category are
-Mathlib constructions due to Joël Riou.
+The K-projectivity and K-injectivity formulations follow Spaltenstein. The
+Hom-complex model and its additive comparisons with morphisms in the homotopy
+and derived categories are Mathlib constructions due to Joël Riou
+(2025, Apache-2.0).
 
 ## References
 
@@ -168,5 +171,89 @@ lemma IsKProjective.quasiIso_prePostcomp (K : CochainComplex C ℤ)
     change Function.Bijective (fun x => f x)
     exact hb
   exact CategoryTheory.isIso_of_reflects_iso f (forget AddCommGrpCat)
+
+/-- Precomposition by a quasi-isomorphism induces a quasi-isomorphism on the
+Hom complex to a K-injective complex. This is the quasi-isomorphism-invariance
+formulation of K-injectivity in Spaltenstein, *Resolutions of unbounded complexes*, §1.
+The proof uses Joël Riou's homotopy- and derived-category comparisons in Mathlib. -/
+lemma IsKInjective.quasiIso_prePostcomp (I : CochainComplex C ℤ)
+    [I.IsKInjective] {K L : CochainComplex C ℤ} (f : K ⟶ L) [QuasiIso f] :
+    QuasiIso (HomComplex.prePostcomp f (𝟙 I)) := by
+  classical
+  let := HasDerivedCategory.standard C
+  rw [_root_.quasiIso_iff]
+  intro n
+  rw [_root_.quasiIsoAt_iff_isIso_homologyMap]
+  let h := (HomotopyCategory.quotient C (.up ℤ)).map f
+  -- The source map is unshifted; only the fixed K-injective target is shifted.
+  have hderived : IsIso (DerivedCategory.Qh.map h) := by
+    have heq : DerivedCategory.Qh.map h =
+        (DerivedCategory.quotientCompQhIso C).hom.app K ≫
+          DerivedCategory.Q.map f ≫
+          (DerivedCategory.quotientCompQhIso C).inv.app L := by
+      dsimp only [h]
+      rw [← Category.assoc, ← DerivedCategory.quotientCompQhIso_hom_naturality]
+      simp [Category.assoc]
+    rw [heq]
+    infer_instance
+  -- Both comparisons have arbitrary sources and the same K-injective target.
+  have hpre : Function.Bijective
+      (fun g : (HomotopyCategory.quotient C (.up ℤ)).obj L ⟶
+          (HomotopyCategory.quotient C (.up ℤ)).obj (I⟦n⟧) => h ≫ g) := by
+    let := hderived
+    constructor
+    · intro g₁ g₂ hg
+      apply (IsKInjective.Qh_map_bijective
+        ((HomotopyCategory.quotient C (.up ℤ)).obj L) (I⟦n⟧)).injective
+      apply (cancel_epi (DerivedCategory.Qh.map h)).1
+      simpa only [Functor.map_comp] using
+        congrArg (fun g => DerivedCategory.Qh.map g) hg
+    · intro g
+      obtain ⟨g', hg'⟩ := (IsKInjective.Qh_map_bijective
+        ((HomotopyCategory.quotient C (.up ℤ)).obj L) (I⟦n⟧)).surjective
+          (inv (DerivedCategory.Qh.map h) ≫ DerivedCategory.Qh.map g)
+      refine ⟨g', ?_⟩
+      apply (IsKInjective.Qh_map_bijective
+        ((HomotopyCategory.quotient C (.up ℤ)).obj K) (I⟦n⟧)).injective
+      rw [Functor.map_comp, hg']
+      simp
+  let φ := HomologicalComplex.homologyMap (HomComplex.prePostcomp f (𝟙 I)) n
+  let eL := (HomComplex.homologyAddEquiv L I n).trans
+    (HomComplex.CohomologyClass.homAddEquiv (K := L) (L := I) (n := n))
+  let eK := (HomComplex.homologyAddEquiv K I n).trans
+    (HomComplex.CohomologyClass.homAddEquiv (K := K) (L := I) (n := n))
+  -- The actual cohomology map agrees with precomposition under these comparisons.
+  have hnat (x : (HomComplex L I).homology n) : eK (φ x) = h ≫ eL x := by
+    have hshift :
+        (CategoryTheory.shiftFunctor
+          (HomologicalComplex C (ComplexShape.up ℤ)) n).map (𝟙 I) =
+        𝟙 ((CategoryTheory.shiftFunctor
+          (HomologicalComplex C (ComplexShape.up ℤ)) n).obj I) :=
+      (CategoryTheory.shiftFunctor
+        (HomologicalComplex C (ComplexShape.up ℤ)) n).map_id I
+    have hquot :=
+      (HomotopyCategory.quotient C (.up ℤ)).map_id
+        ((CategoryTheory.shiftFunctor
+          (HomologicalComplex C (ComplexShape.up ℤ)) n).obj I)
+    have hnat := HomComplex.homologyAddEquiv_naturality f (𝟙 I) n x
+    rw [hshift, hquot, Category.comp_id] at hnat
+    exact hnat
+  have hb : Function.Bijective (fun x => φ x) := by
+    constructor
+    · intro x y hxy
+      apply eL.injective
+      apply hpre.injective
+      exact (hnat x).symm.trans ((congrArg eK hxy).trans (hnat y))
+    · intro y
+      obtain ⟨g, hg⟩ := hpre.surjective (eK y)
+      obtain ⟨x, hx⟩ := eL.surjective g
+      refine ⟨x, eK.injective ?_⟩
+      rw [hnat x, hx]
+      exact hg
+  have : IsIso ((forget AddCommGrpCat).map φ) := by
+    apply (CategoryTheory.isIso_iff_bijective _).2
+    change Function.Bijective (fun x => φ x)
+    exact hb
+  exact CategoryTheory.isIso_of_reflects_iso φ (forget AddCommGrpCat)
 
 end CochainComplex

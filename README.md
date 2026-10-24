@@ -80,6 +80,14 @@ Spaltenstein, *Resolutions of unbounded complexes*, §1; the proof uses Joël Ri
 Hom-complex, homotopy-category and derived-category comparisons in Mathlib.
 [Producer](HomologicalAlgebra/Cochain/HomComplexQuasiIso.lean).
 
+Dually, for a K-injective complex `I`,
+`CochainComplex.IsKInjective.quasiIso_prePostcomp` makes precomposition by any
+quasi-isomorphism `f : K ⟶ L` a quasi-isomorphism
+`HomComplex L I ⟶ HomComplex K I`. The complexes `K, L` are arbitrary, object
+and morphism universes are independent, and there are no boundedness,
+enough-injective, or product hypotheses. The rational stalk `ℚ[0]` over `ℤ`
+provides a K-injective target with nonzero degree-zero cohomology.
+
 Building on mathlib's abelian categories, native complexes and homology, the
 Euler results apply to `μ : C → Γ`, where `C` is abelian and `Γ` is any additive
 commutative group, including groups with torsion. Except where a weaker
