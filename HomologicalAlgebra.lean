@@ -5,6 +5,8 @@ Authors: Formal Frontier Agents
 module
 public import HomologicalAlgebra.QuasiIsoZero
 
+public import HomologicalAlgebra.Cochain.HomComplexShift
+
 public import HomologicalAlgebra.Abelian.AdmissibleLayers
 public import HomologicalAlgebra.Abelian.QuotientIntersection
 public import HomologicalAlgebra.Abelian.SnakeLemma
