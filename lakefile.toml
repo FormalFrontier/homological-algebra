@@ -19,6 +19,7 @@ name = "HomologicalAlgebra"
 
 [[lean_lib]]
 name = "HomologicalAlgebraTest"
+globs = ["HomologicalAlgebraTest", "HomologicalAlgebraTest.+"]
 
 # Mathematical test fixtures may consist entirely of private declarations.
 [lean_lib.leanOptions]

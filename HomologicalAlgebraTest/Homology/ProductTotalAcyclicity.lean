@@ -21,10 +21,15 @@ open CategoryTheory CategoryTheory.QuadrantProductTotal
 
 namespace HomologicalAlgebraTest.QuadrantProductTotal
 
+/-- The objects of the three-term row associated to `S`: `S.X₃`, `S.X₂`, and `S.X₁`
+in degrees `0`, `1`, and `2`, respectively, and the trivial integer module `PUnit`
+in every higher degree. -/
 def rowObject (S : ShortComplex (ModuleCat ℤ)) (p : ℕ) : ModuleCat ℤ :=
   if p = 0 then S.X₃ else if p = 1 then S.X₂ else if p = 2 then S.X₁
     else ModuleCat.of ℤ PUnit
 
+/-- The row differential is `S.g` from degree `1` to degree `0` and `S.f` from
+degree `2` to degree `1`; every other component is zero. -/
 def rowDifferential (S : ShortComplex (ModuleCat ℤ)) (i j : ℕ) :
     rowObject S i ⟶ rowObject S j :=
   if h : i = 1 ∧ j = 0 then by
@@ -35,6 +40,10 @@ def rowDifferential (S : ShortComplex (ModuleCat ℤ)) (i j : ℕ) :
     exact S.f
   else 0
 
+/-- The nonnegatively graded chain complex with `S.X₁ ⟶ S.X₂ ⟶ S.X₃` in
+degrees `2`, `1`, and `0`, trivial modules in higher degrees, and differentials
+`S.f` and `S.g`. The short-complex relation `S.f ≫ S.g = 0` gives the
+differential-square-zero condition. -/
 def row (S : ShortComplex (ModuleCat ℤ)) :
     HomologicalComplex (ModuleCat ℤ) (ComplexShape.down ℕ) where
   X := rowObject S
@@ -62,6 +71,9 @@ def row (S : ShortComplex (ModuleCat ℤ)) :
       exact S.zero
     · simp [rowDifferential, h10, h21]
 
+/-- The bicomplex with a copy of `row S` in every vertical degree and zero
+vertical differentials. Its horizontal rows are the three-term chain complex
+associated to `S`. -/
 def constantRows (S : ShortComplex (ModuleCat ℤ)) : Bicomplex ℤ :=
   HomologicalComplex.mk (fun _ => row S) (fun _ _ => 0)
     (by intro i j _; rfl) (by intro i j l _ _; simp)
@@ -118,6 +130,8 @@ theorem constantRows_acyclic (S : ShortComplex (ModuleCat ℤ)) (hS : S.ShortExa
     (productTotal (constantRows S)).Acyclic :=
   acyclic_productTotal (constantRows S) (fun _ => row_acyclic S hS)
 
+/-- Reduction of integers modulo two, viewed as a `ℤ`-linear map from `ℤ` to
+`ZMod 2`. -/
 def modTwo : ℤ →ₗ[ℤ] ZMod 2 := (Int.castAddHom (ZMod 2)).toIntLinearMap
 
 theorem modTwo_surjective : Function.Surjective modTwo :=

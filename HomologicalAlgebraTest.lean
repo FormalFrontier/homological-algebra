@@ -15,6 +15,7 @@ public import HomologicalAlgebraTest.AdditiveEuler.Shift
 public import HomologicalAlgebraTest.ChainComplex.Projective
 public import HomologicalAlgebraTest.Cochain.HomComplexContractibility
 public import HomologicalAlgebraTest.Cochain.HomComplexFunctoriality
+public import HomologicalAlgebraTest.Cochain.HomComplexQuasiIsoCriteria
 public import HomologicalAlgebraTest.Cochain.HomComplexVanishing
 public import HomologicalAlgebraTest.Cochain.KInjective
 public import HomologicalAlgebraTest.Cochain.KProjective

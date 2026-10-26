@@ -34,6 +34,8 @@ theorem rational_line_length :
   rw [rational_length_eq_finrank]
   simp
 
+/-- The chain complex with the rational line in degree `-1` and zero objects in all other
+degrees. -/
 def rationalNegativeSingle : ChainComplex (FGModuleCat ℚ) ℤ :=
   (HomologicalComplex.single (FGModuleCat ℚ) (ComplexShape.down ℤ) (-1)).obj
     (FGModuleCat.of ℚ ℚ)
@@ -68,6 +70,8 @@ theorem rationalNegativeSingle_homology_sum :
       -1 := by
   rw [← rationalNegativeSingle_euler, rationalNegativeSingle_term_sum]
 
+/-- The composition length of a finitely generated rational module, reduced modulo `3`.
+Equivalently, its dimension over the rationals reduced modulo `3`. -/
 def modularLength (M : FGModuleCat ℚ) : ZMod 3 :=
   Int.castAddHom (ZMod 3) (lengthInvariant ℚ M)
 

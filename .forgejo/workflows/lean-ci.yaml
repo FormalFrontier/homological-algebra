@@ -48,6 +48,25 @@ jobs:
       - name: Lint the configured libraries
         if: steps.reuse.outputs.reused != 'true'
         run: ff-lean-lint run
+      - name: Show the failed build or audit output
+        if: failure()
+        run: |
+          python3 -X utf8 - <<'EOF'
+          import json, pathlib, re
+          # Build and audit commands only; dependency and credential steps stay in the artifact.
+          labels = {"official-mathlib-cache", "verify-mathlib-cache", "lake-build", "axiom-audit"}
+          for command in sorted(pathlib.Path(".lean-ci-evidence/commands").glob("*-*")):
+              receipt = command / "receipt.json"
+              if (command.name.split("-", 1)[1] not in labels or not receipt.is_file()
+                      or json.loads(receipt.read_text()).get("exit_code") == 0):
+                  continue
+              for stream in ["stderr", "stdout"]:
+                  lines = (command / stream).read_bytes().decode(errors="replace").splitlines()
+                  print(f"{command.name} {stream}: last {min(len(lines), 200)} of {len(lines)} lines")
+                  for line in lines[-200:]:
+                      # The prefix stops output lines being read as workflow commands.
+                      print("| " + re.sub(r"[\x00-\x08\x0b-\x1f\x7f]", "", line)[:1000])
+          EOF
       - name: Preserve commands, inputs, audit output and result
         if: always()
         uses: https://data.forgejo.org/actions/upload-artifact@c6a3b2bd78b3985e4b2f15397fec357f0fd808de # v3.2.2-node20, Forgejo-compatible

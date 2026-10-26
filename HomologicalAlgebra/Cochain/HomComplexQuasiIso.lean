@@ -28,6 +28,13 @@ Dually, precomposition by a quasi-isomorphism induces a quasi-isomorphism on
 the complex of morphisms to a K-injective complex. The other complexes are
 arbitrary. No products in the coefficient category are required.
 
+For quasi-isomorphisms `f : K ⟶ L` and `g : I ⟶ J`, simultaneous
+pre- and postcomposition is a quasi-isomorphism under either crossed pair
+of hypotheses: `K.IsKProjective` and `I.IsKInjective`, or `L.IsKProjective`
+and `J.IsKInjective`. The proofs factor through the Hom complex from `K`
+to `I`, or from `L` to `J`, respectively, and reuse the one-variable
+statements.
+
 The K-projectivity and K-injectivity formulations follow Spaltenstein. The
 Hom-complex model and its additive comparisons with morphisms in the homotopy
 and derived categories are Mathlib constructions due to Joël Riou
@@ -255,5 +262,39 @@ lemma IsKInjective.quasiIso_prePostcomp (I : CochainComplex C ℤ)
     change Function.Bijective (fun x => φ x)
     exact hb
   exact CategoryTheory.isIso_of_reflects_iso φ (forget AddCommGrpCat)
+
+/-- Joint pre- and postcomposition by quasi-isomorphisms is a quasi-isomorphism
+when `K` is K-projective and `I` is K-injective. The factorization passes through
+`HomComplex K I`: first precompose with `f` at the fixed target `I`, then
+postcompose with `g` at the fixed source `K`. No projectivity or injectivity
+conditions on `L` or `J` are needed. -/
+lemma IsKProjective.quasiIso_prePostcomp_of_isKInjective
+    {K L I J : CochainComplex C ℤ} [K.IsKProjective] [I.IsKInjective]
+    (f : K ⟶ L) (g : I ⟶ J) [QuasiIso f] [QuasiIso g] :
+    QuasiIso (HomComplex.prePostcomp f g) := by
+  let : QuasiIso (HomComplex.prePostcomp f (𝟙 I)) :=
+    IsKInjective.quasiIso_prePostcomp I f
+  let : QuasiIso (HomComplex.prePostcomp (𝟙 K) g) :=
+    IsKProjective.quasiIso_prePostcomp K g
+  simpa only [← HomComplex.prePostcomp_comp, Category.id_comp, Category.comp_id] using
+    (inferInstance : QuasiIso
+      (HomComplex.prePostcomp f (𝟙 I) ≫ HomComplex.prePostcomp (𝟙 K) g))
+
+/-- Joint pre- and postcomposition by quasi-isomorphisms is a quasi-isomorphism
+when `L` is K-projective and `J` is K-injective. The factorization passes through
+`HomComplex L J`: first postcompose with `g` at the fixed source `L`, then
+precompose with `f` at the fixed target `J`. No projectivity or injectivity
+conditions on `K` or `I` are needed. -/
+lemma IsKInjective.quasiIso_prePostcomp_of_isKProjective
+    {K L I J : CochainComplex C ℤ} [L.IsKProjective] [J.IsKInjective]
+    (f : K ⟶ L) (g : I ⟶ J) [QuasiIso f] [QuasiIso g] :
+    QuasiIso (HomComplex.prePostcomp f g) := by
+  let : QuasiIso (HomComplex.prePostcomp (𝟙 L) g) :=
+    IsKProjective.quasiIso_prePostcomp L g
+  let : QuasiIso (HomComplex.prePostcomp f (𝟙 J)) :=
+    IsKInjective.quasiIso_prePostcomp J f
+  simpa only [← HomComplex.prePostcomp_comp, Category.id_comp, Category.comp_id] using
+    (inferInstance : QuasiIso
+      (HomComplex.prePostcomp (𝟙 L) g ≫ HomComplex.prePostcomp f (𝟙 J)))
 
 end CochainComplex
