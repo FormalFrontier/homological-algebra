@@ -3,6 +3,7 @@ SPDX-License-Identifier: Apache-2.0
 Authors: Formal Frontier Agents
 -/
 module
+public import HomologicalAlgebra.QuasiIsoZero
 
 public import HomologicalAlgebra.Abelian.AdmissibleLayers
 public import HomologicalAlgebra.Abelian.QuotientIntersection
