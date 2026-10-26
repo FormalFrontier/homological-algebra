@@ -26,6 +26,7 @@ public import HomologicalAlgebra.Cochain.KProjective
 public import HomologicalAlgebra.Cochain.RelativePath
 public import HomologicalAlgebra.Homology.ProductTotalAcyclicity
 public import HomologicalAlgebra.Cochain.HomotopyQuotientQuasiIso
+public import HomologicalAlgebra.Cochain.HomotopyQuotientAcyclic
 
 /-!
 # Homological Algebra
