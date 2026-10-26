@@ -15,6 +15,8 @@ quasi-isomorphism induces a quasi-isomorphism on its abelian-group-valued Hom
 complex. Dually, it is K-injective if and only if precomposition by every
 quasi-isomorphism preserves its Hom complex. The coefficient category is any
 abelian category; no boundedness or products in that category are required.
+Both properties are preserved by retractions of cochain complexes. This follows
+by applying homology to the induced retraction of Hom complexes.
 
 For the converse, the zero endomorphism of an acyclic complex is a
 quasi-isomorphism. Its action on Hom-complex cohomology is therefore both zero
@@ -130,5 +132,72 @@ lemma isKInjective_iff_quasiIso_prePostcomp (I : CochainComplex C ℤ) :
     apply (cancel_mono (0 : (HomComplex K I).homology n ⟶
       (HomComplex K I).homology n)).mp
     simp
+
+/-- A retract of a K-projective cochain complex is K-projective. -/
+lemma IsKProjective.of_retract {K P : CochainComplex C ℤ} [P.IsKProjective]
+    (i : K ⟶ P) (r : P ⟶ K) (h : i ≫ r = 𝟙 K) : K.IsKProjective := by
+  apply (isKProjective_iff_acyclic_homComplex K).mpr
+  intro L hL
+  have hP := (isKProjective_iff_acyclic_homComplex P).mp
+    (inferInstance : P.IsKProjective) L hL
+  let a : HomComplex K L ⟶ HomComplex P L :=
+    HomComplex.prePostcomp r (𝟙 L)
+  let b : HomComplex P L ⟶ HomComplex K L :=
+    HomComplex.prePostcomp i (𝟙 L)
+  have hab : a ≫ b = 𝟙 (HomComplex K L) := by
+    dsimp only [a, b]
+    rw [← HomComplex.prePostcomp_comp, h]
+    simp only [Category.comp_id, HomComplex.prePostcomp_id]
+  intro n
+  rw [HomologicalComplex.exactAt_iff_isZero_homology, IsZero.iff_id_eq_zero]
+  have hz : 𝟙 ((HomComplex P L).homology n) = 0 :=
+    (IsZero.iff_id_eq_zero _).mp ((hP n).isZero_homology)
+  have habn :
+      HomologicalComplex.homologyMap a n ≫ HomologicalComplex.homologyMap b n =
+        𝟙 ((HomComplex K L).homology n) := by
+    rw [← HomologicalComplex.homologyMap_comp, hab,
+      HomologicalComplex.homologyMap_id]
+  have ha : HomologicalComplex.homologyMap a n = 0 := by
+    calc
+      HomologicalComplex.homologyMap a n =
+          HomologicalComplex.homologyMap a n ≫
+            𝟙 ((HomComplex P L).homology n) := by rw [Category.comp_id]
+      _ = 0 := by rw [hz, comp_zero]
+  rw [← habn, ha, zero_comp]
+
+/-- A retract of a K-injective cochain complex is K-injective. -/
+lemma IsKInjective.of_retract {K I : CochainComplex C ℤ} [I.IsKInjective]
+    (i : K ⟶ I) (r : I ⟶ K) (hir : i ≫ r = 𝟙 K) :
+    K.IsKInjective := by
+  apply (isKInjective_iff_acyclic_homComplex K).mpr
+  intro L hL
+  have hI := (isKInjective_iff_acyclic_homComplex I).mp
+    (inferInstance : I.IsKInjective) L hL
+  let a : HomComplex L K ⟶ HomComplex L I :=
+    HomComplex.prePostcomp (𝟙 L) i
+  let b : HomComplex L I ⟶ HomComplex L K :=
+    HomComplex.prePostcomp (𝟙 L) r
+  have hab : a ≫ b = 𝟙 (HomComplex L K) := by
+    dsimp only [a, b]
+    rw [← HomComplex.prePostcomp_comp, Category.id_comp, hir,
+      HomComplex.prePostcomp_id]
+  intro n
+  rw [HomologicalComplex.exactAt_iff_isZero_homology, IsZero.iff_id_eq_zero]
+  have hzero : 𝟙 ((HomComplex L I).homology n) = 0 :=
+    (IsZero.iff_id_eq_zero ((HomComplex L I).homology n)).mp
+      ((hI n).isZero_homology)
+  calc
+    𝟙 ((HomComplex L K).homology n) =
+        HomologicalComplex.homologyMap a n ≫
+          HomologicalComplex.homologyMap b n := by
+      rw [← HomologicalComplex.homologyMap_comp, hab,
+        HomologicalComplex.homologyMap_id]
+    _ = HomologicalComplex.homologyMap a n ≫
+        𝟙 ((HomComplex L I).homology n) ≫
+          HomologicalComplex.homologyMap b n := by
+      simp only [Category.id_comp]
+    _ = 0 := by
+      rw [hzero]
+      simp
 
 end CochainComplex
