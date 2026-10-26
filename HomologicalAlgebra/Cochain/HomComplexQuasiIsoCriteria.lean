@@ -6,6 +6,7 @@ module
 
 public import HomologicalAlgebra.Cochain.HomComplexQuasiIso
 public import HomologicalAlgebra.Cochain.KInjective
+public import HomologicalAlgebra.QuasiIsoZero
 
 /-!
 # K-projectivity, K-injectivity, and quasi-isomorphisms
@@ -57,34 +58,16 @@ lemma isKProjective_iff_quasiIso_prePostcomp (K : CochainComplex C ℤ) :
   · intro h
     apply (isKProjective_iff_acyclic_homComplex K).mpr
     intro L hL
-    have hzero : QuasiIso (0 : L ⟶ L) := by
-      rw [_root_.quasiIso_iff]
-      intro n
-      rw [_root_.quasiIsoAt_iff_isIso_homologyMap]
-      have hz := (hL n).isZero_homology
-      rw [IsZero.iff_id_eq_zero] at hz
-      refine ⟨⟨0, ?_, ?_⟩⟩ <;> simpa using hz.symm
-    have hpost := h (0 : L ⟶ L) hzero
-    intro n
-    rw [HomologicalComplex.exactAt_iff_isZero_homology, IsZero.iff_id_eq_zero]
-    let φ := HomologicalComplex.homologyMap
-      (HomComplex.prePostcomp (𝟙 K) (0 : L ⟶ L)) n
-    have hφ : IsIso φ := by
-      rw [_root_.quasiIso_iff] at hpost
-      have hn := hpost n
-      rwa [_root_.quasiIsoAt_iff_isIso_homologyMap] at hn
-    let := hφ
-    let e := (HomComplex.homologyAddEquiv K L n).trans
-      (HomComplex.CohomologyClass.homAddEquiv (K := K) (L := L) (n := n))
-    have hφzero : φ = 0 := by
-      ext x
-      change φ x = 0
-      apply e.injective
-      rw [map_zero]
-      simpa [φ, e] using
-        (HomComplex.homologyAddEquiv_naturality (𝟙 K) (0 : L ⟶ L) n x)
-    apply (cancel_epi φ).mp
-    simp [hφzero]
+    have hzero : QuasiIso (0 : L ⟶ L) :=
+      (HomologicalComplex.quasiIso_zero_iff_exactAt L L).mpr ⟨hL, hL⟩
+    have hPrePostcompZero :
+        HomComplex.prePostcomp (𝟙 K) (0 : L ⟶ L) = 0 := by
+      apply HomComplex.prePostcomp_zero_right
+    have hHomZero : QuasiIso
+        (0 : HomComplex K L ⟶ HomComplex K L) := by
+      simpa only [hPrePostcompZero] using h (0 : L ⟶ L) hzero
+    exact ((HomologicalComplex.quasiIso_zero_iff_exactAt
+      (HomComplex K L) (HomComplex K L)).mp hHomZero).1
 
 /-- An integer cochain complex is K-injective if and only if precomposition
 by every quasi-isomorphism induces a quasi-isomorphism on its canonical
@@ -104,34 +87,16 @@ lemma isKInjective_iff_quasiIso_prePostcomp (I : CochainComplex C ℤ) :
   · intro h
     apply (isKInjective_iff_acyclic_homComplex I).mpr
     intro K hK
-    have : QuasiIso (0 : K ⟶ K) := by
-      rw [_root_.quasiIso_iff]
-      intro n
-      rw [_root_.quasiIsoAt_iff_isIso_homologyMap]
-      have hId : 𝟙 (K.homology n) = 0 :=
-        (IsZero.iff_id_eq_zero (K.homology n)).mp ((hK n).isZero_homology)
-      have hIso : IsIso (0 : K.homology n ⟶ K.homology n) := by
-        refine ⟨⟨0, ?_, ?_⟩⟩ <;> simpa only [zero_comp] using hId.symm
-      simpa using hIso
+    have hzero : QuasiIso (0 : K ⟶ K) :=
+      (HomologicalComplex.quasiIso_zero_iff_exactAt K K).mpr ⟨hK, hK⟩
     have hPrePostcompZero :
         HomComplex.prePostcomp (0 : K ⟶ K) (𝟙 I) = 0 := by
-      ext
-      simp [HomComplex.prePostcomp]
-      rfl
+      apply HomComplex.prePostcomp_zero_left
     have hHomZero : QuasiIso
         (0 : HomComplex K I ⟶ HomComplex K I) := by
-      simpa only [hPrePostcompZero] using h (0 : K ⟶ K) inferInstance
-    rw [_root_.quasiIso_iff] at hHomZero
-    intro n
-    rw [HomologicalComplex.exactAt_iff_isZero_homology, IsZero.iff_id_eq_zero]
-    have hn := hHomZero n
-    rw [_root_.quasiIsoAt_iff_isIso_homologyMap] at hn
-    have : IsIso (0 : (HomComplex K I).homology n ⟶
-        (HomComplex K I).homology n) := by
-      simpa using hn
-    apply (cancel_mono (0 : (HomComplex K I).homology n ⟶
-      (HomComplex K I).homology n)).mp
-    simp
+      simpa only [hPrePostcompZero] using h (0 : K ⟶ K) hzero
+    exact ((HomologicalComplex.quasiIso_zero_iff_exactAt
+      (HomComplex K I) (HomComplex K I)).mp hHomZero).1
 
 /-- A retract of a K-projective cochain complex is K-projective. -/
 lemma IsKProjective.of_retract {K P : CochainComplex C ℤ} [P.IsKProjective]
