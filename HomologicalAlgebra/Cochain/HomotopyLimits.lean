@@ -15,6 +15,10 @@ Homotopies assemble from the summands of a coproduct or into the factors of a
 product of integer cochain complexes whenever degree evaluation preserves the
 supplied (co)product. The constructions require only preadditivity. Restriction
 and reconstruction identities give equivalences on specified homotopy data.
+For diagonal maps between two families, existence of a homotopy is equivalent
+to existence on each component. Only domain evaluation must preserve coproducts,
+and only codomain evaluation must preserve products. These diagonal criteria
+concern existence, not an equivalence of all homotopy data.
 -/
 
 @[expose] public section
@@ -245,5 +249,107 @@ theorem nonempty_pi_iff : Nonempty (Homotopy f g) ↔
 
 example : ∃ H : Homotopy f g, ∀ i : ι, H.compRight (Pi.π F i) = h i :=
   ⟨piLift F h, piLift_compRight F h⟩
+
+end Homotopy
+
+namespace Homotopy
+
+/-- Diagonal maps between coproducts are homotopic exactly when the component maps are.
+Only evaluation on the domain family must preserve the supplied coproduct. This is an
+existence criterion, not an equivalence on all homotopy data. -/
+theorem nonempty_sigma_map_iff {K L : ι → CochainComplex C ℤ}
+    [HasCoproduct K] [HasCoproduct L]
+    [∀ n : ℤ, PreservesColimit (Discrete.functor K)
+      (HomologicalComplex.eval C (ComplexShape.up ℤ) n)]
+    (f g : ∀ i, K i ⟶ L i) :
+    Nonempty (Homotopy
+      (CategoryTheory.Limits.Sigma.desc (fun i => f i ≫ CategoryTheory.Limits.Sigma.ι L i))
+      (CategoryTheory.Limits.Sigma.desc (fun i => g i ≫ CategoryTheory.Limits.Sigma.ι L i))) ↔
+      ∀ i, Nonempty (Homotopy (f i) (g i)) := by
+  classical
+  constructor
+  · rintro ⟨H⟩ i
+    let p : (∐ L) ⟶ L i := CategoryTheory.Limits.Sigma.desc
+      (fun j => if e : j = i then eqToHom (congrArg L e) else 0)
+    have hi : Homotopy (f i ≫ CategoryTheory.Limits.Sigma.ι L i)
+        (g i ≫ CategoryTheory.Limits.Sigma.ι L i) := by
+      simpa using H.compLeft (CategoryTheory.Limits.Sigma.ι K i)
+    exact ⟨by simpa [Category.assoc, p] using hi.compRight p⟩
+  · intro h
+    apply nonempty_sigma_iff.mpr
+    intro i
+    rcases h i with ⟨hi⟩
+    exact ⟨by simpa using hi.compRight (CategoryTheory.Limits.Sigma.ι L i)⟩
+
+/-- Diagonal maps between products are homotopic exactly when the component maps are.
+Only evaluation on the codomain family must preserve the supplied product. This is an
+existence criterion; off-diagonal homotopy data need not vanish. -/
+theorem nonempty_pi_map_iff {K L : ι → CochainComplex C ℤ}
+    [HasProduct K] [HasProduct L]
+    [∀ n : ℤ, PreservesLimit (Discrete.functor L)
+      (HomologicalComplex.eval C (ComplexShape.up ℤ) n)]
+    (f g : ∀ i, K i ⟶ L i) :
+    Nonempty (Homotopy
+      (CategoryTheory.Limits.Pi.lift (fun i => CategoryTheory.Limits.Pi.π K i ≫ f i))
+      (CategoryTheory.Limits.Pi.lift (fun i => CategoryTheory.Limits.Pi.π K i ≫ g i))) ↔
+      ∀ i, Nonempty (Homotopy (f i) (g i)) := by
+  classical
+  constructor
+  · rintro ⟨H⟩ i
+    let q : K i ⟶ ∏ᶜ K := CategoryTheory.Limits.Pi.lift
+      (fun j => if e : i = j then eqToHom (congrArg K e) else 0)
+    have hi : Homotopy (CategoryTheory.Limits.Pi.π K i ≫ f i)
+        (CategoryTheory.Limits.Pi.π K i ≫ g i) := by
+      simpa using H.compRight (CategoryTheory.Limits.Pi.π L i)
+    exact ⟨by simpa [← Category.assoc, q] using hi.compLeft q⟩
+  · intro h
+    apply (nonempty_pi_iff L).mpr
+    intro i
+    rcases h i with ⟨hi⟩
+    exact ⟨by simpa using hi.compLeft (CategoryTheory.Limits.Pi.π K i)⟩
+
+/-- A supplied coproduct admits a homotopy from identity to zero exactly when each
+summand does, provided degree evaluation preserves that coproduct. -/
+theorem nonempty_sigma_id_zero_iff {K : ι → CochainComplex C ℤ}
+    [HasCoproduct K]
+    [∀ n : ℤ, PreservesColimit (Discrete.functor K)
+      (HomologicalComplex.eval C (ComplexShape.up ℤ) n)] :
+    Nonempty (Homotopy (𝟙 (∐ K)) 0) ↔
+      ∀ i, Nonempty (Homotopy (𝟙 (K i)) 0) := by
+  have hid : CategoryTheory.Limits.Sigma.desc
+      (fun i => 𝟙 (K i) ≫ CategoryTheory.Limits.Sigma.ι K i) = 𝟙 (∐ K) := by
+    apply CategoryTheory.Limits.Sigma.hom_ext
+    intro i
+    simp
+  have hzero : CategoryTheory.Limits.Sigma.desc
+      (fun i => (0 : K i ⟶ K i) ≫ CategoryTheory.Limits.Sigma.ι K i) =
+      (0 : (∐ K) ⟶ ∐ K) := by
+    apply CategoryTheory.Limits.Sigma.hom_ext
+    intro i
+    simp
+  simpa only [hid, hzero] using
+    nonempty_sigma_map_iff (fun i => 𝟙 (K i)) (fun i => (0 : K i ⟶ K i))
+
+/-- A supplied product admits a homotopy from identity to zero exactly when each
+factor does, provided degree evaluation preserves that product. -/
+theorem nonempty_pi_id_zero_iff {K : ι → CochainComplex C ℤ}
+    [HasProduct K]
+    [∀ n : ℤ, PreservesLimit (Discrete.functor K)
+      (HomologicalComplex.eval C (ComplexShape.up ℤ) n)] :
+    Nonempty (Homotopy (𝟙 (∏ᶜ K)) 0) ↔
+      ∀ i, Nonempty (Homotopy (𝟙 (K i)) 0) := by
+  have hid : CategoryTheory.Limits.Pi.lift
+      (fun i => CategoryTheory.Limits.Pi.π K i ≫ 𝟙 (K i)) = 𝟙 (∏ᶜ K) := by
+    apply CategoryTheory.Limits.Pi.hom_ext
+    intro i
+    simp
+  have hzero : CategoryTheory.Limits.Pi.lift
+      (fun i => CategoryTheory.Limits.Pi.π K i ≫ (0 : K i ⟶ K i)) =
+      (0 : (∏ᶜ K) ⟶ ∏ᶜ K) := by
+    apply CategoryTheory.Limits.Pi.hom_ext
+    intro i
+    simp
+  simpa only [hid, hzero] using
+    nonempty_pi_map_iff (fun i => 𝟙 (K i)) (fun i => (0 : K i ⟶ K i))
 
 end Homotopy

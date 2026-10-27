@@ -19,6 +19,18 @@ Licensed under Apache-2.0
 
 ## Headline results
 
+- **Diagonal homotopies and coproducts or products.** For arbitrary families of
+  integer cochain complexes in a preadditive category, the canonical diagonal
+  coproduct maps (respectively product maps) are homotopic if and only if each
+  pair of component maps is homotopic. Both family coproducts or products are
+  supplied; degree evaluation need only preserve the domain coproduct or the
+  codomain product, respectively. In particular, the identity is homotopic to
+  zero on the coproduct or product exactly when it is on every component.
+  Object, morphism and indexing universes are independent, and empty indexing
+  types are allowed. These are existence criteria, not equivalences of all
+  homotopy data; no zero object or global limits are assumed.
+  [Producer](HomologicalAlgebra/Cochain/HomotopyLimits.lean).
+
 - **Ordinary projectivity and injectivity of identity disks.** For any category
   `C : Type u` with `Category.{v} C`, zero morphisms and a zero object, and any
   `n : ℤ` and `X : C`, `CochainComplex.projective_disk_iff` and

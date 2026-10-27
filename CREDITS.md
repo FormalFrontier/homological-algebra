@@ -31,8 +31,14 @@ The core and LES contributor wrote the original admissible-layer Lean
 construction and lower-cut interfaces. Prism repaired the proof, exposed its
 exported equations and wrote its ordinary-import client.
 
-Folio wrote the first five README headline-result groups as documentation, not
-as author of their theorems or proofs.
+Folio wrote the README headline-result groups on ordinary projectivity and
+injectivity of identity disks; Hom-complex homotopy invariance and contraction
+in either variable; K-injectivity via product Hom complexes; K-properties of
+homotopy retracts; and K-projectivity of arbitrary coproducts.
+
+Gnomon wrote the README headline-result group on diagonal homotopies and
+coproducts or products. These are documentation credits, not credits for the
+corresponding theorems or proofs.
 
 ## Mathlib and licensing
 
@@ -52,6 +58,11 @@ The Hom-complex component operations and homology-to-homotopy-category
 comparisons use Joël Riou's `HomComplex` and `HomComplexShift` modules in
 Mathlib (2023), and his `HomComplexCohomology` module (2025). The integer-stalk
 examples also use his `HomComplexSingle` constructions (2023).
+
+The diagonal homotopy criteria follow the library's homotopy assembly and
+restriction approach, using Mathlib's homotopy composition and categorical
+coproduct and product universal properties. Their Lean proofs are original
+project contributions, not copies of dependency implementations.
 
 The original project code is licensed under this repository's
 [Apache-2.0 license](LICENSE) and credited collectively to Formal Frontier
