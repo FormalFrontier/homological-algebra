@@ -98,14 +98,31 @@ theorem sigmaDesc_compLeft_self (h : Homotopy f g) :
   rintro ⟨i⟩
   simp
 
+/-- Homotopies from a coproduct are equivalent to their restrictions to the summands. -/
+def sigmaEquiv : Homotopy f g ≃
+    ∀ i, Homotopy (Sigma.ι F i ≫ f) (Sigma.ι F i ≫ g) where
+  toFun h i := h.compLeft (Sigma.ι F i)
+  invFun := sigmaDesc
+  left_inv := sigmaDesc_compLeft_self
+  right_inv h := funext (sigmaDesc_compLeft h)
+
+@[simp]
+theorem sigmaEquiv_apply (h : Homotopy f g) (i : ι) :
+    sigmaEquiv h i = h.compLeft (Sigma.ι F i) := rfl
+
+@[simp]
+theorem sigmaEquiv_symm_apply
+    (h : ∀ i, Homotopy (Sigma.ι F i ≫ f) (Sigma.ι F i ≫ g)) :
+    sigmaEquiv.symm h = sigmaDesc h := rfl
+
 /-- A homotopy from a coproduct exists exactly when its restrictions admit homotopies. -/
 theorem nonempty_sigma_iff : Nonempty (Homotopy f g) ↔
     ∀ i, Nonempty (Homotopy (Sigma.ι F i ≫ f) (Sigma.ι F i ≫ g)) := by
   constructor
   · rintro ⟨h⟩ i
-    exact ⟨h.compLeft (Sigma.ι F i)⟩
+    exact ⟨sigmaEquiv h i⟩
   · intro h
     classical
-    exact ⟨sigmaDesc (fun i => (h i).some)⟩
+    exact ⟨sigmaEquiv.symm (fun i => (h i).some)⟩
 
 end Homotopy
