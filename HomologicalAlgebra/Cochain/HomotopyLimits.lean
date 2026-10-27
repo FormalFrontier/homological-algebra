@@ -9,12 +9,12 @@ public import Mathlib.CategoryTheory.Limits.Preserves.Basic
 public import Mathlib.CategoryTheory.Limits.Shapes.Products
 
 /-!
-# Homotopies from coproducts of cochain complexes
+# Homotopies and (co)products of cochain complexes
 
-Homotopies on the summands of a coproduct of integer cochain complexes assemble
-whenever degree evaluation preserves the supplied coproduct. The construction
-requires only preadditivity. Its restriction and reconstruction identities
-express the universal property on specified homotopy data.
+Homotopies assemble from the summands of a coproduct or into the factors of a
+product of integer cochain complexes whenever degree evaluation preserves the
+supplied (co)product. The constructions require only preadditivity. Restriction
+and reconstruction identities give equivalences on specified homotopy data.
 -/
 
 @[expose] public section
@@ -218,15 +218,30 @@ theorem piLift_compRight_self (H : Homotopy f g) :
       H.hom a b ≫ (Pi.π F i.as).f b
   exact piLift_hom F (fun j => H.compRight (Pi.π F j)) a b i.as
 
+/-- Restricting homotopies along product projections is an equivalence. -/
+noncomputable def piEquiv :
+    Homotopy f g ≃ ∀ i : ι, Homotopy (f ≫ Pi.π F i) (g ≫ Pi.π F i) where
+  toFun H i := H.compRight (Pi.π F i)
+  invFun := piLift F
+  left_inv := piLift_compRight_self F
+  right_inv k := funext (piLift_compRight F k)
+
+@[simp]
+theorem piEquiv_apply (H : Homotopy f g) (i : ι) :
+    piEquiv F H i = H.compRight (Pi.π F i) := rfl
+
+@[simp]
+theorem piEquiv_symm_apply : (piEquiv F).symm h = piLift F h := rfl
+
 /-- Homotopies into a product exist exactly when all projected homotopies exist. -/
 theorem nonempty_pi_iff : Nonempty (Homotopy f g) ↔
     ∀ i : ι, Nonempty (Homotopy (f ≫ Pi.π F i) (g ≫ Pi.π F i)) := by
   constructor
   · rintro ⟨H⟩ i
-    exact ⟨H.compRight (Pi.π F i)⟩
+    exact ⟨piEquiv F H i⟩
   · intro k
     classical
-    exact ⟨piLift F (fun i => Classical.choice (k i))⟩
+    exact ⟨(piEquiv F).symm (fun i => Classical.choice (k i))⟩
 
 example : ∃ H : Homotopy f g, ∀ i : ι, H.compRight (Pi.π F i) = h i :=
   ⟨piLift F h, piLift_compRight F h⟩

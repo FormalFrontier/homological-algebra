@@ -3,9 +3,12 @@ SPDX-License-Identifier: Apache-2.0
 Authors: Formal Frontier Agents
 -/
 module
+public import HomologicalAlgebra.Cochain.Disks
+public import HomologicalAlgebra.Cochain.DiskAdjunctions
 public import HomologicalAlgebra.QuasiIsoZero
 
 public import HomologicalAlgebra.Cochain.BiproductKCriteria
+public import HomologicalAlgebra.Cochain.KFamilyLimits
 public import HomologicalAlgebra.Cochain.HomotopyLimits
 public import HomologicalAlgebra.Cochain.HomComplexShift
 

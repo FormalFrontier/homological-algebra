@@ -63,6 +63,15 @@ morphism universes of the category are independent.
   enough-projectives/injectives hypotheses are required.
   [Producer](HomologicalAlgebra/Cochain/KInjective.lean).
 
+- **K-injectivity of arbitrary products.** For integer cochain complexes in any
+  abelian category, whenever the particular family `F` has a categorical
+  product, `CochainComplex.isKInjective_pi_iff` identifies K-injectivity of
+  `∏ᶜ F` with K-injectivity of every `F i`. Object, morphism and indexing
+  universes are independent, and empty families are allowed. No global
+  products, boundedness, termwise injectivity, exactness of products or
+  enough-injectives assumption is required.
+  [Producer](HomologicalAlgebra/Cochain/KFamilyLimits.lean).
+
 For integer cochain complexes in an arbitrary preadditive category,
 `CochainComplex.HomComplex.quasiIso_prePostcomp_of_homotopyEquiv` makes
 `HomComplex.prePostcomp eK.hom eL.hom` a quasi-isomorphism from the Hom complex
@@ -243,6 +252,8 @@ For Hom-complex homotopy invariance and contractions in either variable, use
 [Hom-complex homotopy and contractibility](docs/HomComplexHomotopy.md).
 For the K-injectivity characterization, import
 `HomologicalAlgebra.Cochain.KInjective` (or `HomologicalAlgebra`).
+For the supplied-product K-injectivity criterion, import
+`HomologicalAlgebra.Cochain.KFamilyLimits` (or `HomologicalAlgebra`).
 For the separate fixed-arrow path API, import
 `HomologicalAlgebra.Cochain.RelativePath` (or the aggregate
 `HomologicalAlgebra`); see [the guide](docs/CochainRelativePath.md).
