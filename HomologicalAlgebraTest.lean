@@ -4,6 +4,8 @@ Authors: Formal Frontier Agents
 -/
 module
 
+public import HomologicalAlgebraTest.Cochain.HomComplexFixedDegreeCriteria
+
 public import HomologicalAlgebraTest.Abelian.AdmissibleLayers
 public import HomologicalAlgebraTest.Abelian.QuotientIntersection
 public import HomologicalAlgebraTest.Abelian.SnakeLemma

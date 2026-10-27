@@ -17,6 +17,7 @@ public import HomologicalAlgebra.AdditiveEuler.HomologySupport
 public import HomologicalAlgebra.AdditiveEuler.Length
 public import HomologicalAlgebra.AdditiveEuler.Shift
 public import HomologicalAlgebra.ChainComplex.Projective
+public import HomologicalAlgebra.Cochain.HomComplexFixedDegreeCriteria
 public import HomologicalAlgebra.Cochain.HomComplexFunctoriality
 public import HomologicalAlgebra.Cochain.HomComplexQuasiIso
 public import HomologicalAlgebra.Cochain.HomComplexQuasiIsoCriteria
@@ -43,6 +44,8 @@ abelian-group-valued Hom complexes into all acyclic complexes.
 The Hom-complex criteria identify K-projectivity and K-injectivity with
 preservation of all quasi-isomorphisms by the covariant and contravariant
 Hom-complex functors, respectively.
+Both properties are already detected by preservation of any one fixed degree
+of canonical Hom-complex cohomology under every quasi-isomorphism.
 The K-injectivity module characterizes K-injective complexes by acyclicity of their
 canonical abelian-group-valued Hom complexes from all acyclic complexes.
 The abelian quotient-intersection module provides a chosen-cokernel pairing
