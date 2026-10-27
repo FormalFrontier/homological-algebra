@@ -5,6 +5,7 @@ Authors: Formal Frontier Agents
 module
 public import HomologicalAlgebra.QuasiIsoZero
 
+public import HomologicalAlgebra.Cochain.BiproductKCriteria
 public import HomologicalAlgebra.Cochain.HomComplexShift
 
 public import HomologicalAlgebra.Abelian.AdmissibleLayers
