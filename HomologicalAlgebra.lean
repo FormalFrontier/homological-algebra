@@ -5,6 +5,7 @@ Authors: Formal Frontier Agents
 module
 public import HomologicalAlgebra.Cochain.Disks
 public import HomologicalAlgebra.Cochain.DiskAdjunctions
+public import HomologicalAlgebra.Cochain.DiskProjectivity
 public import HomologicalAlgebra.QuasiIsoZero
 
 public import HomologicalAlgebra.Cochain.BiproductKCriteria
@@ -28,6 +29,7 @@ public import HomologicalAlgebra.Cochain.HomComplexQuasiIso
 public import HomologicalAlgebra.Cochain.HomComplexQuasiIsoCriteria
 public import HomologicalAlgebra.Cochain.HomComplexVanishing
 public import HomologicalAlgebra.Cochain.KInjective
+public import HomologicalAlgebra.Cochain.KHomotopy
 public import HomologicalAlgebra.Cochain.KProjective
 public import HomologicalAlgebra.Cochain.RelativePath
 public import HomologicalAlgebra.Homology.ProductTotalAcyclicity
@@ -38,6 +40,8 @@ public import HomologicalAlgebra.Cochain.HomotopyQuotientAcyclic
 # Homological Algebra
 
 The public entry point for reusable homological algebra.
+Identity disks preserve and reflect ordinary categorical projectivity and injectivity
+in any category with zero morphisms and a zero object.
 The additive Euler modules provide a generic short-exact-sequence invariant,
 its finite-length instance, exact-sequence/exact-functor Euler identities, and
 finite-support/native cochain-shift Euler sums, finite-interval cochain Euler identities,
@@ -53,6 +57,8 @@ Both properties are already detected by preservation of any one fixed degree
 of canonical Hom-complex cohomology under every quasi-isomorphism.
 The K-injectivity module characterizes K-injective complexes by acyclicity of their
 canonical abelian-group-valued Hom complexes from all acyclic complexes.
+Both K-properties descend along one-sided homotopy retractions of integer
+cochain complexes in any abelian category.
 The abelian quotient-intersection module provides a chosen-cokernel pairing
 and its monicity for subobjects L ≤ U and any third subobject D.
 The admissible-layer module provides a reversed-lower/forward-upper order

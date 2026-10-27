@@ -5,6 +5,7 @@ Authors: Formal Frontier Agents
 module
 
 public import HomologicalAlgebraTest.Cochain.HomComplexFixedDegreeCriteria
+public import HomologicalAlgebraTest.Cochain.DiskProjectivity
 
 public import HomologicalAlgebraTest.Abelian.AdmissibleLayers
 public import HomologicalAlgebraTest.Abelian.QuotientIntersection
@@ -28,6 +29,7 @@ public import HomologicalAlgebraTest.Homology.ProductTotalAcyclicity
 # Public-import client tests
 
 Checks of the additive Euler library through its public imports.
+Checks of ordinary projective disk lifts and their lower-component compatibility.
 Checks of the fixed-arrow relative-path API through an ordinary producer import.
 Checks of the quotient-intersection pairing through an ordinary producer import.
 Checks of admissible-layer order, lower cut and reflector through an ordinary import.

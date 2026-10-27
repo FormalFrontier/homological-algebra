@@ -5,6 +5,7 @@ Authors: Formal Frontier Agents
 
 module
 
+public import Mathlib.Algebra.Homology.Additive
 public import Mathlib.Algebra.Homology.HomologicalComplex
 public import Mathlib.CategoryTheory.Limits.Shapes.ZeroObjects
 import Mathlib.Tactic
@@ -15,6 +16,7 @@ import Mathlib.Tactic
 In a category with zero objects and zero morphisms, the identity disk in degrees
 `n` and `n + 1` represents morphisms into degree `n` and corepresents morphisms
 out of degree `n + 1`. No additive structure or completeness assumption is needed.
+The disk functor is fully faithful, and is additive when the category is preadditive.
 -/
 
 @[expose] public section
@@ -25,11 +27,14 @@ open scoped ZeroObject
 universe u v
 
 variable {C : Type u} [Category.{v} C]
-  [HasZeroMorphisms C] [HasZeroObject C]
 
 noncomputable section
 
 namespace CochainComplex
+
+section
+
+variable [HasZeroMorphisms C] [HasZeroObject C]
 
 /-- The identity disk on `X`, supported in degrees `n` and `n + 1`. -/
 def disk (n : ℤ) (X : C) : CochainComplex C ℤ where
@@ -347,5 +352,50 @@ def homDiskEquiv (n : ℤ) (K : CochainComplex C ℤ) (X : C) :
     (X : C) (a : K.X (n + 1) ⟶ X) :
     (homDiskEquiv n K X).symm a = diskLift n K a := rfl
 
+
+theorem diskMap_f_self {X Y : C} (n : ℤ) (f : X ⟶ Y) :
+    (diskMap n f).f n =
+      CategoryTheory.eqToHom (disk_X_self n X) ≫ f ≫
+        CategoryTheory.eqToHom (disk_X_self n Y).symm := by
+  exact diskMap_f_of_support n f n (Or.inl rfl)
+
+instance diskFunctor_full (n : ℤ) : (diskFunctor (C := C) n).Full where
+  map_surjective {X Y} f := by
+    dsimp only [diskFunctor_obj, diskFunctor_map] at f ⊢
+    refine ⟨CategoryTheory.eqToHom (disk_X_self n X).symm ≫ f.f n ≫
+      CategoryTheory.eqToHom (disk_X_self n Y), ?_⟩
+    apply disk_hom_ext
+    simp only [diskMap_f_self, CategoryTheory.Category.assoc,
+      CategoryTheory.eqToHom_trans_assoc, CategoryTheory.eqToHom_trans,
+      CategoryTheory.eqToHom_refl, CategoryTheory.Category.id_comp,
+      CategoryTheory.Category.comp_id]
+
+instance diskFunctor_faithful (n : ℤ) : (diskFunctor (C := C) n).Faithful where
+  map_injective := by
+    intro X Y f g h
+    have hn := congrArg (fun k : disk n X ⟶ disk n Y => k.f n) h
+    change (diskMap n f).f n = (diskMap n g).f n at hn
+    rw [diskMap_f_self, diskMap_f_self] at hn
+    apply (cancel_mono (CategoryTheory.eqToHom (disk_X_self n Y).symm)).1
+    apply (cancel_epi (CategoryTheory.eqToHom (disk_X_self n X))).1
+    exact hn
+
+end
+
+section
+
+variable [Preadditive C] [HasZeroObject C]
+
+instance diskFunctor_additive (n : ℤ) :
+    (diskFunctor (C := C) n).Additive where
+  map_add := by
+    intro X Y f g
+    apply disk_hom_ext
+    change (diskMap n (f + g)).f n =
+      (diskMap n f).f n + (diskMap n g).f n
+    simp only [diskMap_f_self,
+      Preadditive.comp_add, Preadditive.add_comp]
+
+end
 
 end CochainComplex

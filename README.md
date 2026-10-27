@@ -19,6 +19,20 @@ Licensed under Apache-2.0
 
 ## Headline results
 
+- **Ordinary projectivity and injectivity of identity disks.** For any category
+  `C : Type u` with `Category.{v} C`, zero morphisms and a zero object, and any
+  `n : ℤ` and `X : C`, `CochainComplex.projective_disk_iff` and
+  `CochainComplex.injective_disk_iff` characterize ordinary categorical
+  projectivity and injectivity of `disk n X` by the corresponding property of
+  `X`. The disk is supported in degrees `n` and `n + 1`, with identity
+  differential between them. Object and morphism universes are independent;
+  no additive, abelian, boundedness, enough-projectives/injectives, exactness
+  or global limit assumptions are needed. These are ordinary
+  `CategoryTheory.Projective` and `CategoryTheory.Injective` results, distinct
+  from K-projectivity and K-injectivity. The proofs reuse the canonical disk
+  adjunctions and Mathlib's general categorical transport.
+  [Producer](HomologicalAlgebra/Cochain/DiskProjectivity.lean).
+
 - **Hom-complex homotopy invariance and contraction in either variable.**
   For integer cochain complexes `K, L` in `C : Type u` with only
   `Category.{v} C` and `Preadditive C`,
@@ -62,6 +76,27 @@ morphism universes of the category are independent.
   products in `C`. No boundedness, conditions on individual terms, or
   enough-projectives/injectives hypotheses are required.
   [Producer](HomologicalAlgebra/Cochain/KInjective.lean).
+
+- **K-properties of homotopy retracts.** For integer cochain complexes in any
+  abelian category `C : Type u` with `Category.{v} C`, K-projectivity and
+  K-injectivity descend from `L` to `K` along maps `f : K ⟶ L`, `g : L ⟶ K`
+  and a supplied `Homotopy (f ≫ g) (𝟙 K)`, by
+  `CochainComplex.IsKProjective.of_homotopy_retract` and
+  `CochainComplex.IsKInjective.of_homotopy_retract`. There is no condition on
+  `g ≫ f`, nor a strict retraction or homotopy equivalence requirement.
+  Object and morphism universes are independent; no boundedness, termwise
+  projectivity/injectivity, enough-projectives/injectives or global limit
+  assumptions are needed. The strict `of_retract` results are special cases.
+  [Producer](HomologicalAlgebra/Cochain/KHomotopy.lean).
+
+- **K-projectivity of arbitrary coproducts.** For integer cochain complexes in
+  any abelian category, whenever the particular family `K` has a categorical
+  coproduct, `CochainComplex.isKProjective_sigma_iff` identifies K-projectivity
+  of `∐ K` with K-projectivity of every `K i`. Object, morphism and indexing
+  universes are independent, and empty families are allowed. No global
+  coproducts, boundedness, termwise projectivity, exactness of coproducts or
+  enough-projectives assumption is required.
+  [Producer](HomologicalAlgebra/Cochain/KFamilyLimits.lean).
 
 - **K-injectivity of arbitrary products.** For integer cochain complexes in any
   abelian category, whenever the particular family `F` has a categorical
@@ -250,9 +285,14 @@ or the native long-exact-sequence module
 For Hom-complex homotopy invariance and contractions in either variable, use
 `HomologicalAlgebra.Cochain.HomComplexFunctoriality`; see
 [Hom-complex homotopy and contractibility](docs/HomComplexHomotopy.md).
+For ordinary projectivity and injectivity of identity disks, import
+`HomologicalAlgebra.Cochain.DiskProjectivity` (or `HomologicalAlgebra`).
 For the K-injectivity characterization, import
 `HomologicalAlgebra.Cochain.KInjective` (or `HomologicalAlgebra`).
-For the supplied-product K-injectivity criterion, import
+For descent of either K-property along a homotopy retraction, import
+`HomologicalAlgebra.Cochain.KHomotopy` (or `HomologicalAlgebra`).
+For the supplied-coproduct K-projectivity and supplied-product K-injectivity
+criteria, import
 `HomologicalAlgebra.Cochain.KFamilyLimits` (or `HomologicalAlgebra`).
 For the separate fixed-arrow path API, import
 `HomologicalAlgebra.Cochain.RelativePath` (or the aggregate
@@ -281,6 +321,11 @@ The guide distinguishes termwise support from neighboring homology bounds,
 including the nonsplit and torsion-valued clients.
 
 ### Non-Euler checked examples
+
+`HomologicalAlgebraTest.Cochain.DiskProjectivity` checks that an ordinary lift
+of a map from a projective disk across a categorical epimorphism is represented
+by `diskDesc`, with the corresponding lower-component lifting equation, in
+the same arbitrary coefficient category.
 
 `HomologicalAlgebraTest.Cochain.RelativePath`, also built by default, checks
 eight ordinary-import examples for two distinct sources/chosen homotopies
