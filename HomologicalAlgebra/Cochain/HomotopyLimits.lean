@@ -126,3 +126,109 @@ theorem nonempty_sigma_iff : Nonempty (Homotopy f g) ↔
     exact ⟨sigmaEquiv.symm (fun i => (h i).some)⟩
 
 end Homotopy
+
+/-! ## Homotopies into products
+
+Evaluation-preservation identifies the evaluated projections with a product cone. This gives a
+homotopy into the supplied product from specified component homotopies, with exact projection
+recovery and reconstruction of the complete homotopy data.
+-/
+
+open CategoryTheory CategoryTheory.Limits HomologicalComplex
+
+namespace Homotopy
+
+universe u₁ v₁ w₁
+
+variable {C : Type u₁} [Category.{v₁} C] [Preadditive C]
+variable {ι : Type w₁}
+variable (F : ι → CochainComplex C ℤ) [HasProduct F]
+variable [∀ n : ℤ, PreservesLimit (Discrete.functor F)
+  (HomologicalComplex.eval C (ComplexShape.up ℤ) n)]
+variable {X : CochainComplex C ℤ} {f g : X ⟶ ∏ᶜ F}
+variable (h : ∀ i : ι, Homotopy (f ≫ Pi.π F i) (g ≫ Pi.π F i))
+
+/-- Assemble homotopies into a product of cochain complexes when evaluation preserves
+that product. -/
+noncomputable def piLift : Homotopy f g := by
+  let t (a b : ℤ) : X.X a ⟶ (∏ᶜ F).X b :=
+    (isLimitOfPreserves (HomologicalComplex.eval C (ComplexShape.up ℤ) b)
+      (limit.isLimit (Discrete.functor F))).lift
+      { pt := X.X a
+        π := Discrete.natTrans (fun i => (h i.as).hom a b) }
+  have fac (a b : ℤ) (i : ι) : t a b ≫ (Pi.π F i).f b = (h i).hom a b := by
+    exact (isLimitOfPreserves (HomologicalComplex.eval C (ComplexShape.up ℤ) b)
+      (limit.isLimit (Discrete.functor F))).fac _ (Discrete.mk i)
+  have fac_assoc (a b : ℤ) (i : ι) {W : C} (k : (F i).X b ⟶ W) :
+      t a b ≫ (Pi.π F i).f b ≫ k = (h i).hom a b ≫ k := by
+    rw [← Category.assoc, fac]
+  refine { hom := t, zero := ?_, comm := ?_ }
+  · intro a b hab
+    apply (isLimitOfPreserves (HomologicalComplex.eval C (ComplexShape.up ℤ) b)
+      (limit.isLimit (Discrete.functor F))).hom_ext
+    intro i
+    calc
+      _ = (h i.as).hom a b := fac a b i.as
+      _ = 0 := (h i.as).zero a b hab
+      _ = _ := by simp
+  · intro a
+    apply (isLimitOfPreserves (HomologicalComplex.eval C (ComplexShape.up ℤ) a)
+      (limit.isLimit (Discrete.functor F))).hom_ext
+    intro i
+    change f.f a ≫ (Pi.π F i.as).f a =
+      (X.d a ((ComplexShape.up ℤ).next a) ≫ t ((ComplexShape.up ℤ).next a) a +
+        t a ((ComplexShape.up ℤ).prev a) ≫
+          (∏ᶜ F).d ((ComplexShape.up ℤ).prev a) a + g.f a) ≫
+        (Pi.π F i.as).f a
+    have hi := (h i.as).comm a
+    change f.f a ≫ (Pi.π F i.as).f a =
+      X.d a ((ComplexShape.up ℤ).next a) ≫
+          (h i.as).hom ((ComplexShape.up ℤ).next a) a +
+        (h i.as).hom a ((ComplexShape.up ℤ).prev a) ≫
+          (F i.as).d ((ComplexShape.up ℤ).prev a) a +
+        g.f a ≫ (Pi.π F i.as).f a at hi
+    simpa only [Preadditive.add_comp, Category.assoc,
+      ← (Pi.π F i.as).comm, fac, fac_assoc] using hi
+
+/-- Projection of an assembled homotopy recovers each specified component. -/
+@[reassoc (attr := simp), simp]
+theorem piLift_hom (a b : ℤ) (i : ι) :
+    (piLift F h).hom a b ≫ (Pi.π F i).f b = (h i).hom a b := by
+  exact (isLimitOfPreserves (HomologicalComplex.eval C (ComplexShape.up ℤ) b)
+    (limit.isLimit (Discrete.functor F))).fac _ (Discrete.mk i)
+
+/-- Postcomposition by a product projection recovers the specified homotopy data. -/
+@[simp]
+theorem piLift_compRight (i : ι) :
+    (piLift F h).compRight (Pi.π F i) = h i := by
+  ext a b
+  exact piLift_hom F h a b i
+
+/-- Assembling all projections of a homotopy returns that homotopy. -/
+@[simp]
+theorem piLift_compRight_self (H : Homotopy f g) :
+    piLift F (fun i => H.compRight (Pi.π F i)) = H := by
+  ext a b
+  apply (isLimitOfPreserves (HomologicalComplex.eval C (ComplexShape.up ℤ) b)
+    (limit.isLimit (Discrete.functor F))).hom_ext
+  intro i
+  change
+    (piLift F (fun j => H.compRight (Pi.π F j))).hom a b ≫
+        (Pi.π F i.as).f b =
+      H.hom a b ≫ (Pi.π F i.as).f b
+  exact piLift_hom F (fun j => H.compRight (Pi.π F j)) a b i.as
+
+/-- Homotopies into a product exist exactly when all projected homotopies exist. -/
+theorem nonempty_pi_iff : Nonempty (Homotopy f g) ↔
+    ∀ i : ι, Nonempty (Homotopy (f ≫ Pi.π F i) (g ≫ Pi.π F i)) := by
+  constructor
+  · rintro ⟨H⟩ i
+    exact ⟨H.compRight (Pi.π F i)⟩
+  · intro k
+    classical
+    exact ⟨piLift F (fun i => Classical.choice (k i))⟩
+
+example : ∃ H : Homotopy f g, ∀ i : ι, H.compRight (Pi.π F i) = h i :=
+  ⟨piLift F h, piLift_compRight F h⟩
+
+end Homotopy
