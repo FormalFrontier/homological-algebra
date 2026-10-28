@@ -1,0 +1,3 @@
+# Release notes
+
+Release 98d29f9beca08def37d6ed95378e0c896834b29e adds two corollaries for integer cochain complexes: `CochainComplex.isKProjective_of_homotopy_id_zero` and `CochainComplex.isKInjective_of_homotopy_id_zero`. A supplied homotopy from the identity map to zero suffices for both K-projectivity and K-injectivity. The results apply over arbitrary abelian categories, with independent object and morphism universes; neither boundedness nor enough projectives or injectives in the ambient category is required. The release also includes proof-elaboration and simplification updates for the current Lean toolchain.
