@@ -60,3 +60,63 @@ lemma IsKInjective.of_homotopy_retract {K L : CochainComplex C ℤ} [L.IsKInject
   exact ⟨by simpa only [Category.comp_id] using (h.compLeft a).symm.trans ha'⟩
 
 end CochainComplex
+
+universe u₁ v₁
+
+open CategoryTheory CategoryTheory.Limits HomologicalComplex
+
+@[expose] public section
+
+open scoped ZeroObject in
+/-- An integer cochain complex with null-homotopic identity is K-projective. -/
+theorem _root_.CochainComplex.isKProjective_of_homotopy_id_zero
+    {C : Type u₁} [Category.{v₁} C] [Abelian C]
+    (K : CochainComplex C ℤ) (h : Homotopy (𝟙 K) 0) : K.IsKProjective := by
+  let : CochainComplex.IsKProjective (0 : CochainComplex C ℤ) := by
+    let : ∀ n : ℤ, Projective ((0 : CochainComplex C ℤ).X n) := by
+      intro n
+      let : CategoryTheory.Functor.PreservesZeroMorphisms
+          (HomologicalComplex.eval C (ComplexShape.up ℤ) n) := by
+        infer_instance
+      have h0 : CategoryTheory.Limits.IsZero (0 : CochainComplex C ℤ) := by
+        apply CategoryTheory.Limits.isZero_zero
+      have hn : CategoryTheory.Limits.IsZero ((0 : CochainComplex C ℤ).X n) := by
+        exact CategoryTheory.Functor.map_isZero
+          (HomologicalComplex.eval C (ComplexShape.up ℤ) n) h0
+      exact CategoryTheory.Limits.IsZero.projective hn
+    apply CochainComplex.isKProjective_of_projective
+    all_goals exact (0 : ℤ)
+  apply CochainComplex.IsKProjective.of_homotopy_retract
+    (0 : K ⟶ (0 : CochainComplex C ℤ))
+    (0 : (0 : CochainComplex C ℤ) ⟶ K)
+  simpa using h.symm
+
+open scoped ZeroObject in
+/-- An integer cochain complex with null-homotopic identity is K-injective. -/
+theorem _root_.CochainComplex.isKInjective_of_homotopy_id_zero
+    {C : Type u₁} [Category.{v₁} C] [Abelian C]
+    (K : CochainComplex C ℤ) (h : Homotopy (𝟙 K) 0) : K.IsKInjective := by
+  let Z : CochainComplex C ℤ := 0
+  have hZ : CochainComplex.IsKInjective Z := by
+    change CochainComplex.IsKInjective (0 : CochainComplex C ℤ)
+    let : ∀ n : ℤ, Injective ((0 : CochainComplex C ℤ).X n) := by
+      intro n
+      let : CategoryTheory.Functor.PreservesZeroMorphisms
+          (HomologicalComplex.eval C (ComplexShape.up ℤ) n) := by
+        infer_instance
+      have h0 : CategoryTheory.Limits.IsZero (0 : CochainComplex C ℤ) := by
+        apply CategoryTheory.Limits.isZero_zero
+      have hn : CategoryTheory.Limits.IsZero ((0 : CochainComplex C ℤ).X n) := by
+        exact CategoryTheory.Functor.map_isZero
+          (HomologicalComplex.eval C (ComplexShape.up ℤ) n) h0
+      exact CategoryTheory.Limits.IsZero.injective hn
+    apply CochainComplex.isKInjective_of_injective
+    all_goals exact (0 : ℤ)
+  let : CochainComplex.IsKInjective Z := hZ
+  let i : K ⟶ Z := 0
+  let p : Z ⟶ K := 0
+  have hip : Homotopy (i ≫ p) (𝟙 K) := by
+    simpa [i, p] using h.symm
+  have hpi : Homotopy (𝟙 K) (i ≫ p) := hip.symm
+  solve_by_elim only [hZ, Z, i, p, hip, hpi,
+    CochainComplex.IsKInjective.of_homotopy_retract]
