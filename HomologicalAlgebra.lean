@@ -7,6 +7,7 @@ public import HomologicalAlgebra.Cochain.Disks
 public import HomologicalAlgebra.Cochain.DiskAdjunctions
 public import HomologicalAlgebra.Cochain.DiskProjectivity
 public import HomologicalAlgebra.QuasiIsoZero
+public import HomologicalAlgebra.Homotopy.Functor
 
 public import HomologicalAlgebra.Cochain.BiproductKCriteria
 public import HomologicalAlgebra.Cochain.KFamilyLimits
