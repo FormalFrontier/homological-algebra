@@ -19,6 +19,10 @@ For diagonal maps between two families, existence of a homotopy is equivalent
 to existence on each component. Only domain evaluation must preserve coproducts,
 and only codomain evaluation must preserve products. These diagonal criteria
 concern existence, not an equivalence of all homotopy data.
+
+Families of homotopy equivalences induce homotopy equivalences of the supplied
+(co)products when evaluation preserves both endpoint families. The coproduct
+construction also transports contracting homotopies.
 -/
 
 @[expose] public section
@@ -353,3 +357,155 @@ theorem nonempty_pi_id_zero_iff {K : ι → CochainComplex C ℤ}
     nonempty_pi_map_iff (fun i => 𝟙 (K i)) (fun i => (0 : K i ⟶ K i))
 
 end Homotopy
+
+namespace HomotopyEquiv
+
+section Coproducts
+
+variable {K L : ι → CochainComplex C ℤ} [HasCoproduct K] [HasCoproduct L]
+  [∀ n : ℤ, PreservesColimit (Discrete.functor K)
+    (HomologicalComplex.eval C (ComplexShape.up ℤ) n)]
+  [∀ n : ℤ, PreservesColimit (Discrete.functor L)
+    (HomologicalComplex.eval C (ComplexShape.up ℤ) n)]
+
+/-- A family of homotopy equivalences induces a homotopy equivalence of the supplied
+coproducts when degree evaluation preserves both coproducts. -/
+noncomputable def sigma (e : ∀ i, HomotopyEquiv (K i) (L i)) :
+    HomotopyEquiv (∐ K) (∐ L) := by
+  classical
+  refine
+    { hom := Sigma.desc (fun i => (e i).hom ≫ Sigma.ι L i)
+      inv := Sigma.desc (fun i => (e i).inv ≫ Sigma.ι K i)
+      homotopyHomInvId := ?_
+      homotopyInvHomId := ?_ }
+  · have h := ((Homotopy.nonempty_sigma_map_iff
+        (fun i => (e i).hom ≫ (e i).inv) (fun i => 𝟙 (K i))).mpr
+          (fun i => ⟨(e i).homotopyHomInvId⟩)).some
+    have hcomp :
+        Sigma.desc (fun i => ((e i).hom ≫ (e i).inv) ≫ Sigma.ι K i) =
+          Sigma.desc (fun i => (e i).hom ≫ Sigma.ι L i) ≫
+            Sigma.desc (fun i => (e i).inv ≫ Sigma.ι K i) := by
+      apply Sigma.hom_ext
+      intro i
+      simp [Category.assoc]
+    have hid : Sigma.desc (fun i => 𝟙 (K i) ≫ Sigma.ι K i) = 𝟙 (∐ K) := by
+      apply Sigma.hom_ext
+      intro i
+      simp
+    simpa only [hcomp, hid] using h
+  · have h := ((Homotopy.nonempty_sigma_map_iff
+        (fun i => (e i).inv ≫ (e i).hom) (fun i => 𝟙 (L i))).mpr
+          (fun i => ⟨(e i).homotopyInvHomId⟩)).some
+    have hcomp :
+        Sigma.desc (fun i => ((e i).inv ≫ (e i).hom) ≫ Sigma.ι L i) =
+          Sigma.desc (fun i => (e i).inv ≫ Sigma.ι K i) ≫
+            Sigma.desc (fun i => (e i).hom ≫ Sigma.ι L i) := by
+      apply Sigma.hom_ext
+      intro i
+      simp [Category.assoc]
+    have hid : Sigma.desc (fun i => 𝟙 (L i) ≫ Sigma.ι L i) = 𝟙 (∐ L) := by
+      apply Sigma.hom_ext
+      intro i
+      simp
+    simpa only [hcomp, hid] using h
+
+theorem sigma_hom (e : ∀ i, HomotopyEquiv (K i) (L i)) :
+    (sigma e).hom = Sigma.desc (fun i => (e i).hom ≫ Sigma.ι L i) := rfl
+
+theorem sigma_inv (e : ∀ i, HomotopyEquiv (K i) (L i)) :
+    (sigma e).inv = Sigma.desc (fun i => (e i).inv ≫ Sigma.ι K i) := rfl
+
+@[reassoc (attr := simp), simp]
+theorem ι_sigma_hom (e : ∀ i, HomotopyEquiv (K i) (L i)) (i : ι) :
+    Sigma.ι K i ≫ (sigma e).hom = (e i).hom ≫ Sigma.ι L i := by
+  simp [sigma_hom]
+
+@[reassoc (attr := simp), simp]
+theorem ι_sigma_inv (e : ∀ i, HomotopyEquiv (K i) (L i)) (i : ι) :
+    Sigma.ι L i ≫ (sigma e).inv = (e i).inv ≫ Sigma.ι K i := by
+  simp [sigma_inv]
+
+/-- The induced coproduct homotopy equivalence transports contracting homotopies. -/
+theorem sigma_nonempty_id_zero_iff (e : ∀ i, HomotopyEquiv (K i) (L i)) :
+    Nonempty (Homotopy (𝟙 (∐ K)) 0) ↔ Nonempty (Homotopy (𝟙 (∐ L)) 0) := by
+  let E := sigma e
+  constructor
+  · rintro ⟨h⟩
+    have h' : Homotopy (E.inv ≫ E.hom) 0 := by
+      simpa using (h.compLeft E.inv).compRight E.hom
+    exact ⟨E.homotopyInvHomId.symm.trans h'⟩
+  · rintro ⟨h⟩
+    have h' : Homotopy (E.hom ≫ E.inv) 0 := by
+      simpa using (h.compLeft E.hom).compRight E.inv
+    exact ⟨E.homotopyHomInvId.symm.trans h'⟩
+
+end Coproducts
+
+section Products
+
+variable {K L : ι → CochainComplex C ℤ} [HasProduct K] [HasProduct L]
+  [∀ n : ℤ, PreservesLimit (Discrete.functor K)
+    (HomologicalComplex.eval C (ComplexShape.up ℤ) n)]
+  [∀ n : ℤ, PreservesLimit (Discrete.functor L)
+    (HomologicalComplex.eval C (ComplexShape.up ℤ) n)]
+
+/-- A family of homotopy equivalences induces a homotopy equivalence of the supplied
+products when degree evaluation preserves both products. -/
+noncomputable def pi (e : ∀ i, HomotopyEquiv (K i) (L i)) :
+    HomotopyEquiv (∏ᶜ K) (∏ᶜ L) := by
+  classical
+  refine
+    { hom := Pi.lift (fun i => Pi.π K i ≫ (e i).hom)
+      inv := Pi.lift (fun i => Pi.π L i ≫ (e i).inv)
+      homotopyHomInvId := ?_
+      homotopyInvHomId := ?_ }
+  · have h := ((Homotopy.nonempty_pi_map_iff
+        (fun i => (e i).hom ≫ (e i).inv) (fun i => 𝟙 (K i))).mpr
+          (fun i => ⟨(e i).homotopyHomInvId⟩)).some
+    have hcomp :
+        Pi.lift (fun i => Pi.π K i ≫ ((e i).hom ≫ (e i).inv)) =
+          Pi.lift (fun i => Pi.π K i ≫ (e i).hom) ≫
+            Pi.lift (fun i => Pi.π L i ≫ (e i).inv) := by
+      apply Pi.hom_ext
+      intro i
+      simp [Category.assoc]
+    have hid : Pi.lift (fun i => Pi.π K i ≫ 𝟙 (K i)) = 𝟙 (∏ᶜ K) := by
+      apply Pi.hom_ext
+      intro i
+      simp
+    simpa only [hcomp, hid] using h
+  · have h := ((Homotopy.nonempty_pi_map_iff
+        (fun i => (e i).inv ≫ (e i).hom) (fun i => 𝟙 (L i))).mpr
+          (fun i => ⟨(e i).homotopyInvHomId⟩)).some
+    have hcomp :
+        Pi.lift (fun i => Pi.π L i ≫ ((e i).inv ≫ (e i).hom)) =
+          Pi.lift (fun i => Pi.π L i ≫ (e i).inv) ≫
+            Pi.lift (fun i => Pi.π K i ≫ (e i).hom) := by
+      apply Pi.hom_ext
+      intro i
+      simp [Category.assoc]
+    have hid : Pi.lift (fun i => Pi.π L i ≫ 𝟙 (L i)) = 𝟙 (∏ᶜ L) := by
+      apply Pi.hom_ext
+      intro i
+      simp
+    simpa only [hcomp, hid] using h
+
+theorem pi_hom (e : ∀ i, HomotopyEquiv (K i) (L i)) :
+    (pi e).hom = Pi.lift (fun i => Pi.π K i ≫ (e i).hom) := rfl
+
+theorem pi_inv (e : ∀ i, HomotopyEquiv (K i) (L i)) :
+    (pi e).inv = Pi.lift (fun i => Pi.π L i ≫ (e i).inv) := rfl
+
+@[reassoc (attr := simp), simp]
+theorem pi_hom_π (e : ∀ i, HomotopyEquiv (K i) (L i)) (i : ι) :
+    (pi e).hom ≫ Pi.π L i = Pi.π K i ≫ (e i).hom := by
+  simp [pi_hom]
+
+@[reassoc (attr := simp), simp]
+theorem pi_inv_π (e : ∀ i, HomotopyEquiv (K i) (L i)) (i : ι) :
+    (pi e).inv ≫ Pi.π K i = Pi.π L i ≫ (e i).inv := by
+  simp [pi_inv]
+
+end Products
+
+end HomotopyEquiv
