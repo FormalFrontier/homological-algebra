@@ -28,6 +28,7 @@ public import HomologicalAlgebra.Cochain.HomComplexFunctoriality
 public import HomologicalAlgebra.Cochain.HomComplexQuasiIso
 public import HomologicalAlgebra.Cochain.HomComplexQuasiIsoCriteria
 public import HomologicalAlgebra.Cochain.HomComplexVanishing
+public import HomologicalAlgebra.Cochain.KEquivalence
 public import HomologicalAlgebra.Cochain.KInjective
 public import HomologicalAlgebra.Cochain.KHomotopy
 public import HomologicalAlgebra.Cochain.KProjective
@@ -58,7 +59,9 @@ of canonical Hom-complex cohomology under every quasi-isomorphism.
 The K-injectivity module characterizes K-injective complexes by acyclicity of their
 canonical abelian-group-valued Hom complexes from all acyclic complexes.
 Both K-properties descend along one-sided homotopy retractions of integer
-cochain complexes in any abelian category.
+cochain complexes in any abelian category. An equivalence between abelian
+categories preserves and reflects both properties for unrestricted integer
+cochain complexes, without an additional additivity assumption.
 The abelian quotient-intersection module provides a chosen-cokernel pairing
 and its monicity for subobjects L ≤ U and any third subobject D.
 The admissible-layer module provides a reversed-lower/forward-upper order

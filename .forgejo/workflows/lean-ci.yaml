@@ -18,9 +18,9 @@ jobs:
     runs-on: lean-ci
     timeout-minutes: 90
     env:
-      # Run `ff-lean-ci-v5 tools-sha` in the selected image. Update this pin whenever
+      # Run `ff-lean-ci-v6 tools-sha` in the selected image. Update this pin whenever
       # the checker changes; docs-only reuse requires the same workflow bytes.
-      FF_LEAN_CI_TOOLS_SHA256: b712d2c8d47f855d74c09b64db7e3d314aa081322ab39ac781cfa8e5a1cdc46b
+      FF_LEAN_CI_TOOLS_SHA256: b495e8ac285bfdcaa8a12e1d1f4e0dc6937cf03060c74d7662bc0ab0bab7caf5
       FF_LEAN_LINT_TOOLS_SHA256: 5e158bd49b7085397aed0f6e451d6a2fe83243c26af35e79c977f41ed76a9bdd
     steps:
       - name: Check out the proposed commit
@@ -30,12 +30,12 @@ jobs:
           persist-credentials: false
       - name: Record exact inputs
         id: inputs
-        run: ff-lean-ci-v5 inputs --github-output "$GITHUB_OUTPUT"
+        run: ff-lean-ci-v6 inputs --github-output "$GITHUB_OUTPUT"
       - name: Check for proven docs-only reuse
         id: reuse
         env:
           FF_LEAN_CI_API_TOKEN: ${{ github.token }}
-        run: ff-lean-ci-v5 reuse --github-output "$GITHUB_OUTPUT"
+        run: ff-lean-ci-v6 reuse --github-output "$GITHUB_OUTPUT"
       - name: Set up scoped dependency reads
         if: steps.reuse.outputs.reused != 'true'
         env:
@@ -43,13 +43,13 @@ jobs:
         run: ff-lean-auth setup
       - name: Check the pinned toolchain and fetch exact dependencies
         if: steps.reuse.outputs.reused != 'true'
-        run: ff-lean-ci-v5 prepare
+        run: ff-lean-ci-v6 prepare
       - name: Remove dependency credentials
         if: always()
         run: ff-lean-auth cleanup
       - name: Build and run the configured audit
         if: steps.reuse.outputs.reused != 'true'
-        run: ff-lean-ci-v5 run
+        run: ff-lean-ci-v6 run
       - name: Lint the configured libraries
         if: steps.reuse.outputs.reused != 'true'
         run: ff-lean-lint run

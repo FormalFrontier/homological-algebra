@@ -101,6 +101,16 @@ morphism universes of the category are independent.
   assumptions are needed. The strict `of_retract` results are special cases.
   [Producer](HomologicalAlgebra/Cochain/KHomotopy.lean).
 
+- **K-properties under equivalences.** For abelian categories `C` and `D` and a
+  categorical equivalence `F : C ⥤ D`,
+  `CochainComplex.isKProjective_map_iff` and
+  `CochainComplex.isKInjective_map_iff` identify the corresponding property of
+  an unrestricted integer cochain complex `K` with that of
+  `(F.mapHomologicalComplex (.up ℤ)).obj K`. The four object and morphism
+  universes are independent. No separate additivity, boundedness or
+  enough-projectives/injectives assumption is needed.
+  [Producer](HomologicalAlgebra/Cochain/KEquivalence.lean).
+
 - **K-projectivity of arbitrary coproducts.** For integer cochain complexes in
   any abelian category, whenever the particular family `K` has a categorical
   coproduct, `CochainComplex.isKProjective_sigma_iff` identifies K-projectivity
@@ -303,6 +313,8 @@ For the K-injectivity characterization, import
 `HomologicalAlgebra.Cochain.KInjective` (or `HomologicalAlgebra`).
 For descent of either K-property along a homotopy retraction, import
 `HomologicalAlgebra.Cochain.KHomotopy` (or `HomologicalAlgebra`).
+For invariance of both K-properties under an equivalence of abelian categories,
+import `HomologicalAlgebra.Cochain.KEquivalence` (or `HomologicalAlgebra`).
 For the supplied-coproduct K-projectivity and supplied-product K-injectivity
 criteria, import
 `HomologicalAlgebra.Cochain.KFamilyLimits` (or `HomologicalAlgebra`).

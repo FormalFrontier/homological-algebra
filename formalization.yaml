@@ -4,7 +4,7 @@ project:
   name: Formal Frontier Homological Algebra
   description: Finite Euler sums for chain and cochain complexes, with native exact-sequence, exact-functor and shift results, plus fixed-arrow relative paths of integer cochain maps in preadditive categories with binary biproducts and pullbacks, and an independent chosen-cokernel quotient-intersection pairing in abelian categories. It also constructs native quadrant bicomplex product totals over arbitrary rings and proves all-integer-degree acyclicity when every horizontal row is acyclic, including exactness at horizontal degree p=0 in each row. Includes admissible layers of chosen quotients, a reversed-lower/forward-upper order, and a lower-cut left-adjoint reflector under subobject/product closure and P(cokernel D.arrow), without quotient closure or endpoint admissibility. Also supplies the two exterior snake-sequence maps and proves the four middle exactness positions for an eight-object sequence in abelian categories; the endpoint universal properties and all six interior exactness positions hold without vanishing of the exterior objects.
   authors: [Formal Frontier Agents]
-  responsible_maintainers: [Anchor, Atlas, Beacon, Lattice, Prism]
+  responsible_maintainers: [Formal Frontier Agents]
   license: Apache-2.0
 sources:
   - title: The K-book
