@@ -8,6 +8,7 @@ public import HomologicalAlgebra.Abelian.Fitting
 public import Mathlib.Algebra.Group.Idempotent
 public import Mathlib.RingTheory.Nilpotent.Defs
 
+import Mathlib.Algebra.Group.Commute.Hom
 import Mathlib.CategoryTheory.Conj
 
 /-!
@@ -24,6 +25,10 @@ It is zero exactly for nilpotent inputs, agrees with the ordinary inverse of an
 isomorphism, fixes idempotents, and gives the idempotent `f * End.drazinInverse f`.
 No nonzero-object or commutativity hypothesis is needed. Object and morphism
 universes are independent.
+
+`End.map_drazinInverse` shows preservation by multiplicative maps, without
+unit preservation. `Functor.map_drazinInverse` specializes this to functors
+whose source and image objects are Noetherian and Artinian.
 
 The Fitting decomposition splits a sufficiently high power into its kernel and
 image, with nilpotent kernel restriction and invertible image restriction. The
@@ -46,7 +51,7 @@ endomorphism ring and transport by isomorphisms through `CategoryTheory.Iso.conj
 
 @[expose] public section
 
-universe u v w
+universe u v w u' v'
 
 namespace CategoryTheory.End
 
@@ -310,4 +315,48 @@ theorem isIdempotentElem_mul_drazinInverse [Abelian C] [IsNoetherianObject X] [I
         f * (drazinInverse f * f * drazinInverse f) := by simp only [mul_assoc]
     _ = f * drazinInverse f := by rw [drazinInverse_mul_self_mul]
 
+/-- Multiplicative maps between endomorphism monoids of Noetherian and Artinian
+objects preserve Drazin inverses; preservation of the identity is not required. -/
+@[simp]
+theorem map_drazinInverse {D : Type u'} [Category.{v'} D] [Abelian C] [Abelian D]
+    {Y : D} [IsNoetherianObject X] [IsArtinianObject X]
+    [IsNoetherianObject Y] [IsArtinianObject Y]
+    {Φ : Type w} [FunLike Φ (End X) (End Y)] [MulHomClass Φ (End X) (End Y)]
+    (φ : Φ) (f : End X) :
+    φ (drazinInverse f) = drazinInverse (φ f) := by
+  refine (eq_drazinInverse_iff (φ f) (φ (drazinInverse f))).2 ⟨?_, ?_, ?_⟩
+  · exact (commute_drazinInverse f).map φ
+  · simpa only [map_mul] using congrArg φ (drazinInverse_mul_self_mul f)
+  · obtain ⟨n, hn⟩ := exists_pow_succ_mul_drazinInverse f
+    -- Raise the witness so that both powers are positive before applying the map.
+    have hn' : f ^ (n + 1 + 1) * drazinInverse f = f ^ (n + 1) :=
+      pow_succ_mul_eq_of_le hn (Nat.le_succ n)
+    have hpow (k : ℕ) : φ (f ^ (k + 1)) = (φ f) ^ (k + 1) := by
+      induction k with
+      | zero => simp only [Nat.zero_add, pow_one]
+      | succ k ih =>
+        calc
+          φ (f ^ (k + 1 + 1)) = φ (f ^ (k + 1)) * φ f := by
+            rw [pow_succ, map_mul]
+          _ = (φ f) ^ (k + 1) * φ f := by rw [ih]
+          _ = (φ f) ^ (k + 1 + 1) := (pow_succ (φ f) (k + 1)).symm
+    refine ⟨n + 1, ?_⟩
+    simpa only [map_mul, hpow] using congrArg φ hn'
+
 end CategoryTheory.End
+
+namespace CategoryTheory.Functor
+
+variable {C : Type u} [Category.{v} C] {D : Type u'} [Category.{v'} D]
+
+/-- Functors preserve Drazin inverses whenever the source object and its image
+are both Noetherian and Artinian. -/
+@[simp]
+theorem map_drazinInverse [Abelian C] [Abelian D] (F : C ⥤ D) {X : C}
+    [IsNoetherianObject X] [IsArtinianObject X]
+    [IsNoetherianObject (F.obj X)] [IsArtinianObject (F.obj X)]
+    (f : End X) :
+    F.map (End.drazinInverse f) = End.drazinInverse (F.map f) := by
+  exact End.map_drazinInverse (F.mapEnd X) f
+
+end CategoryTheory.Functor

@@ -95,6 +95,10 @@ status:
       file: HomologicalAlgebra/Abelian/Drazin.lean
     - declaration: CategoryTheory.End.isIdempotentElem_mul_drazinInverse
       file: HomologicalAlgebra/Abelian/Drazin.lean
+    - declaration: CategoryTheory.End.map_drazinInverse
+      file: HomologicalAlgebra/Abelian/Drazin.lean
+    - declaration: CategoryTheory.Functor.map_drazinInverse
+      file: HomologicalAlgebra/Abelian/Drazin.lean
     - declaration: CategoryTheory.exists_finite_biproduct_isLocalRing_end
       file: HomologicalAlgebra/Abelian/FiniteLength.lean
     - declaration: CategoryTheory.exists_equiv_of_iso_biproduct_of_isLocalRing_end

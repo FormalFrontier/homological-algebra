@@ -84,6 +84,12 @@ Licensed under Apache-2.0
   projector. The original endomorphism multiplication is `p * q = q ≫ p`.
   Object and morphism universes are independent, with no nonzero-object or
   commutativity hypothesis and no supplied decomposition.
+  Multiplicative maps `φ : End X → End Y`, not necessarily unital or
+  zero-preserving, preserve these inverses when both objects are
+  Noetherian and Artinian in abelian categories, with independent source
+  and target object and morphism universes. In particular, any functor `F`
+  between abelian categories preserves them when both `X` and `F.obj X`
+  are Noetherian and Artinian; no additivity or exactness is required.
   [Value and characteristic API](HomologicalAlgebra/Abelian/Drazin.lean).
 
 - **Local endomorphism rings.** An indecomposable Noetherian and Artinian
