@@ -39,6 +39,7 @@ public import HomologicalAlgebra.Homology.ProductTotalAcyclicity
 public import HomologicalAlgebra.Cochain.HomotopyQuotientQuasiIso
 public import HomologicalAlgebra.Cochain.HomotopyQuotientAcyclic
 public import HomologicalAlgebra.ShortComplex.ModuleCat
+public import HomologicalAlgebra.ShortComplex.ModuleCatNoetherian
 
 /-!
 # Homological Algebra
@@ -77,4 +78,7 @@ and proves their acyclicity in all integer degrees from acyclic horizontal rows.
 The chain-complex module characterizes quasi-isomorphisms between termwise
 bounded-below integer complexes of projective objects as the particular forward
 maps of homotopy equivalences.
+In an abelian category, a short complex with Noetherian middle object has
+Noetherian canonical homology. For module short complexes, the corresponding
+Noetherian module statement holds over an arbitrary ring.
 -/

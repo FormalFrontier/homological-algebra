@@ -19,6 +19,13 @@ Licensed under Apache-2.0
 
 ## Headline results
 
+- **Noetherian homology.** The homology of a short complex in an abelian
+  category is Noetherian whenever its middle object is Noetherian.
+  For modules over any ring `R`, a Noetherian middle module gives Noetherian
+  homology; no Noetherian-ring assumption is required.
+  [Abelian-category theorem](HomologicalAlgebra/ShortComplex/Noetherian.lean),
+  [module theorem](HomologicalAlgebra/ShortComplex/ModuleCatNoetherian.lean).
+
 - **Diagonal homotopies and coproducts or products.** For arbitrary families of
   integer cochain complexes in a preadditive category, the canonical diagonal
   coproduct maps (respectively product maps) are homotopic if and only if each
