@@ -30,6 +30,7 @@ public import HomologicalAlgebra.Abelian.LocalEndomorphism
 public import HomologicalAlgebra.Abelian.QuotientIntersection
 public import HomologicalAlgebra.Abelian.SerreClass
 public import HomologicalAlgebra.Abelian.SnakeLemma
+public import HomologicalAlgebra.Abelian.Subobject
 public import HomologicalAlgebra.AdditiveEuler
 public import HomologicalAlgebra.AdditiveEuler.Cochain
 public import HomologicalAlgebra.AdditiveEuler.Functoriality

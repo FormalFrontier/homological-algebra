@@ -48,6 +48,18 @@ Licensed under Apache-2.0
   the empty decomposition.
   [Theorem](HomologicalAlgebra/Abelian/FiniteLength.lean).
 
+- **Subobject correspondence and modularity.** For every object `A` in an
+  arbitrary abelian category, the canonical `CategoryTheory.Subobject A`
+  forms a modular lattice, with the stock `IsModularLattice` instance.
+  `CategoryTheory.Abelian.Subobject.epiOrderIso` identifies subobjects of an
+  epimorphism's codomain with subobjects of its domain containing its kernel:
+  the forward map is pullback and the inverse is direct image.
+  `CategoryTheory.Abelian.Subobject.cokernelOrderIso` specializes this
+  correspondence to a subobject's cokernel. Object and morphism universes
+  are independent; no `WellPowered`, smallness or chain-condition hypotheses
+  are required.
+  [Theorems](HomologicalAlgebra/Abelian/Subobject.lean).
+
 - **Fitting decomposition.** For an endomorphism `f` of a Noetherian and
   Artinian object in an arbitrary abelian category, the kernel and image of
   every sufficiently high power `f ^ n` are complementary. The canonical
