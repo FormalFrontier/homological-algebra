@@ -73,6 +73,13 @@ lemma (Christopher Hoskin, 2022). The categorical endomorphism convention is
 from Yury Kudryashov, Kim Morrison and Simon Hudon (2019). The project proof
 combines these interfaces without copying a dependency implementation.
 
+The Drazin inverse terminology follows M. P. Drazin,
+[Pseudo-Inverses in Associative Rings and Semigroups](https://doi.org/10.1080/00029890.1958.11991949)
+(1958). The construction reuses the canonical Fitting decomposition and power
+restrictions developed in this library by Formal Frontier Agents.
+It uses Mathlib's endomorphism and binary-biproduct APIs credited above and
+Yury Kudryashov's `CategoryTheory.Iso.conj` transport.
+
 Finite biproduct uniqueness follows the classical local-endomorphism-ring
 Krull–Schmidt argument. It reuses Kim Morrison's categorical Gaussian
 elimination (2020) and additive envelope (2021) formalizations in Mathlib, the

@@ -61,6 +61,19 @@ Licensed under Apache-2.0
   [canonical restrictions and powers](HomologicalAlgebra/Abelian/EndomorphismPowers.lean),
   [module agreement](HomologicalAlgebra/ModuleCat/Subobject.lean).
 
+- **Canonical Drazin inverses.** For an endomorphism `f : End X` of a
+  Noetherian and Artinian object in any abelian category,
+  `CategoryTheory.End.drazinInverse f` is the unique `g` satisfying
+  `Commute f g`, `g * f * g = g` and
+  `∃ n : ℕ, f ^ (n + 1) * g = f ^ n`. Only `g` is unique; the exponent
+  need not be unique and may be zero. The inverse is zero exactly for
+  nilpotent inputs, agrees with `CategoryTheory.inv f` for isomorphisms and
+  fixes idempotents. The product `f * drazinInverse f` is an idempotent
+  projector. The original endomorphism multiplication is `p * q = q ≫ p`.
+  Object and morphism universes are independent, with no nonzero-object or
+  commutativity hypothesis and no supplied decomposition.
+  [Value and characteristic API](HomologicalAlgebra/Abelian/Drazin.lean).
+
 - **Local endomorphism rings.** An indecomposable Noetherian and Artinian
   object in an arbitrary abelian category has a local canonical endomorphism
   ring: `CategoryTheory.isLocalRing_end_of_indecomposable`. Every endomorphism
@@ -450,6 +463,11 @@ and power-chain API are in `HomologicalAlgebra.Abelian.EndomorphismPowers`;
 morphisms with the corresponding submodules, including complementarity of power
 kernels and images. The existing
 Noetherian criterion is in `HomologicalAlgebra.ShortComplex.ModuleCatNoetherian`.
+For the canonical Drazin inverse, import
+`HomologicalAlgebra.Abelian.Drazin` (or `HomologicalAlgebra`). Its
+`CategoryTheory.End` API includes `eq_drazinInverse_iff` and
+`existsUnique_drazinInverse`, so the characteristic equations determine the
+value without unfolding its noncomputable construction.
 For the Noetherian and Artinian endomorphism theorems, import
 `HomologicalAlgebra.Abelian.Endomorphism` (or `HomologicalAlgebra`).
 For the nilpotent-or-unit dichotomy and local endomorphism ring of an
