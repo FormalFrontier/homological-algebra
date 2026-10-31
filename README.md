@@ -19,6 +19,19 @@ Licensed under Apache-2.0
 
 ## Headline results
 
+- **Fitting decomposition.** For an endomorphism `f` of a Noetherian and
+  Artinian object in an arbitrary abelian category, the kernel and image of
+  every sufficiently high power `f ^ n` are complementary. The canonical
+  copairing of their inclusions is an isomorphism. The restriction of `f` to
+  the kernel is nilpotent and its restriction to the image is invertible,
+  with the corresponding block-intertwining equation on one common tail.
+  Object and morphism universes are independent. The ModuleCat subobject
+  comparison transports the complementarity conclusion to kernels and ranges
+  of linear-map powers over any ring, without a commutativity hypothesis.
+  [Categorical decomposition](HomologicalAlgebra/Abelian/Fitting.lean),
+  [canonical restrictions and powers](HomologicalAlgebra/Abelian/EndomorphismPowers.lean),
+  [module agreement](HomologicalAlgebra/ModuleCat/Subobject.lean).
+
 - **Noetherian and Artinian endomorphisms.** In any abelian category
   `C : Type u` with `Category.{v} C`, an epimorphic endomorphism of a
   Noetherian object is an isomorphism, by
@@ -376,6 +389,13 @@ For the distinct quadrant product-total API, import
 its declarations live in `CategoryTheory.QuadrantProductTotal`. See
 [the guide](docs/ProductTotalAcyclicity.md) for signs, row exactness at the
 boundary, negative-degree primitives and the ordinary-import client.
+For the canonical Fitting decomposition, import
+`HomologicalAlgebra.Abelian.Fitting` (or `HomologicalAlgebra`). The restrictions
+and power-chain API are in `HomologicalAlgebra.Abelian.EndomorphismPowers`;
+`HomologicalAlgebra.ModuleCat.Subobject` identifies kernels and images of module
+morphisms with the corresponding submodules, including complementarity of power
+kernels and images. The existing
+Noetherian criterion is in `HomologicalAlgebra.ShortComplex.ModuleCatNoetherian`.
 For the Noetherian and Artinian endomorphism theorems, import
 `HomologicalAlgebra.Abelian.Endomorphism` (or `HomologicalAlgebra`).
 For the snake endpoint maps and eight-object exact sequence, import

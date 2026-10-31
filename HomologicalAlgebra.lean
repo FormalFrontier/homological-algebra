@@ -20,6 +20,8 @@ public import HomologicalAlgebra.Cochain.HomComplexShift
 public import HomologicalAlgebra.Abelian.AdmissibleLayers
 public import HomologicalAlgebra.Abelian.ArtinianObject
 public import HomologicalAlgebra.Abelian.Endomorphism
+public import HomologicalAlgebra.Abelian.EndomorphismPowers
+public import HomologicalAlgebra.Abelian.Fitting
 public import HomologicalAlgebra.Abelian.QuotientIntersection
 public import HomologicalAlgebra.Abelian.SerreClass
 public import HomologicalAlgebra.Abelian.SnakeLemma
@@ -43,6 +45,7 @@ public import HomologicalAlgebra.Cochain.RelativePath
 public import HomologicalAlgebra.Homology.ProductTotalAcyclicity
 public import HomologicalAlgebra.Cochain.HomotopyQuotientQuasiIso
 public import HomologicalAlgebra.Cochain.HomotopyQuotientAcyclic
+public import HomologicalAlgebra.ModuleCat.Subobject
 public import HomologicalAlgebra.ShortComplex.ModuleCat
 public import HomologicalAlgebra.ShortComplex.ModuleCatNoetherian
 
@@ -54,6 +57,9 @@ Conservative functors preserving monomorphisms reflect
 Noetherian and Artinian objects.
 Epimorphic endomorphisms of Noetherian objects and monomorphic endomorphisms
 of Artinian objects in abelian categories are isomorphisms.
+An endomorphism of a Noetherian and Artinian object has a canonical Fitting
+splitting into the kernel and image of every sufficiently high power, with
+nilpotent kernel restriction and invertible image restriction.
 Identity disks preserve and reflect ordinary categorical projectivity and injectivity
 in any category with zero morphisms and a zero object.
 The additive Euler modules provide a generic short-exact-sequence invariant,
