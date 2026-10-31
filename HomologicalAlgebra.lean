@@ -16,6 +16,7 @@ public import HomologicalAlgebra.Cochain.HomotopyLimits
 public import HomologicalAlgebra.Cochain.HomComplexShift
 
 public import HomologicalAlgebra.Abelian.AdmissibleLayers
+public import HomologicalAlgebra.Abelian.ArtinianObject
 public import HomologicalAlgebra.Abelian.QuotientIntersection
 public import HomologicalAlgebra.Abelian.SnakeLemma
 public import HomologicalAlgebra.AdditiveEuler
