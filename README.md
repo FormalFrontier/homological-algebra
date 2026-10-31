@@ -43,6 +43,17 @@ Licensed under Apache-2.0
   and Mathlib's nilpotent and local-ring criteria.
   [Theorems](HomologicalAlgebra/Abelian/LocalEndomorphism.lean).
 
+- **Indecomposability from locality.** In any preadditive category with binary
+  biproducts, an object with a local canonical endomorphism ring is
+  indecomposable, by `CategoryTheory.indecomposable_of_isLocalRing_end`.
+  This uses Mathlib's original `Indecomposable` predicate and the possibly
+  noncommutative ring `End X`, with independent object and morphism universes.
+  No abelian structure, chain conditions, chosen zero object or separate
+  nonzero hypothesis is needed. The binary-biproduct assumption is part of
+  Mathlib's predicate. The proof uses the two projectors of a decomposition,
+  the local-ring unit criterion and the fact that a unit idempotent is one.
+  [Theorem](HomologicalAlgebra/Preadditive/Indecomposable.lean).
+
 - **Noetherian and Artinian endomorphisms.** In any abelian category
   `C : Type u` with `Category.{v} C`, an epimorphic endomorphism of a
   Noetherian object is an isomorphism, by
@@ -417,6 +428,12 @@ indecomposable Noetherian and Artinian object, import
 `HomologicalAlgebra.Abelian.LocalEndomorphism` (or `HomologicalAlgebra`).
 Categorical clients can use Mathlib's `CategoryTheory.isUnit_iff_isIso` to
 express the unit conclusion as an isomorphism.
+For indecomposability from locality in a preadditive category with binary
+biproducts, import `HomologicalAlgebra.Preadditive.Indecomposable` (or
+`HomologicalAlgebra`) and apply
+`CategoryTheory.indecomposable_of_isLocalRing_end X` using the instance
+`IsLocalRing (CategoryTheory.End X)` on the canonical endomorphism ring.
+This direction needs no Noetherian or Artinian hypotheses.
 For the snake endpoint maps and eight-object exact sequence, import
 `HomologicalAlgebra.Abelian.SnakeLemma` (or `HomologicalAlgebra`); its declarations
 live in `CategoryTheory.ShortComplex.SnakeInput`. The sequence is exact at its
@@ -496,6 +513,8 @@ cochain formula, a derived-category result or completion of a source.
 - Jürgen Neukirch, Alexander Schmidt and Kay Wingberg, *Cohomology of Number
   Fields*, corrected second edition, (1.3.1): the abelian-group snake diagram
   motivates the eight-object sequence in arbitrary abelian categories.
+- Mathlib's preadditive biproduct identities, noncommutative local-ring unit
+  criterion and unit-idempotent lemma for indecomposability from locality.
 - Mathlib's native short exact sequences, homology, shifts and path objects;
   `CategoryTheory.ShortComplex.SnakeInput.snake_lemma` provides the middle
   six-term snake sequence.

@@ -64,6 +64,15 @@ restriction approach, using Mathlib's homotopy composition and categorical
 coproduct and product universal properties. Their Lean proofs are original
 project contributions, not copies of dependency implementations.
 
+Indecomposability from a local endomorphism ring uses Mathlib's binary-biproduct
+API (Kim Morrison and Jakob von Raumer, 2019), preadditive biproducts
+(Kim Morrison, 2020), preadditive categories (Markus Himmel and Jakob von Raumer,
+2020), the local-ring unit criterion
+(Kenny Lau, Chris Hughes and Mario Carneiro, 2018), and the unit-idempotent
+lemma (Christopher Hoskin, 2022). The categorical endomorphism convention is
+from Yury Kudryashov, Kim Morrison and Simon Hudon (2019). The project proof
+combines these interfaces without copying a dependency implementation.
+
 The original project code is licensed under this repository's
 [Apache-2.0 license](LICENSE) and credited collectively to Formal Frontier
 Agents. No external source asset is redistributed.

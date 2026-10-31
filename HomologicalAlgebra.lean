@@ -47,6 +47,7 @@ public import HomologicalAlgebra.Homology.ProductTotalAcyclicity
 public import HomologicalAlgebra.Cochain.HomotopyQuotientQuasiIso
 public import HomologicalAlgebra.Cochain.HomotopyQuotientAcyclic
 public import HomologicalAlgebra.ModuleCat.Subobject
+public import HomologicalAlgebra.Preadditive.Indecomposable
 public import HomologicalAlgebra.ShortComplex.ModuleCat
 public import HomologicalAlgebra.ShortComplex.ModuleCatNoetherian
 
@@ -64,6 +65,9 @@ nilpotent kernel restriction and invertible image restriction.
 For an indecomposable Noetherian and Artinian object, every endomorphism is
 nilpotent or a unit, and the canonical endomorphism ring is local, without
 assuming commutativity.
+Conversely, in any preadditive category with binary biproducts, an object with
+a local canonical endomorphism ring is indecomposable, without chain conditions
+or a chosen zero object.
 Identity disks preserve and reflect ordinary categorical projectivity and injectivity
 in any category with zero morphisms and a zero object.
 The additive Euler modules provide a generic short-exact-sequence invariant,
