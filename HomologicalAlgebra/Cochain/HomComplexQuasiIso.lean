@@ -12,6 +12,7 @@ import Mathlib.CategoryTheory.Types.Basic
 public import Mathlib.Algebra.Homology.DerivedCategory.KInjective
 public import HomologicalAlgebra.Cochain.HomComplexFunctoriality
 public import HomologicalAlgebra.Cochain.KProjective
+public import HomologicalAlgebra.Homotopy.Functor
 
 /-!
 # Quasi-isomorphism invariance of Hom complexes
@@ -20,7 +21,10 @@ Pre- and postcomposition by homotopy equivalences induce a quasi-isomorphism
 of Hom complexes over any preadditive category. More generally, it suffices
 that both maps become isomorphisms in the homotopy category. These statements
 apply to arbitrary integer-indexed complexes and require homology only for
-the resulting Hom complexes, which take values in abelian groups.
+the resulting Hom complexes, which take values in abelian groups. In particular,
+supplied homotopy equivalences between images under a fully faithful additive
+functor give a quasi-isomorphism on the source Hom complexes by pre- and
+postcomposition with the canonical preimage maps.
 
 Postcomposition by a quasi-isomorphism also induces a quasi-isomorphism on the
 complex of morphisms from a K-projective complex over an abelian category.
@@ -49,7 +53,7 @@ and derived categories are Mathlib constructions due to Joël Riou
 
 open CategoryTheory Category
 
-universe v u
+universe v u v₂ u₂
 
 namespace CochainComplex
 
@@ -77,6 +81,24 @@ lemma quasiIso_prePostcomp_of_homotopyEquiv
         simpa only [prePostcomp_comp, prePostcomp_id] using
           (prePostcompHomotopy eK.homotopyHomInvId eL.homotopyInvHomId) }
   exact e.quasiIso_hom
+
+/-- Supplied homotopy equivalences between images under a fully faithful additive
+functor induce a quasi-isomorphism on the source Hom complexes, using the
+canonical preimages of their forward maps. The coefficient categories need only
+be preadditive; essential surjectivity is not required. -/
+lemma quasiIso_prePostcomp_preimage_of_homotopyEquiv
+    {D : Type u₂} [Category.{v₂} D] [Preadditive D]
+    (F : C ⥤ D) [F.Additive] [F.Full] [F.Faithful]
+    {K1 K2 L1 L2 : CochainComplex C ℤ}
+    (eK : HomotopyEquiv ((F.mapHomologicalComplex (.up ℤ)).obj K2)
+      ((F.mapHomologicalComplex (.up ℤ)).obj K1))
+    (eL : HomotopyEquiv ((F.mapHomologicalComplex (.up ℤ)).obj L1)
+      ((F.mapHomologicalComplex (.up ℤ)).obj L2)) :
+    QuasiIso (prePostcomp ((F.mapHomologicalComplex (.up ℤ)).preimage eK.hom)
+      ((F.mapHomologicalComplex (.up ℤ)).preimage eL.hom)) := by
+  simpa only [Functor.preimageHomotopyEquiv_hom] using
+    quasiIso_prePostcomp_of_homotopyEquiv
+      (F.preimageHomotopyEquiv eK) (F.preimageHomotopyEquiv eL)
 
 /-- If both maps become isomorphisms in the homotopy category, their joint
 pre- and postcomposition map is a quasi-isomorphism of Hom complexes.

@@ -11,14 +11,17 @@ public import HomologicalAlgebra.Cochain.HomComplexShift
 # K-objects detected by one Hom-cohomology degree
 
 For any fixed integer `n`, a cochain complex is K-projective precisely when
-postcomposition by every quasi-isomorphism induces an isomorphism on the
-`n`-th cohomology of its canonical abelian-group-valued Hom complex. The dual
-criterion detects K-injectivity by precomposition.
+the `n`-th cohomology of its canonical abelian-group-valued Hom complex into
+every acyclic complex vanishes. Dually, K-injectivity is detected by vanishing
+in the same fixed degree for Hom complexes from every acyclic complex.
 
-The converse tests zero endomorphisms of all shifts of acyclic complexes.
-The resulting fixed-degree vanishing detects vanishing in every degree through
-the canonical Hom-cohomology shift comparisons. No boundedness, products or
-projective or injective resolutions in the coefficient category are required.
+Equivalently, postcomposition by every quasi-isomorphism induces an isomorphism
+on degree-`n` Hom cohomology for a K-projective complex, and precomposition
+detects K-injectivity. The converses use fixed-degree vanishing on shifted
+acyclic tests and the canonical Hom-cohomology shift comparisons; the
+preservation criteria supply vanishing by testing zero endomorphisms.
+No boundedness, products or projective or injective resolutions in the
+coefficient category are required.
 -/
 
 @[expose] public section
@@ -44,6 +47,38 @@ private lemma exactAt_shift_of_forall_exactAt
   exact ((HomologicalComplex.quasiIso_zero_iff_exactAt
     (A⟦s⟧) (A⟦s⟧)).mp hzeroShift).1
 
+/-- K-projectivity is detected by vanishing in one arbitrary fixed degree of
+canonical Hom-complex cohomology into every acyclic complex. -/
+lemma isKProjective_iff_isZero_homology_homComplex
+    (K : CochainComplex C ℤ) (n : ℤ) :
+    K.IsKProjective ↔ ∀ (A : CochainComplex C ℤ), A.Acyclic →
+      IsZero ((HomComplex K A).homology n) := by
+  constructor
+  · intro hK A hA
+    exact ((isKProjective_iff_acyclic_homComplex K).mp hK A hA n).isZero_homology
+  · intro h
+    apply (isKProjective_iff_acyclic_homComplex K).mpr
+    intro A hA m
+    rw [HomologicalComplex.exactAt_iff_isZero_homology]
+    exact HomComplex.isZero_homology_of_forall_shift_right K A n
+      (fun s ↦ h (A⟦s⟧) (exactAt_shift_of_forall_exactAt A s hA)) m
+
+/-- K-injectivity is detected by vanishing in one arbitrary fixed degree of
+canonical Hom-complex cohomology from every acyclic complex. -/
+lemma isKInjective_iff_isZero_homology_homComplex
+    (I : CochainComplex C ℤ) (n : ℤ) :
+    I.IsKInjective ↔ ∀ (A : CochainComplex C ℤ), A.Acyclic →
+      IsZero ((HomComplex A I).homology n) := by
+  constructor
+  · intro hI A hA
+    exact ((isKInjective_iff_acyclic_homComplex I).mp hI A hA n).isZero_homology
+  · intro h
+    apply (isKInjective_iff_acyclic_homComplex I).mpr
+    intro A hA m
+    rw [HomologicalComplex.exactAt_iff_isZero_homology]
+    exact HomComplex.isZero_homology_of_forall_shift_left A I n
+      (fun s ↦ h (A⟦s⟧) (exactAt_shift_of_forall_exactAt A s hA)) m
+
 /-- K-projectivity is detected by preservation of one arbitrary fixed degree
 of canonical Hom-complex cohomology under every quasi-isomorphism in the target. -/
 lemma isKProjective_iff_isIso_homologyMap_prePostcomp
@@ -58,25 +93,21 @@ lemma isKProjective_iff_isIso_homologyMap_prePostcomp
     have hn := hHom n
     rwa [_root_.quasiIsoAt_iff_isIso_homologyMap] at hn
   · intro h
-    apply (isKProjective_iff_acyclic_homComplex K).mpr
-    intro A hA m
-    rw [HomologicalComplex.exactAt_iff_isZero_homology]
-    refine HomComplex.isZero_homology_of_forall_shift_right K A n ?_ m
-    intro s
-    have hs := exactAt_shift_of_forall_exactAt A s hA
-    have hzero : QuasiIso (0 : A⟦s⟧ ⟶ A⟦s⟧) :=
-      (HomologicalComplex.quasiIso_zero_iff_exactAt (A⟦s⟧) (A⟦s⟧)).mpr ⟨hs, hs⟩
-    have hn := h (0 : A⟦s⟧ ⟶ A⟦s⟧) hzero
+    apply (isKProjective_iff_isZero_homology_homComplex K n).mpr
+    intro A hA
+    have hzero : QuasiIso (0 : A ⟶ A) :=
+      (HomologicalComplex.quasiIso_zero_iff_exactAt A A).mpr ⟨hA, hA⟩
+    have hn := h (0 : A ⟶ A) hzero
     have hPrePostcompZero :
-        HomComplex.prePostcomp (𝟙 K) (0 : A⟦s⟧ ⟶ A⟦s⟧) = 0 := by
+        HomComplex.prePostcomp (𝟙 K) (0 : A ⟶ A) = 0 := by
       apply HomComplex.prePostcomp_zero_right
     rw [hPrePostcompZero] at hn
-    have h0 : IsIso (0 : (HomComplex K (A⟦s⟧)).homology n ⟶
-        (HomComplex K (A⟦s⟧)).homology n) := by
+    have h0 : IsIso (0 : (HomComplex K A).homology n ⟶
+        (HomComplex K A).homology n) := by
       simpa using hn
     exact ((CategoryTheory.Limits.isIsoZero_iff_source_target_isZero
-      ((HomComplex K (A⟦s⟧)).homology n)
-      ((HomComplex K (A⟦s⟧)).homology n)).mp h0).1
+      ((HomComplex K A).homology n)
+      ((HomComplex K A).homology n)).mp h0).1
 
 /-- K-injectivity is detected by preservation of one arbitrary fixed degree
 of canonical Hom-complex cohomology under every quasi-isomorphism in the source. -/
@@ -92,24 +123,20 @@ lemma isKInjective_iff_isIso_homologyMap_prePostcomp
     have hn := hHom n
     rwa [_root_.quasiIsoAt_iff_isIso_homologyMap] at hn
   · intro h
-    apply (isKInjective_iff_acyclic_homComplex I).mpr
-    intro A hA m
-    rw [HomologicalComplex.exactAt_iff_isZero_homology]
-    refine HomComplex.isZero_homology_of_forall_shift_left A I n ?_ m
-    intro s
-    have hs := exactAt_shift_of_forall_exactAt A s hA
-    have hzero : QuasiIso (0 : A⟦s⟧ ⟶ A⟦s⟧) :=
-      (HomologicalComplex.quasiIso_zero_iff_exactAt (A⟦s⟧) (A⟦s⟧)).mpr ⟨hs, hs⟩
-    have hn := h (0 : A⟦s⟧ ⟶ A⟦s⟧) hzero
+    apply (isKInjective_iff_isZero_homology_homComplex I n).mpr
+    intro A hA
+    have hzero : QuasiIso (0 : A ⟶ A) :=
+      (HomologicalComplex.quasiIso_zero_iff_exactAt A A).mpr ⟨hA, hA⟩
+    have hn := h (0 : A ⟶ A) hzero
     have hPrePostcompZero :
-        HomComplex.prePostcomp (0 : A⟦s⟧ ⟶ A⟦s⟧) (𝟙 I) = 0 := by
+        HomComplex.prePostcomp (0 : A ⟶ A) (𝟙 I) = 0 := by
       apply HomComplex.prePostcomp_zero_left
     rw [hPrePostcompZero] at hn
-    have h0 : IsIso (0 : (HomComplex (A⟦s⟧) I).homology n ⟶
-        (HomComplex (A⟦s⟧) I).homology n) := by
+    have h0 : IsIso (0 : (HomComplex A I).homology n ⟶
+        (HomComplex A I).homology n) := by
       simpa using hn
     exact ((CategoryTheory.Limits.isIsoZero_iff_source_target_isZero
-      ((HomComplex (A⟦s⟧) I).homology n)
-      ((HomComplex (A⟦s⟧) I).homology n)).mp h0).1
+      ((HomComplex A I).homology n)
+      ((HomComplex A I).homology n)).mp h0).1
 
 end CochainComplex

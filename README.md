@@ -45,6 +45,16 @@ Licensed under Apache-2.0
   adjunctions and Mathlib's general categorical transport.
   [Producer](HomologicalAlgebra/Cochain/DiskProjectivity.lean).
 
+- **Pulling back supplied homotopy equivalences.** For any complex shape and
+  fully faithful additive functor between preadditive categories,
+  `CategoryTheory.Functor.preimageHomotopyEquiv` returns a source homotopy
+  equivalence from a supplied equivalence between the canonical images.
+  Its maps are canonical preimages, and its component formulas and both
+  round-trip identities preserve the two supplied homotopies as well.
+  Object, morphism and shape-index universes are independent; no essential
+  surjectivity, zero object, abelian structure or boundedness is required.
+  [Producer](HomologicalAlgebra/Homotopy/Functor.lean).
+
 - **Hom-complex homotopy invariance and contraction in either variable.**
   For integer cochain complexes `K, L` in `C : Type u` with only
   `Category.{v} C` and `Preadditive C`,
@@ -88,6 +98,16 @@ morphism universes of the category are independent.
   products in `C`. No boundedness, conditions on individual terms, or
   enough-projectives/injectives hypotheses are required.
   [Producer](HomologicalAlgebra/Cochain/KInjective.lean).
+
+- **K-objects detected by one Hom-cohomology degree.** For any fixed `n : ℤ`,
+  an integer cochain complex `K` in an arbitrary abelian category is K-projective
+  if and only if `IsZero ((HomComplex K A).homology n)` for every acyclic `A`.
+  Dually, `I` is K-injective if and only if
+  `IsZero ((HomComplex A I).homology n)` for every acyclic `A`. Object and
+  morphism universes are independent. The Hom complex is abelian-group-valued;
+  no boundedness, products in the coefficient category, or projective or
+  injective resolutions are required.
+  [Producer](HomologicalAlgebra/Cochain/HomComplexFixedDegreeCriteria.lean).
 
 - **K-properties of homotopy retracts.** For integer cochain complexes in any
   abelian category `C : Type u` with `Category.{v} C`, K-projectivity and
@@ -143,6 +163,9 @@ hypotheses. The Hom complex is abelian-group-valued, so its homology requires
 neither an abelian coefficient category nor homology in that category. For the
 integer stalk ℤ[0], `H⁰(Hom(ℤ[0], ℤ[0])) ≃+ ℤ` sends the identity class to `1`,
 so degree-zero Hom cohomology is nonzero.
+The theorem `quasiIso_prePostcomp_preimage_of_homotopyEquiv` applies this to
+supplied equivalences between images under a fully faithful additive functor,
+using their canonical source preimages for both composition maps.
 [Producer](HomologicalAlgebra/Cochain/HomComplexQuasiIso.lean).
 
 For integer cochain complexes in any abelian category, a quasi-isomorphism
