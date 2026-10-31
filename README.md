@@ -19,6 +19,17 @@ Licensed under Apache-2.0
 
 ## Headline results
 
+- **Finite indecomposable decompositions.** An Artinian object, or separately a
+  Noetherian object, is isomorphic to a finite biproduct of nonzero
+  indecomposable objects in any category with zero morphisms and finite
+  biproducts. The zero object has the empty decomposition. Object and morphism
+  universes are independent; no abelian or preadditive structure, idempotent
+  completeness, second chain condition, or uniqueness hypothesis is required.
+  [Existence theorems](HomologicalAlgebra/Indecomposable.lean) reuse Mathlib's
+  indecomposability and chain conditions; the
+  [biproduct API](HomologicalAlgebra/Indecomposable/Biproducts.lean) gives
+  isomorphism transport, injection criteria, and a finite-family append comparison.
+
 - **Fitting decomposition.** For an endomorphism `f` of a Noetherian and
   Artinian object in an arbitrary abelian category, the kernel and image of
   every sufficiently high power `f ^ n` are complementary. The canonical

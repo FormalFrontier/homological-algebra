@@ -11,6 +11,7 @@ public import HomologicalAlgebra.HomologicalComplex.Functor
 public import HomologicalAlgebra.Homotopy.Functor
 public import HomologicalAlgebra.ArtinianFunctor
 public import HomologicalAlgebra.NoetherianFunctor
+public import HomologicalAlgebra.Indecomposable
 
 public import HomologicalAlgebra.Cochain.BiproductKCriteria
 public import HomologicalAlgebra.Cochain.KFamilyLimits
@@ -57,6 +58,8 @@ public import HomologicalAlgebra.ShortComplex.ModuleCatNoetherian
 The public entry point for reusable homological algebra.
 Conservative functors preserving monomorphisms reflect
 Noetherian and Artinian objects.
+An Artinian or Noetherian object in a category with zero morphisms and finite
+biproducts is isomorphic to a finite biproduct of indecomposable objects.
 Epimorphic endomorphisms of Noetherian objects and monomorphic endomorphisms
 of Artinian objects in abelian categories are isomorphisms.
 An endomorphism of a Noetherian and Artinian object has a canonical Fitting
