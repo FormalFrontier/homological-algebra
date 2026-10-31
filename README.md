@@ -32,6 +32,17 @@ Licensed under Apache-2.0
   [canonical restrictions and powers](HomologicalAlgebra/Abelian/EndomorphismPowers.lean),
   [module agreement](HomologicalAlgebra/ModuleCat/Subobject.lean).
 
+- **Local endomorphism rings.** An indecomposable Noetherian and Artinian
+  object in an arbitrary abelian category has a local canonical endomorphism
+  ring: `CategoryTheory.isLocalRing_end_of_indecomposable`. Every endomorphism
+  is nilpotent or a unit, by
+  `CategoryTheory.isNilpotent_or_isUnit_of_indecomposable`. The ring may be
+  noncommutative, and object and morphism universes are independent.
+  Indecomposability already excludes the zero object, so there is no extra
+  nontriviality hypothesis. The proof uses the canonical Fitting biproduct
+  and Mathlib's nilpotent and local-ring criteria.
+  [Theorems](HomologicalAlgebra/Abelian/LocalEndomorphism.lean).
+
 - **Noetherian and Artinian endomorphisms.** In any abelian category
   `C : Type u` with `Category.{v} C`, an epimorphic endomorphism of a
   Noetherian object is an isomorphism, by
@@ -401,6 +412,11 @@ kernels and images. The existing
 Noetherian criterion is in `HomologicalAlgebra.ShortComplex.ModuleCatNoetherian`.
 For the Noetherian and Artinian endomorphism theorems, import
 `HomologicalAlgebra.Abelian.Endomorphism` (or `HomologicalAlgebra`).
+For the nilpotent-or-unit dichotomy and local endomorphism ring of an
+indecomposable Noetherian and Artinian object, import
+`HomologicalAlgebra.Abelian.LocalEndomorphism` (or `HomologicalAlgebra`).
+Categorical clients can use Mathlib's `CategoryTheory.isUnit_iff_isIso` to
+express the unit conclusion as an isomorphism.
 For the snake endpoint maps and eight-object exact sequence, import
 `HomologicalAlgebra.Abelian.SnakeLemma` (or `HomologicalAlgebra`); its declarations
 live in `CategoryTheory.ShortComplex.SnakeInput`. The sequence is exact at its

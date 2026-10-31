@@ -22,6 +22,7 @@ public import HomologicalAlgebra.Abelian.ArtinianObject
 public import HomologicalAlgebra.Abelian.Endomorphism
 public import HomologicalAlgebra.Abelian.EndomorphismPowers
 public import HomologicalAlgebra.Abelian.Fitting
+public import HomologicalAlgebra.Abelian.LocalEndomorphism
 public import HomologicalAlgebra.Abelian.QuotientIntersection
 public import HomologicalAlgebra.Abelian.SerreClass
 public import HomologicalAlgebra.Abelian.SnakeLemma
@@ -60,6 +61,9 @@ of Artinian objects in abelian categories are isomorphisms.
 An endomorphism of a Noetherian and Artinian object has a canonical Fitting
 splitting into the kernel and image of every sufficiently high power, with
 nilpotent kernel restriction and invertible image restriction.
+For an indecomposable Noetherian and Artinian object, every endomorphism is
+nilpotent or a unit, and the canonical endomorphism ring is local, without
+assuming commutativity.
 Identity disks preserve and reflect ordinary categorical projectivity and injectivity
 in any category with zero morphisms and a zero object.
 The additive Euler modules provide a generic short-exact-sequence invariant,
