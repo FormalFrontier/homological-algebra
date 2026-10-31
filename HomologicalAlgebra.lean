@@ -9,6 +9,7 @@ public import HomologicalAlgebra.Cochain.DiskProjectivity
 public import HomologicalAlgebra.QuasiIsoZero
 public import HomologicalAlgebra.HomologicalComplex.Functor
 public import HomologicalAlgebra.Homotopy.Functor
+public import HomologicalAlgebra.ArtinianFunctor
 public import HomologicalAlgebra.NoetherianFunctor
 
 public import HomologicalAlgebra.Cochain.BiproductKCriteria
@@ -49,7 +50,8 @@ public import HomologicalAlgebra.ShortComplex.ModuleCatNoetherian
 # Homological Algebra
 
 The public entry point for reusable homological algebra.
-Conservative functors preserving monomorphisms reflect Noetherian objects.
+Conservative functors preserving monomorphisms reflect
+Noetherian and Artinian objects.
 Epimorphic endomorphisms of Noetherian objects and monomorphic endomorphisms
 of Artinian objects in abelian categories are isomorphisms.
 Identity disks preserve and reflect ordinary categorical projectivity and injectivity
