@@ -39,9 +39,12 @@ Licensed under Apache-2.0
   `CategoryTheory.isIso_of_mono_of_isArtinianObject` makes every monomorphic
   endomorphism of an Artinian object an isomorphism. Object and morphism
   universes are independent; there is no smallness, ring, finite-length or
-  whole-category Noetherianity assumption. The existing module/object bridge
-  gives the Noetherian-module special case over any ring.
-  [Producer](HomologicalAlgebra/Abelian/Endomorphism.lean).
+  whole-category Noetherianity assumption. The module/object criteria give
+  both special cases for modules over any ring, using the module's original
+  scalar action and with independent scalar and carrier universes.
+  [Categorical result](HomologicalAlgebra/Abelian/Endomorphism.lean),
+  [Noetherian module criterion](HomologicalAlgebra/ShortComplex/ModuleCatNoetherian.lean),
+  [Artinian module criterion](HomologicalAlgebra/ModuleCat/Subobject.lean).
 
 - **Noetherian homology.** The homology of a short complex in an abelian
   category is Noetherian whenever its middle object is Noetherian.

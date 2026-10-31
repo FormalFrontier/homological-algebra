@@ -6,12 +6,15 @@ module
 
 public import Mathlib.Algebra.Category.ModuleCat.Images
 public import Mathlib.Algebra.Category.ModuleCat.Subobject
+public import Mathlib.CategoryTheory.Subobject.ArtinianObject
+public import Mathlib.RingTheory.Artinian.Defs
 
 /-!
-# Kernel and image subobjects of modules
+# Subobjects and Artinian objects of modules
 
 The order isomorphism `ModuleCat.subobjectModule` identifies categorical kernel and image
-subobjects with the kernel and range of a linear map. The endomorphism ring isomorphism
+subobjects with the kernel and range of a linear map. It also identifies the descending chain
+conditions on categorical subobjects and submodules. The endomorphism ring isomorphism
 identifies powers, so complementarity of categorical power kernels and images agrees with
 complementarity of the corresponding linear-map kernels and ranges.
 
@@ -28,6 +31,19 @@ open CategoryTheory Limits
 namespace ModuleCat
 
 variable {R : Type u} [Ring R]
+
+/-- A module is an Artinian object of `ModuleCat` if and only if it is an Artinian module. -/
+lemma isArtinianObject_iff (M : ModuleCat.{v} R) :
+    IsArtinianObject M ↔ IsArtinian R M := by
+  dsimp only [IsArtinianObject]
+  rw [ObjectProperty.is_iff, isArtinianObject]
+  constructor
+  · intro h
+    let := h
+    exact (subobjectModule M).symm.toOrderEmbedding.wellFoundedLT
+  · intro h
+    let := h
+    exact (subobjectModule M).toOrderEmbedding.wellFoundedLT
 
 variable {M N : ModuleCat.{v} R}
 
