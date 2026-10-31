@@ -17,6 +17,7 @@ public import HomologicalAlgebra.Cochain.HomComplexShift
 
 public import HomologicalAlgebra.Abelian.AdmissibleLayers
 public import HomologicalAlgebra.Abelian.ArtinianObject
+public import HomologicalAlgebra.Abelian.Endomorphism
 public import HomologicalAlgebra.Abelian.QuotientIntersection
 public import HomologicalAlgebra.Abelian.SnakeLemma
 public import HomologicalAlgebra.AdditiveEuler
@@ -46,6 +47,8 @@ public import HomologicalAlgebra.ShortComplex.ModuleCatNoetherian
 # Homological Algebra
 
 The public entry point for reusable homological algebra.
+Epimorphic endomorphisms of Noetherian objects and monomorphic endomorphisms
+of Artinian objects in abelian categories are isomorphisms.
 Identity disks preserve and reflect ordinary categorical projectivity and injectivity
 in any category with zero morphisms and a zero object.
 The additive Euler modules provide a generic short-exact-sequence invariant,

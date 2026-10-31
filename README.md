@@ -19,6 +19,17 @@ Licensed under Apache-2.0
 
 ## Headline results
 
+- **Noetherian and Artinian endomorphisms.** In any abelian category
+  `C : Type u` with `Category.{v} C`, an epimorphic endomorphism of a
+  Noetherian object is an isomorphism, by
+  `CategoryTheory.isIso_of_epi_of_isNoetherianObject`. Dually,
+  `CategoryTheory.isIso_of_mono_of_isArtinianObject` makes every monomorphic
+  endomorphism of an Artinian object an isomorphism. Object and morphism
+  universes are independent; there is no smallness, ring, finite-length or
+  whole-category Noetherianity assumption. The existing module/object bridge
+  gives the Noetherian-module special case over any ring.
+  [Producer](HomologicalAlgebra/Abelian/Endomorphism.lean).
+
 - **Noetherian homology.** The homology of a short complex in an abelian
   category is Noetherian whenever its middle object is Noetherian.
   For modules over any ring `R`, a Noetherian middle module gives Noetherian
@@ -365,6 +376,8 @@ For the distinct quadrant product-total API, import
 its declarations live in `CategoryTheory.QuadrantProductTotal`. See
 [the guide](docs/ProductTotalAcyclicity.md) for signs, row exactness at the
 boundary, negative-degree primitives and the ordinary-import client.
+For the Noetherian and Artinian endomorphism theorems, import
+`HomologicalAlgebra.Abelian.Endomorphism` (or `HomologicalAlgebra`).
 For the snake endpoint maps and eight-object exact sequence, import
 `HomologicalAlgebra.Abelian.SnakeLemma` (or `HomologicalAlgebra`); its declarations
 live in `CategoryTheory.ShortComplex.SnakeInput`. The sequence is exact at its
