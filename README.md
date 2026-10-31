@@ -19,6 +19,16 @@ Licensed under Apache-2.0
 
 ## Headline results
 
+- **Uniqueness of finite biproduct factors.** In a preadditive category, two
+  finite families with local canonical endomorphism rings and isomorphic
+  biproducts admit an equivalence of their index types and componentwise
+  isomorphisms. Only the two given biproducts are assumed: no global finite
+  biproducts, abelian structure, chain conditions or idempotent completeness
+  is required. Object, morphism and both index universes are independent.
+  Repeated factors are allowed; the matching itself need not be unique, and
+  the supplied total isomorphism need not be permutation-diagonal.
+  [Theorem](HomologicalAlgebra/Preadditive/BiproductUniqueness.lean).
+
 - **Finite indecomposable decompositions.** An Artinian object, or separately a
   Noetherian object, is isomorphic to a finite biproduct of nonzero
   indecomposable objects in any category with zero morphisms and finite
@@ -532,6 +542,9 @@ cochain formula, a derived-category result or completion of a source.
 - Jürgen Neukirch, Alexander Schmidt and Kay Wingberg, *Cohomology of Number
   Fields*, corrected second edition, (1.3.1): the abelian-group snake diagram
   motivates the eight-object sequence in arbitrary abelian categories.
+- The classical local-endomorphism-ring Krull–Schmidt uniqueness argument;
+  Mathlib's categorical Gaussian elimination and additive envelope supply
+  the cancellation and completion APIs.
 - Mathlib's preadditive biproduct identities, noncommutative local-ring unit
   criterion and unit-idempotent lemma for indecomposability from locality.
 - Mathlib's native short exact sequences, homology, shifts and path objects;

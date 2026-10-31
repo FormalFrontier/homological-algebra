@@ -73,6 +73,18 @@ lemma (Christopher Hoskin, 2022). The categorical endomorphism convention is
 from Yury Kudryashov, Kim Morrison and Simon Hudon (2019). The project proof
 combines these interfaces without copying a dependency implementation.
 
+Finite biproduct uniqueness follows the classical local-endomorphism-ring
+Krull–Schmidt argument. It reuses Kim Morrison's categorical Gaussian
+elimination (2020) and additive envelope (2021) formalizations in Mathlib, the
+additive-functor API by Adam Topaz and Kim Morrison (2021), and the endomorphism,
+local-ring and idempotent APIs credited above. The finite-family append
+comparison is reused from this library. The index and fully faithful bridge
+also uses the products API by Kim Morrison and Bhavik Mehta, biproduct
+preservation by Markus Himmel, finite types by Kyle Miller, and ring
+equivalences by Johannes Hölzl, Callum Sutton and Yury Kudryashov. The proof
+assembles these APIs without copying an external book passage or a dependency
+implementation.
+
 The original project code is licensed under this repository's
 [Apache-2.0 license](LICENSE) and credited collectively to Formal Frontier
 Agents. No external source asset is redistributed.
