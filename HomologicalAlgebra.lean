@@ -19,6 +19,7 @@ public import HomologicalAlgebra.Abelian.AdmissibleLayers
 public import HomologicalAlgebra.Abelian.ArtinianObject
 public import HomologicalAlgebra.Abelian.Endomorphism
 public import HomologicalAlgebra.Abelian.QuotientIntersection
+public import HomologicalAlgebra.Abelian.SerreClass
 public import HomologicalAlgebra.Abelian.SnakeLemma
 public import HomologicalAlgebra.AdditiveEuler
 public import HomologicalAlgebra.AdditiveEuler.Cochain
