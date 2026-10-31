@@ -30,6 +30,14 @@ Licensed under Apache-2.0
   [biproduct API](HomologicalAlgebra/Indecomposable/Biproducts.lean) gives
   isomorphism transport, injection criteria, and a finite-family append comparison.
 
+- **Finite-length decompositions with local endomorphism rings.** A Noetherian
+  and Artinian object in an abelian category is isomorphic to a finite biproduct
+  whose factors have local canonical endomorphism rings, by
+  `CategoryTheory.exists_finite_biproduct_isLocalRing_end`. The rings may be
+  noncommutative, object and morphism universes are independent, and zero has
+  the empty decomposition.
+  [Theorem](HomologicalAlgebra/Abelian/FiniteLength.lean).
+
 - **Fitting decomposition.** For an endomorphism `f` of a Noetherian and
   Artinian object in an arbitrary abelian category, the kernel and image of
   every sufficiently high power `f ^ n` are complementary. The canonical
