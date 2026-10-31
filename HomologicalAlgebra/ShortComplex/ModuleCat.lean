@@ -6,6 +6,7 @@ Authors: Formal Frontier Agents
 module
 
 public import Mathlib.Algebra.Homology.ShortComplex.ModuleCat
+public import Mathlib.RingTheory.Artinian.Module
 public import Mathlib.SetTheory.Cardinal.Basic
 import Mathlib.Data.ZMod.Basic
 import Mathlib.SetTheory.Cardinal.Finite
@@ -17,6 +18,16 @@ Over an arbitrary ring, the underlying cardinality of the canonical homology of 
 complex of modules is at most that of its middle term. In particular, homology has finite
 underlying carrier whenever its middle term does. The end terms and the ring need not
 have finite underlying carriers.
+
+Over an arbitrary ring, canonical homology is an Artinian module if the middle term is.
+The ring and module universes are independent, and no conditions on the end terms are needed.
+
+## References
+
+The finite-carrier result uses Mathlib's concrete description of module homology.
+The Artinian result uses Mathlib's canonical cycles monomorphism and homology
+epimorphism, together with inheritance of module Artinianity under injective and
+surjective linear maps.
 -/
 
 @[expose] public section
@@ -50,6 +61,17 @@ instance finite_homology_moduleCat {R : Type u} [Ring R]
     exact Finite.of_surjective _ S.moduleCatToCycles.range.mkQ_surjective
   exact Finite.of_equiv _
     (((forget (ModuleCat R)).mapIso S.moduleCatHomologyIso).toEquiv.symm)
+
+/-- Over an arbitrary ring, canonical homology is an Artinian module if the middle term is.
+The ring and module universes are independent, and no conditions on the end terms are needed. -/
+theorem isArtinian_homology_moduleCat {R : Type u} [Ring R]
+    (S : ShortComplex (ModuleCat.{v} R)) [IsArtinian R S.X₂] :
+    IsArtinian R S.homology := by
+  have : IsArtinian R S.cycles := by
+    apply isArtinian_of_injective S.iCycles.hom
+    exact (ModuleCat.mono_iff_injective S.iCycles).mp inferInstance
+  apply isArtinian_of_surjective (f := S.homologyπ.hom)
+  exact (ModuleCat.epi_iff_surjective S.homologyπ).mp inferInstance
 
 example :
     let A := ModuleCat.of ℤ ℤ
