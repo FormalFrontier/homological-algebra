@@ -205,6 +205,20 @@ Licensed under Apache-2.0
   These are conditional laws, not global additivity of `drazinInverse`.
   [Orthogonal-sum theorems](HomologicalAlgebra/Abelian/DrazinAdditivity.lean).
 
+- **Cyclic products and projector images.** For arbitrary `a : X ⟶ Y` and
+  `b : Y ⟶ X` between Noetherian and Artinian objects of an abelian category,
+  Cline's formula gives
+  `drazinInverse (a ≫ b) = a ≫ (drazinInverse (b ≫ a)) ^ 2 ≫ b`.
+  The projector `drazinInverse (a ≫ b) ≫ (a ≫ b)` also equals
+  `a ≫ drazinInverse (b ≫ a) ≫ b`. The canonical `Limits.image` objects of
+  the two projectors are isomorphic: the forward map is induced by `a` and
+  its inverse by `b ≫ drazinInverse (a ≫ b)`. Inclusion and image-map
+  equations characterize this isomorphism, which intertwines the induced
+  cyclic-product endomorphisms. Neither an ambient isomorphism `X ≅ Y` nor
+  invertibility or a supplied splitting of `a` or `b` is assumed.
+  Object and morphism universes remain independent.
+  [Cyclic-product and image-comparison API](HomologicalAlgebra/Abelian/DrazinCyclic.lean).
+
 - **Drazin projectors and stable subobjects.** For an endomorphism `f` of a
   Noetherian and Artinian object in an arbitrary abelian category, the canonical
   kernel and image subobjects of sufficiently high powers `f ^ n` equal those
@@ -626,6 +640,9 @@ value without unfolding its noncomputable construction.
 For its eventual canonical kernel and image subobjects and the nilpotent
 complementary component, import `HomologicalAlgebra.Abelian.DrazinProjector`
 (or `HomologicalAlgebra`).
+For Cline's cyclic-product identities and the canonical comparison between
+Drazin-projector images, import `HomologicalAlgebra.Abelian.DrazinCyclic`
+(or `HomologicalAlgebra`).
 For cancellation of a Noetherian and Artinian summand against arbitrary
 remaining objects, import `HomologicalAlgebra.Abelian.FiniteLengthCancellation`
 (or `HomologicalAlgebra`). The proof uses finite local-End decomposition and
@@ -718,6 +735,10 @@ cochain formula, a derived-category result or completion of a source.
 
 ## References
 
+- Huanyin Chen and Marjan Sheibani Abdolyousefi,
+  [*Cline's formula for g-Drazin inverses in a ring*](https://doi.org/10.2298/FIL1908249C),
+  Filomat **33**(8) (2019), 2249–2255: a generalized-Drazin ring treatment of
+  the cyclic identity, distinct from the categorical finite-length formulation.
 - Charles A. Weibel, *The K-book*, Chapter II, §6: motivates the adapted
   SES-additive formulation and finite Euler argument.
 - Jürgen Neukirch, Alexander Schmidt and Kay Wingberg, *Cohomology of Number

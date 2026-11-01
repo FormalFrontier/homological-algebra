@@ -28,6 +28,7 @@ public import HomologicalAlgebra.Abelian.Fitting
 public import HomologicalAlgebra.Abelian.FittingNaturality
 public import HomologicalAlgebra.Abelian.Drazin
 public import HomologicalAlgebra.Abelian.DrazinAdditivity
+public import HomologicalAlgebra.Abelian.DrazinCyclic
 public import HomologicalAlgebra.Abelian.DrazinProjector
 public import HomologicalAlgebra.Abelian.DrazinPerturbation
 public import HomologicalAlgebra.Abelian.FiniteLength

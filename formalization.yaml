@@ -147,6 +147,22 @@ status:
       file: HomologicalAlgebra/Abelian/DrazinAdditivity.lean
     - declaration: CategoryTheory.End.drazinInverse_sum
       file: HomologicalAlgebra/Abelian/DrazinAdditivity.lean
+    - declaration: CategoryTheory.End.drazinInverse_comp
+      file: HomologicalAlgebra/Abelian/DrazinCyclic.lean
+    - declaration: CategoryTheory.End.mul_drazinInverse_comp
+      file: HomologicalAlgebra/Abelian/DrazinCyclic.lean
+    - declaration: CategoryTheory.End.imageMulDrazinInverseCompIso
+      file: HomologicalAlgebra/Abelian/DrazinCyclic.lean
+    - declaration: CategoryTheory.End.imageMulDrazinInverseCompIso_hom_ι
+      file: HomologicalAlgebra/Abelian/DrazinCyclic.lean
+    - declaration: CategoryTheory.End.imageMulDrazinInverseCompIso_inv_ι
+      file: HomologicalAlgebra/Abelian/DrazinCyclic.lean
+    - declaration: CategoryTheory.End.imageMulDrazinInverseCompIso_hom_eq_image_map
+      file: HomologicalAlgebra/Abelian/DrazinCyclic.lean
+    - declaration: CategoryTheory.End.imageMulDrazinInverseCompIso_inv_eq_image_map
+      file: HomologicalAlgebra/Abelian/DrazinCyclic.lean
+    - declaration: CategoryTheory.End.imageMulDrazinInverseCompIso_hom_naturality
+      file: HomologicalAlgebra/Abelian/DrazinCyclic.lean
     - declaration: CategoryTheory.End.eventually_kernelSubobject_pow_eq_mul_drazinInverse
       file: HomologicalAlgebra/Abelian/DrazinProjector.lean
     - declaration: CategoryTheory.End.eventually_imageSubobject_pow_eq_mul_drazinInverse

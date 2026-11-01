@@ -80,6 +80,12 @@ restrictions developed in this library by Formal Frontier Agents.
 It uses Mathlib's endomorphism and binary-biproduct APIs credited above and
 Yury Kudryashov's `CategoryTheory.Iso.conj` transport.
 
+The cyclic-product Drazin identity is Cline's formula. For its generalized-Drazin
+ring version, see Huanyin Chen and Marjan Sheibani Abdolyousefi,
+[*Cline's formula for g-Drazin inverses in a ring*](https://doi.org/10.2298/FIL1908249C).
+The rectangular categorical finite-length derivation uses the library's
+intertwiner and outer-inverse identities and Mathlib's categorical image API.
+
 Finite biproduct uniqueness follows the classical local-endomorphism-ring
 Krull–Schmidt argument. It reuses Kim Morrison's categorical Gaussian
 elimination (2020) and additive envelope (2021) formalizations in Mathlib, the
