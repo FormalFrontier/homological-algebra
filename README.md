@@ -145,6 +145,16 @@ Licensed under Apache-2.0
   [Naturality](HomologicalAlgebra/Abelian/FittingNaturality.lean),
   [generic copairing and vanishing laws](HomologicalAlgebra/Abelian/EndomorphismPowers.lean).
 
+- **Cyclic powers and nilpotence.** For arbitrary morphisms `a : X ⟶ Y`
+  and `b : Y ⟶ X` in a category, the successor-power identity
+  `(a ≫ b)^(n+1) = a ≫ ((b ≫ a)^n) ≫ b` holds for every natural `n`,
+  including zero. With zero morphisms, the two composites are nilpotent
+  simultaneously; a witness exponent transfers with an increase of one.
+  No chain condition, additivity, invertibility or identification of the
+  objects is required. A same-object operation-value lemma agrees with
+  Mathlib's monoid shuffle in the canonical endomorphism monoid.
+  [Cyclic-product power API](HomologicalAlgebra/Abelian/EndomorphismCyclicProducts.lean).
+
 - **Block intertwiners and canonical summand isomorphisms.** In a category
   with zero morphisms, `biprod.isIso_map_iff` characterizes invertibility of
   `biprod.map f g` by invertibility of both components; `biprod.mapIso_asIso`
@@ -652,6 +662,8 @@ morphisms with the corresponding submodules, including complementarity of power
 kernels and images. For arbitrary intertwiners and the resulting block-diagonal
 Fitting coordinates, import `HomologicalAlgebra.Abelian.FittingNaturality`.
 The existing Noetherian criterion is in `HomologicalAlgebra.ShortComplex.ModuleCatNoetherian`.
+For rectangular composite powers and nilpotence, import
+`HomologicalAlgebra.Abelian.EndomorphismCyclicProducts` (or `HomologicalAlgebra`).
 For the canonical Drazin inverse, import
 `HomologicalAlgebra.Abelian.Drazin` (or `HomologicalAlgebra`). Its
 `CategoryTheory.End` API includes `eq_drazinInverse_iff` and

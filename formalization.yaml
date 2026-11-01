@@ -105,6 +105,12 @@ status:
       file: HomologicalAlgebra/Abelian/EndomorphismPowers.lean
     - declaration: CategoryTheory.End.pow_biprod_desc_naturality
       file: HomologicalAlgebra/Abelian/EndomorphismPowers.lean
+    - declaration: CategoryTheory.End.comp_pow_succ
+      file: HomologicalAlgebra/Abelian/EndomorphismCyclicProducts.lean
+    - declaration: CategoryTheory.End.comp_pow_comp_eq_mul_pow_mul
+      file: HomologicalAlgebra/Abelian/EndomorphismCyclicProducts.lean
+    - declaration: CategoryTheory.End.isNilpotent_comp_iff
+      file: HomologicalAlgebra/Abelian/EndomorphismCyclicProducts.lean
     - declaration: CategoryTheory.End.eventually_exists_pow_biprod_desc_iso_naturality
       file: HomologicalAlgebra/Abelian/FittingNaturality.lean
     - declaration: CategoryTheory.End.drazinInverse
