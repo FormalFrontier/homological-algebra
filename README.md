@@ -60,6 +60,17 @@ Licensed under Apache-2.0
   are required.
   [Theorems](HomologicalAlgebra/Abelian/Subobject.lean).
 
+- **Composition series and Jordan–Hölder.** A Noetherian and Artinian object
+  in an arbitrary abelian category admits a finite composition series of
+  canonical subobjects, with head `⊥`, last `⊤`, and simple successive
+  cokernel factors. For any two given composition series with equal heads
+  and equal lasts, the lengths agree and a bijection of factor indices
+  carries factors to isomorphic quotient objects. This uniqueness needs no
+  chain conditions or bottom/top assumptions. The zero object has length
+  zero and an empty factor family. Object and morphism universes are
+  independent; no smallness hypotheses are required.
+  [Composition-series API](HomologicalAlgebra/Abelian/JordanHolder.lean).
+
 - **Fitting decomposition.** For an endomorphism `f` of a Noetherian and
   Artinian object in an arbitrary abelian category, the kernel and image of
   every sufficiently high power `f ^ n` are complementary. The canonical

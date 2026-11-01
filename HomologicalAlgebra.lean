@@ -26,6 +26,7 @@ public import HomologicalAlgebra.Abelian.EndomorphismPowers
 public import HomologicalAlgebra.Abelian.Fitting
 public import HomologicalAlgebra.Abelian.Drazin
 public import HomologicalAlgebra.Abelian.FiniteLength
+public import HomologicalAlgebra.Abelian.JordanHolder
 public import HomologicalAlgebra.Abelian.LocalEndomorphism
 public import HomologicalAlgebra.Abelian.QuotientIntersection
 public import HomologicalAlgebra.Abelian.SerreClass
