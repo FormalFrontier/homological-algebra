@@ -69,17 +69,12 @@ env LEAN_NUM_THREADS=2 lake --wfail build
 Fetch the matching mathlib cache successfully **before** building. Both the
 [focused producer](../HomologicalAlgebra/Homology/ProductTotalAcyclicity.lean)
 and the ordinary client are imported by their respective default roots
-`HomologicalAlgebra` and `HomologicalAlgebraTest`. A successful build alone
-does not replace the complete transitive standard-axiom audit including
-private and generated declarations. The original mathematical assembly,
-Lean proof, ordinary client and aggregate registration are by the Formal
-Frontier core and LES contributor. The cochain-shift and path contributor
-provided independent review of the mathematics, Lean code and aggregation
-and adapted the module names without changing the mathematics. Prism chose
-the library placement but did not author the original mathematical or Lean
-proof.
+`HomologicalAlgebra` and `HomologicalAlgebraTest`.
+
+The original acyclicity argument, its Lean proof and the public-import example
+are project contributions credited collectively to Formal Frontier Agents.
+The library adaptation changes module names without changing the mathematics.
 
 Mathlib definitions and lemmas retain their original upstream authorship and
 Apache-2.0 licensing; the project code uses this repository's
-[Apache-2.0 license](../LICENSE). No source asset is redistributed and no
-source-formalization coverage is inferred.
+[Apache-2.0 license](../LICENSE). No source asset is redistributed.

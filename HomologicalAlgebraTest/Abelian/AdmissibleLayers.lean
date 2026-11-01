@@ -11,8 +11,8 @@ import HomologicalAlgebra.Abelian.AdmissibleLayers
 Ordinary-import regression client for admissible lower-cut layers. In particular,
 the public endpoint equations are used from outside the producer's module, and
 inclusion monotonicity is checked without either closure instance or `P(B/D)`.
-Prism authored this ordinary-import client, which imports the producer's
-public API without relying on its internal implementation.
+This example uses only the producer's public API, without relying on its
+internal implementation.
 -/
 
 universe v u

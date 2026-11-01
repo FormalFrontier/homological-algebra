@@ -2,48 +2,49 @@
 
 Formal Frontier Agents developed this library with AI assistance. Its
 [references](README.md#references) identify the mathematical sources and the
-prior Mathlib formalization on which it builds.
+prior formalizations on which it builds.
 
 ## Project contributions
 
-Prism wrote the original Euler, exact-functor, LES, relative-path and
-quotient-intersection mathematical expositions, distinct from the original
-Lean proofs.
+The original project contributions are credited collectively to Formal Frontier
+Agents. Mathematical exposition, original Lean proofs and clients, later library
+adaptation, and README documentation are distinct contributions.
 
-The core and LES contributor wrote the original core, finite-length and
-exact-functor Euler proofs and clients, and later the cochain LES formula and
-its genuinely nonsplit clients. The distinct cochain-shift and path contributor
-wrote the original native cochain shift, finite-support and finite-interval
-cochain Euler proofs and clients. These contributors independently reviewed
-one another's respective components.
+The original Euler, exact-functor, LES, relative-path and quotient-intersection
+mathematical expositions were written separately from the original Lean proofs.
+The core and LES proof contribution comprised the original core, finite-length
+and exact-functor Euler proofs and clients, followed by the cochain LES formula
+and its genuinely nonsplit clients. A distinct cochain-shift and path proof
+contribution comprised the original native cochain shift, finite-support and
+finite-interval cochain Euler proofs and clients, and the original fixed-arrow
+relative-path and chosen-cokernel quotient-intersection proofs and ordinary
+clients.
 
-The cochain-shift and path contributor also wrote the original native
-fixed-arrow relative-path and chosen-cokernel quotient-intersection proofs and
-ordinary clients. The core and LES contributor independently reviewed their
-mathematics and code.
+The original quadrant product-total mathematical assembly, Lean proof and
+ordinary client belonged to the core and LES proof contribution, not to the
+separate exposition contribution. Later library adaptations of the relative-path,
+quotient-intersection and product-total components did not create their original
+proofs.
 
-The core and LES contributor wrote the original quadrant product-total
-mathematical assembly, Lean proof, ordinary client and aggregate registration.
-The cochain-shift and path contributor independently reviewed its mathematics
-and code. Prism was not the original product-total proof author.
+The original admissible-layer Lean construction and lower-cut interfaces were
+part of the core and LES contribution. The exposition contribution also included
+a later proof repair, the exported equations and the ordinary-import client;
+subsequent interface adaptation was separate from those proof contributions.
 
-The core and LES contributor wrote the original admissible-layer Lean
-construction and lower-cut interfaces. Prism repaired the proof, exposed its
-exported equations and wrote its ordinary-import client.
-
-Folio wrote the README headline-result groups on ordinary projectivity and
-injectivity of identity disks; Hom-complex homotopy invariance and contraction
-in either variable; K-injectivity via product Hom complexes; K-properties of
-homotopy retracts; and K-projectivity of arbitrary coproducts.
-
-Gnomon wrote the README headline-result group on diagonal homotopies and
-coproducts or products. These are documentation credits, not credits for the
+The README headline groups on ordinary disk projectivity and injectivity,
+Hom-complex homotopy invariance and contraction, K-injectivity, homotopy
+retracts, arbitrary coproduct K-projectivity, and diagonal homotopies of
+coproducts or products were documentation contributions, not authorship of the
 corresponding theorems or proofs.
 
-## Mathlib and licensing
+## Prior formalizations and licensing
 
 This library reuses Mathlib's homological algebra, including its native short
-exact sequences, homology, shifts, path objects and snake lemma. Upstream
+exact sequences, homology, shifts, path objects and snake lemma. Nilpotence
+across short complexes uses Mathlib's short-complex exactness and monic/epic
+cancellation APIs, together with this library's endomorphism-power intertwining
+interface; the outer-to-middle exponent bound and short-exact nilpotence
+criterion are proved here. Upstream
 mathlib retains its own authorship and Apache-2.0 license: `Single` credits
 Kim Morrison (2021); `SingleHomology` and `HomotopyFiber` credit Joël Riou
 (2023); `ShiftSequence` credits Joël Riou (2024); opposite-complex work credits
@@ -85,6 +86,15 @@ ring version, see Huanyin Chen and Marjan Sheibani Abdolyousefi,
 [*Cline's formula for g-Drazin inverses in a ring*](https://doi.org/10.2298/FIL1908249C).
 The rectangular categorical finite-length derivation uses the library's
 intertwiner and outer-inverse identities and Mathlib's categorical image API.
+The triangular stable-image projector and its actual-image graph isomorphism
+also reuse Mathlib's canonical image and strong-epimorphism/monomorphism
+factorization API, together with the same Drazin and biproduct interfaces.
+The preadditive Sylvester equation reuses Mathlib's unit-plus-commuting-nilpotent
+criterion on additive endomorphisms of a hom group, with its preadditive
+left- and right-composition APIs. Its application to the finite-length
+triangular Drazin projector characterizes the graph by the Sylvester equation
+and the normalized intertwining-section equations; it does not introduce a
+second inverse construction.
 
 Finite biproduct uniqueness follows the classical local-endomorphism-ring
 Krull–Schmidt argument. It reuses Kim Morrison's categorical Gaussian
@@ -97,6 +107,35 @@ preservation by Markus Himmel, finite types by Kyle Miller, and ring
 equivalences by Johannes Hölzl, Callum Sutton and Yury Kudryashov. The proof
 assembles these APIs without copying an external book passage or a dependency
 implementation.
+
+The subobject correspondence, modularity and quotient-object Jordan–Hölder
+constructions follow Mathlib formalizations by Jack McKoen, Markus Himmel,
+Bhavik Mehta, Kim Morrison and Johan Commelin. The module references in
+[`Subobject`](HomologicalAlgebra/Abelian/Subobject.lean) and
+[`JordanHolder`](HomologicalAlgebra/Abelian/JordanHolder.lean) identify the
+revisions and preserve their upstream notices. The order-theoretic finite-chain
+and Jordan–Hölder interfaces are supplied by Mathlib. The mathematical
+subobject-correspondence reference is N. Popescu, *Abelian Categories with
+Applications to Rings and Modules* (1973), as cited by Mathlib.
+
+The numerical object-length development uses Mathlib's order-theoretic height,
+coheight and Jordan–Hölder interfaces, and its canonical subobject order.
+The comparison over arbitrary rings uses Mathlib's `ModuleCat.subobjectModule`
+and `Module.length_eq_height`. The categorical length and power bounds combine
+these interfaces with this library's subobject correspondence and endomorphism
+power chains; they are distinct from the integer-valued Euler length invariant.
+The finite-module-length power-kernel bound specializes this categorical bound.
+Its finite-dimensional comparison uses Mathlib's existing power-kernel
+stabilization theorem through the canonical subobject and endomorphism
+correspondences.
+
+Finite-length summand cancellation reuses the
+[stable-range library](https://github.com/FormalFrontier/stable-range)
+through `StableRange.CategoryTheory.Cancellation`: cancellation of one summand
+with a possibly noncommutative local endomorphism ring. This library combines
+that interface with its finite local-End decomposition. The dependency is pinned
+to `70231e01f5383c3882231f244612ded7283e77c8` in `lakefile.toml` and
+`lake-manifest.json`.
 
 The original project code is licensed under this repository's
 [Apache-2.0 license](LICENSE) and credited collectively to Formal Frontier

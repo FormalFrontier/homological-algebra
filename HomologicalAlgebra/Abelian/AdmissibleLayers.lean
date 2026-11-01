@@ -25,9 +25,9 @@ This API needs neither closure under quotients nor an admissibility assumption
 on either endpoint. It covers only the lower-cut operation; it does not assert
 an upper-cut construction or a comparison with layers in the object `D`.
 
-The original Lean construction is by the Formal Frontier core and LES
-contributor. Prism repaired its proof, exposed the exported data equations
-and authored the ordinary-import client.
+The original Lean construction and the distinct proof repair, explicit endpoint
+equations and public-import example are credited collectively to Formal Frontier
+Agents.
 -/
 
 universe v u
