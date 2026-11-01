@@ -72,6 +72,7 @@ public import HomologicalAlgebra.ShortComplex.ModuleCatNoetherian
 
 public import HomologicalAlgebra.Abelian.DrazinLength
 public import HomologicalAlgebra.Abelian.EndomorphismPowerLength
+public import HomologicalAlgebra.Abelian.ModuleCatPowerLength
 
 /-!
 # Homological Algebra
