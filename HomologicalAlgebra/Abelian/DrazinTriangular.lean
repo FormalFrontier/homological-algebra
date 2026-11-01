@@ -6,6 +6,7 @@ module
 
 public import HomologicalAlgebra.Abelian.ChainConditions
 public import HomologicalAlgebra.Abelian.Drazin
+public import Mathlib.CategoryTheory.Limits.Shapes.Images
 public import Mathlib.CategoryTheory.Preadditive.Biproducts
 
 @[expose] public section
@@ -131,5 +132,143 @@ theorem drazinInverse_biprod_triangular
   change k = Biprod.ofComponents a
     (∑ i ∈ Finset.range n, (a ^ (i + 2)) ≫ h ≫ (g ^ i)) (0 : Y ⟶ X) (0 : End Y)
   rw [hk, hbsum]
+
+/-- The stable-image projector of a triangular biproduct endomorphism is the
+projection onto its first factor followed by the graph of the canonical off-diagonal
+component. No intertwining condition is imposed on `h`. -/
+theorem mul_drazinInverse_biprod_triangular
+    (f : End X) (g : End Y) (h : X ⟶ Y)
+    (hf : IsUnit f) (hg : IsNilpotent g) :
+    End.of (CategoryTheory.Biprod.ofComponents f h (0 : Y ⟶ X) g) *
+        drazinInverse
+          (End.of (CategoryTheory.Biprod.ofComponents f h (0 : Y ⟶ X) g)) =
+      End.of (biprod.fst ≫ biprod.lift (𝟙 X)
+        (f ≫ (biprod.inl : X ⟶ X ⊞ Y) ≫
+          drazinInverse
+            (End.of (CategoryTheory.Biprod.ofComponents f h (0 : Y ⟶ X) g)) ≫
+          (biprod.snd : X ⊞ Y ⟶ Y))) := by
+  obtain ⟨n, hn⟩ := hg
+  let T : End (X ⊞ Y) := Biprod.ofComponents f h (0 : Y ⟶ X) g
+  let a : End X := drazinInverse f
+  let k : End (X ⊞ Y) := drazinInverse T
+  let b : X ⟶ Y := (biprod.inl : X ⟶ X ⊞ Y) ≫ k ≫ biprod.snd
+  have hvalue : k = Biprod.ofComponents a
+      (∑ i ∈ Finset.range n, (a ^ (i + 2)) ≫ h ≫ (g ^ i))
+      (0 : Y ⟶ X) (0 : End Y) :=
+    drazinInverse_biprod_triangular f g h hf n hn
+  have hk : k = Biprod.ofComponents a b (0 : Y ⟶ X) (0 : End Y) := by
+    dsimp only [b]
+    simp only [hvalue, Biprod.ofComponents_snd, biprod.inl_fst_assoc, comp_zero, add_zero]
+  have hfa : f ≫ a = 𝟙 X := by
+    have hfIso : IsIso f := (isUnit_iff_isIso f).mp hf
+    change f ≫ drazinInverse f = 𝟙 X
+    rw [@drazinInverse_eq_inv _ _ _ _ _ _ f hfIso]
+    exact @IsIso.hom_inv_id _ _ _ _ f hfIso
+  change k ≫ T = biprod.fst ≫ biprod.lift (𝟙 X) (f ≫ b)
+  calc
+    k ≫ T = T ≫ k := (commute_drazinInverse T).eq
+    _ = biprod.fst ≫ biprod.lift (𝟙 X) (f ≫ b) := by
+      rw [hk]
+      dsimp only [T]
+      rw [Biprod.ofComponents_comp]
+      apply biprod.hom_ext <;>
+        simp only [Biprod.ofComponents_fst, Biprod.ofComponents_snd,
+          comp_zero, zero_comp, add_zero, hfa, Category.assoc,
+          biprod.lift_fst, biprod.lift_snd, Category.comp_id]
+
+/-- The image of the stable-image projector of a triangular biproduct endomorphism
+is isomorphic to its unit diagonal factor. The inverse embeds that factor as the
+graph of the canonical off-diagonal component. -/
+noncomputable def imageMulDrazinInverseBiprodTriangularIso
+    (f : End X) (g : End Y) (h : X ⟶ Y)
+    (hf : IsUnit f) (hg : IsNilpotent g) :
+    image
+      (End.asHom
+        (End.of (CategoryTheory.Biprod.ofComponents f h (0 : Y ⟶ X) g) *
+          drazinInverse
+            (End.of (CategoryTheory.Biprod.ofComponents f h (0 : Y ⟶ X) g)))) ≅ X := by
+  letI : StrongEpi (biprod.fst : X ⊞ Y ⟶ X) := by
+    infer_instance
+  letI : Mono (biprod.lift (𝟙 X)
+      (f ≫ (biprod.inl : X ⟶ X ⊞ Y) ≫
+        drazinInverse
+          (End.of (CategoryTheory.Biprod.ofComponents f h (0 : Y ⟶ X) g)) ≫
+        (biprod.snd : X ⊞ Y ⟶ Y))) := by
+    exact biprod.mono_lift_of_mono_left _ _
+  exact (image.isoStrongEpiMono
+    (biprod.fst : X ⊞ Y ⟶ X)
+    (biprod.lift (𝟙 X)
+      (f ≫ (biprod.inl : X ⟶ X ⊞ Y) ≫
+        drazinInverse
+          (End.of (CategoryTheory.Biprod.ofComponents f h (0 : Y ⟶ X) g)) ≫
+        (biprod.snd : X ⊞ Y ⟶ Y)))
+    (by exact (mul_drazinInverse_biprod_triangular f g h hf hg).symm)).symm
+
+/-- The image isomorphism is the image inclusion followed by the first biproduct
+projection. -/
+@[simp]
+theorem imageMulDrazinInverseBiprodTriangularIso_hom
+    (f : End X) (g : End Y) (h : X ⟶ Y)
+    (hf : IsUnit f) (hg : IsNilpotent g) :
+    (imageMulDrazinInverseBiprodTriangularIso f g h hf hg).hom =
+      image.ι
+          (End.asHom
+            (End.of (CategoryTheory.Biprod.ofComponents f h (0 : Y ⟶ X) g) *
+              drazinInverse
+                (End.of (CategoryTheory.Biprod.ofComponents f h (0 : Y ⟶ X) g)))) ≫
+        (biprod.fst : X ⊞ Y ⟶ X) := by
+  have hi :
+      (imageMulDrazinInverseBiprodTriangularIso f g h hf hg).hom ≫
+          biprod.lift (𝟙 X)
+            (f ≫ (biprod.inl : X ⟶ X ⊞ Y) ≫
+              drazinInverse
+                (End.of (CategoryTheory.Biprod.ofComponents f h (0 : Y ⟶ X) g)) ≫
+              (biprod.snd : X ⊞ Y ⟶ Y)) =
+        image.ι
+          (End.asHom
+            (End.of (CategoryTheory.Biprod.ofComponents f h (0 : Y ⟶ X) g) *
+              drazinInverse
+                (End.of (CategoryTheory.Biprod.ofComponents f h (0 : Y ⟶ X) g)))) := by
+    simp only [imageMulDrazinInverseBiprodTriangularIso, Iso.symm_hom,
+      image.isoStrongEpiMono_inv_comp_mono]
+  simpa only [Category.assoc, biprod.lift_fst, Category.comp_id] using
+    congrArg (fun k => k ≫ (biprod.fst : X ⊞ Y ⟶ X)) hi
+
+/-- The inverse image isomorphism, followed by the image inclusion, is the graph
+of the canonical off-diagonal component. -/
+@[reassoc]
+theorem imageMulDrazinInverseBiprodTriangularIso_inv_ι
+    (f : End X) (g : End Y) (h : X ⟶ Y)
+    (hf : IsUnit f) (hg : IsNilpotent g) :
+    (imageMulDrazinInverseBiprodTriangularIso f g h hf hg).inv ≫
+        image.ι
+          (End.asHom
+            (End.of (CategoryTheory.Biprod.ofComponents f h (0 : Y ⟶ X) g) *
+              drazinInverse
+                (End.of (CategoryTheory.Biprod.ofComponents f h (0 : Y ⟶ X) g)))) =
+      biprod.lift (𝟙 X)
+        (f ≫ (biprod.inl : X ⟶ X ⊞ Y) ≫
+          drazinInverse
+            (End.of (CategoryTheory.Biprod.ofComponents f h (0 : Y ⟶ X) g)) ≫
+          (biprod.snd : X ⊞ Y ⟶ Y)) := by
+  simp only [imageMulDrazinInverseBiprodTriangularIso, Iso.symm_inv,
+    image.isoStrongEpiMono_hom_comp_ι]
+
+/-- The canonical factor through the projector image becomes the first biproduct
+projection under the image isomorphism. -/
+@[reassoc]
+theorem factorThruImage_comp_imageMulDrazinInverseBiprodTriangularIso_hom
+    (f : End X) (g : End Y) (h : X ⟶ Y)
+    (hf : IsUnit f) (hg : IsNilpotent g) :
+    factorThruImage
+        (End.asHom
+          (End.of (CategoryTheory.Biprod.ofComponents f h (0 : Y ⟶ X) g) *
+            drazinInverse
+              (End.of (CategoryTheory.Biprod.ofComponents f h (0 : Y ⟶ X) g)))) ≫
+      (imageMulDrazinInverseBiprodTriangularIso f g h hf hg).hom =
+        (biprod.fst : X ⊞ Y ⟶ X) := by
+  rw [imageMulDrazinInverseBiprodTriangularIso_hom, ← Category.assoc, image.fac,
+    mul_drazinInverse_biprod_triangular f g h hf hg]
+  simp only [End.asHom, End.of, Category.assoc, biprod.lift_fst, Category.comp_id]
 
 end CategoryTheory.End

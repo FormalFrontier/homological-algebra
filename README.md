@@ -267,6 +267,14 @@ Licensed under Apache-2.0
   is imposed. The witness may be zero or nonminimal; a zero witness forces
   only `𝟙 Y = 0`. Object and morphism universes are independent.
   [Triangular formula](HomologicalAlgebra/Abelian/DrazinTriangular.lean).
+  For nilpotent `g`, write `T = End.of (Biprod.ofComponents f h 0 g)`,
+  `q = biprod.inl ≫ drazinInverse T ≫ biprod.snd`, and `u = f ≫ q`.
+  Its stable-image projector satisfies
+  `T * drazinInverse T = End.of (biprod.fst ≫ biprod.lift (𝟙 X) u)`.
+  The canonical categorical image of this projector is isomorphic to `X`:
+  the forward map is its image inclusion followed by `biprod.fst`, and the
+  inverse followed by the inclusion is `biprod.lift (𝟙 X) u`. The canonical
+  factor through the image becomes `biprod.fst` under this isomorphism.
 
 - **Local endomorphism rings.** An indecomposable Noetherian and Artinian
   object in an arbitrary abelian category has a local canonical endomorphism

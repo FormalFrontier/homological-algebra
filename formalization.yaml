@@ -164,6 +164,16 @@ status:
       file: HomologicalAlgebra/Abelian/DrazinPerturbation.lean
     - declaration: CategoryTheory.End.drazinInverse_biprod_triangular
       file: HomologicalAlgebra/Abelian/DrazinTriangular.lean
+    - declaration: CategoryTheory.End.mul_drazinInverse_biprod_triangular
+      file: HomologicalAlgebra/Abelian/DrazinTriangular.lean
+    - declaration: CategoryTheory.End.imageMulDrazinInverseBiprodTriangularIso
+      file: HomologicalAlgebra/Abelian/DrazinTriangular.lean
+    - declaration: CategoryTheory.End.imageMulDrazinInverseBiprodTriangularIso_hom
+      file: HomologicalAlgebra/Abelian/DrazinTriangular.lean
+    - declaration: CategoryTheory.End.imageMulDrazinInverseBiprodTriangularIso_inv_ι
+      file: HomologicalAlgebra/Abelian/DrazinTriangular.lean
+    - declaration: CategoryTheory.End.factorThruImage_comp_imageMulDrazinInverseBiprodTriangularIso_hom
+      file: HomologicalAlgebra/Abelian/DrazinTriangular.lean
     - declaration: CategoryTheory.nonempty_iso_of_biprod_iso_of_isNoetherianObject_of_isArtinianObject
       file: HomologicalAlgebra/Abelian/FiniteLengthCancellation.lean
     - declaration: CategoryTheory.exists_finite_biproduct_isLocalRing_end
