@@ -99,6 +99,14 @@ status:
       file: HomologicalAlgebra/Abelian/Drazin.lean
     - declaration: CategoryTheory.Functor.map_drazinInverse
       file: HomologicalAlgebra/Abelian/Drazin.lean
+    - declaration: CategoryTheory.End.drazinInverse_comp_eq_comp_drazinInverse
+      file: HomologicalAlgebra/Abelian/Drazin.lean
+    - declaration: CategoryTheory.End.drazinInverse_comp_eq_comp_drazinInverse_assoc
+      file: HomologicalAlgebra/Abelian/Drazin.lean
+    - declaration: Commute.drazinInverse_left
+      file: HomologicalAlgebra/Abelian/Drazin.lean
+    - declaration: CategoryTheory.End.drazinInverse_pow
+      file: HomologicalAlgebra/Abelian/Drazin.lean
     - declaration: CategoryTheory.nonempty_iso_of_biprod_iso_of_isNoetherianObject_of_isArtinianObject
       file: HomologicalAlgebra/Abelian/FiniteLengthCancellation.lean
     - declaration: CategoryTheory.exists_finite_biproduct_isLocalRing_end

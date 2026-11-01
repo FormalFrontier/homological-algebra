@@ -110,6 +110,13 @@ Licensed under Apache-2.0
   and target object and morphism universes. In particular, any functor `F`
   between abelian categories preserves them when both `X` and `F.obj X`
   are Noetherian and Artinian; no additivity or exactness is required.
+  For `f : End X` and `g : End Y` in the same abelian category, with
+  each object Noetherian and Artinian, every `p : X ⟶ Y` satisfying
+  `f ≫ p = p ≫ g` also satisfies
+  `drazinInverse f ≫ p = p ≫ drazinInverse g`, without requiring `p`
+  to be monic, epic or invertible. Endomorphisms commuting with `f` also
+  commute with its Drazin inverse. For every `n : ℕ`, including zero,
+  `drazinInverse (f ^ n) = (drazinInverse f) ^ n`.
   [Value and characteristic API](HomologicalAlgebra/Abelian/Drazin.lean).
 
 - **Local endomorphism rings.** An indecomposable Noetherian and Artinian

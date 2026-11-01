@@ -30,6 +30,11 @@ universes are independent.
 unit preservation. `Functor.map_drazinInverse` specializes this to functors
 whose source and image objects are Noetherian and Artinian.
 
+`End.drazinInverse_comp_eq_comp_drazinInverse` expresses compatibility with
+arbitrary intertwining morphisms. `Commute.drazinInverse_left` gives preservation
+of commutation, and `End.drazinInverse_pow` gives compatibility with every natural
+power, including zero.
+
 The Fitting decomposition splits a sufficiently high power into its kernel and
 image, with nilpotent kernel restriction and invertible image restriction. The
 Drazin inverse is zero on the kernel part and the inverse restriction on the
@@ -314,6 +319,92 @@ theorem isIdempotentElem_mul_drazinInverse [Abelian C] [IsNoetherianObject X] [I
     (f * drazinInverse f) * (f * drazinInverse f) =
         f * (drazinInverse f * f * drazinInverse f) := by simp only [mul_assoc]
     _ = f * drazinInverse f := by rw [drazinInverse_mul_self_mul]
+
+/-- An intertwining morphism also intertwines the corresponding Drazin inverses. -/
+@[reassoc]
+theorem drazinInverse_comp_eq_comp_drazinInverse [Abelian C] {Y : C}
+    [IsNoetherianObject X] [IsArtinianObject X]
+    [IsNoetherianObject Y] [IsArtinianObject Y]
+    (f : End X) (g : End Y) (p : X ⟶ Y) (h : f ≫ p = p ≫ g) :
+    drazinInverse f ≫ p = p ≫ drazinInverse g := by
+  let b : End X := drazinInverse f
+  let c : End Y := drazinInverse g
+  have hfb : Commute f b := commute_drazinInverse f
+  have hgc : Commute g c := commute_drazinInverse g
+  obtain ⟨n, hn⟩ := exists_pow_succ_mul_drazinInverse f
+  obtain ⟨m, hm⟩ := exists_pow_succ_mul_drazinInverse g
+  let N := max n m
+  have hfN : b ≫ f ^ (N + 1) = f ^ N := by
+    simpa only [End.mul_def] using
+      (pow_succ_mul_eq_of_le hn (Nat.le_max_left n m))
+  have hgN : (g ^ (N + 1)) ≫ c = g ^ N := by
+    have hcN : g ^ (N + 1) * c = g ^ N :=
+      pow_succ_mul_eq_of_le hm (Nat.le_max_right n m)
+    simpa only [End.mul_def] using ((hgc.pow_left (N + 1)).eq.symm.trans hcN)
+  have hb_abs : (b ^ (N + 1)) ≫ f ^ N = b := by
+    have hb : b ^ (N + 1) * f ^ N = b :=
+      pow_succ_mul_pow_eq_of_outer_inverse hfb (drazinInverse_mul_self_mul f) N
+    simpa only [End.mul_def] using ((hfb.pow_pow N (N + 1)).eq.trans hb)
+  have hc_abs : (g ^ N) ≫ c ^ (N + 1) = c := by
+    simpa only [End.mul_def] using
+      (pow_succ_mul_pow_eq_of_outer_inverse hgc (drazinInverse_mul_self_mul g) N)
+  have hpN := pow_comp_eq_comp_pow f g p h N
+  have hpS := pow_comp_eq_comp_pow f g p h (N + 1)
+  change b ≫ p = p ≫ c
+  -- Compare through `b ≫ f ≫ p ≫ c`, without commuting across the mixed Hom.
+  calc
+    b ≫ p = (b ^ (N + 1)) ≫ (f ^ N) ≫ p := by
+      rw [← Category.assoc, hb_abs]
+    _ = (b ^ (N + 1)) ≫ p ≫ g ^ N := by rw [hpN]
+    _ = (b ^ (N + 1)) ≫ p ≫ ((g ^ (N + 1)) ≫ c) := by rw [hgN]
+    _ = (b ^ (N + 1)) ≫ (p ≫ g ^ (N + 1)) ≫ c := by
+      simp only [Category.assoc]
+    _ = (b ^ (N + 1)) ≫ ((f ^ (N + 1)) ≫ p) ≫ c := by rw [hpS]
+    _ = ((b ^ (N + 1)) ≫ f ^ N) ≫ f ≫ p ≫ c := by
+      simp only [pow_succ' f N, End.mul_def, Category.assoc]
+    _ = b ≫ f ≫ p ≫ c := by rw [hb_abs]
+    _ = b ≫ f ≫ p ≫ ((g ^ N) ≫ c ^ (N + 1)) := by rw [hc_abs]
+    _ = b ≫ f ≫ (p ≫ g ^ N) ≫ c ^ (N + 1) := by
+      simp only [Category.assoc]
+    _ = b ≫ f ≫ ((f ^ N) ≫ p) ≫ c ^ (N + 1) := by rw [hpN]
+    _ = (b ≫ f ^ (N + 1)) ≫ p ≫ c ^ (N + 1) := by
+      simp only [pow_succ f N, End.mul_def, Category.assoc]
+    _ = ((f ^ N) ≫ p) ≫ c ^ (N + 1) := by rw [hfN, Category.assoc]
+    _ = p ≫ (g ^ N) ≫ c ^ (N + 1) := by rw [hpN, Category.assoc]
+    _ = p ≫ c := by rw [hc_abs]
+
+/-- The Drazin inverse commutes with every endomorphism commuting with the original
+endomorphism. -/
+theorem _root_.Commute.drazinInverse_left [Abelian C] [IsNoetherianObject X]
+    [IsArtinianObject X] {f h : End X} (hfh : Commute f h) :
+    Commute (drazinInverse f) h := by
+  apply (commute_iff_eq _ _).2
+  simpa only [End.mul_def] using
+    (drazinInverse_comp_eq_comp_drazinInverse f f h
+      (by simpa only [End.mul_def] using hfh.eq.symm)).symm
+
+/-- Drazin inversion commutes with every natural power, including the zeroth power. -/
+@[simp]
+theorem drazinInverse_pow [Abelian C] [IsNoetherianObject X] [IsArtinianObject X]
+    (f : End X) (n : ℕ) :
+    drazinInverse (f ^ n) = drazinInverse f ^ n := by
+  have h : Commute f (drazinInverse f) := commute_drazinInverse f
+  symm
+  refine (eq_drazinInverse_iff (f ^ n) (drazinInverse f ^ n)).2
+    ⟨h.pow_pow n n, ?_, ?_⟩
+  · rw [← h.symm.mul_pow n,
+      ← ((Commute.refl (drazinInverse f)).mul_left h).mul_pow n,
+      drazinInverse_mul_self_mul]
+  · obtain ⟨k, hk⟩ := exists_pow_succ_mul_drazinInverse f
+    refine ⟨k, ?_⟩
+    calc
+      (f ^ n) ^ (k + 1) * drazinInverse f ^ n =
+          (f ^ (k + 1)) ^ n * drazinInverse f ^ n := by
+        rw [pow_right_comm f n (k + 1)]
+      _ = (f ^ (k + 1) * drazinInverse f) ^ n :=
+        ((h.pow_left (k + 1)).mul_pow n).symm
+      _ = (f ^ k) ^ n := by rw [hk]
+      _ = (f ^ n) ^ k := pow_right_comm f k n
 
 /-- Multiplicative maps between endomorphism monoids of Noetherian and Artinian
 objects preserve Drazin inverses; preservation of the identity is not required. -/
