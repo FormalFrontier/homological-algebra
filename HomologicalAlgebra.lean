@@ -67,6 +67,7 @@ public import HomologicalAlgebra.Cochain.HomotopyQuotientAcyclic
 public import HomologicalAlgebra.ModuleCat.Subobject
 public import HomologicalAlgebra.Order.Length
 public import HomologicalAlgebra.Preadditive.Indecomposable
+public import HomologicalAlgebra.ShortComplex.Endomorphism
 public import HomologicalAlgebra.ShortComplex.ModuleCat
 public import HomologicalAlgebra.ShortComplex.ModuleCatNoetherian
 
