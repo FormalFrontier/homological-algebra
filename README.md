@@ -176,6 +176,22 @@ Licensed under Apache-2.0
   nilpotent input.
   [Value and characteristic API](HomologicalAlgebra/Abelian/Drazin.lean).
 
+- **Drazin inverses of orthogonal sums.** For `f, g : End X`, with `X`
+  Noetherian and Artinian in an arbitrary abelian category,
+  `f * g = 0` and `g * f = 0` imply
+  `drazinInverse (f + g) = drazinInverse f + drazinInverse g`.
+  For any index type `ι`, support `s : Finset ι` and family `f : ι → End X`,
+  if `f i * f j = 0` for every ordered pair of distinct indices `i, j ∈ s`,
+  then `drazinInverse (∑ i ∈ s, f i) = ∑ i ∈ s, drazinInverse (f i)`.
+  The condition includes both product orders, is restricted to `s` and does
+  not discard equal values at distinct indices; `ι` need not be finite.
+  Empty and singleton supports and zero objects are allowed. Characteristic
+  exponent zero is allowed; no positive or common index is supplied.
+  The canonical endomorphism ring may be noncommutative, with
+  `f * g = g ≫ f`, and object, morphism and index universes are independent.
+  These are conditional laws, not global additivity of `drazinInverse`.
+  [Orthogonal-sum theorems](HomologicalAlgebra/Abelian/DrazinAdditivity.lean).
+
 - **Drazin projectors and stable subobjects.** For an endomorphism `f` of a
   Noetherian and Artinian object in an arbitrary abelian category, the canonical
   kernel and image subobjects of sufficiently high powers `f ^ n` equal those

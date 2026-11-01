@@ -143,6 +143,10 @@ status:
       file: HomologicalAlgebra/Abelian/Drazin.lean
     - declaration: CategoryTheory.End.drazinInverse_drazinInverse
       file: HomologicalAlgebra/Abelian/Drazin.lean
+    - declaration: CategoryTheory.End.drazinInverse_add_of_mul_eq_zero
+      file: HomologicalAlgebra/Abelian/DrazinAdditivity.lean
+    - declaration: CategoryTheory.End.drazinInverse_sum
+      file: HomologicalAlgebra/Abelian/DrazinAdditivity.lean
     - declaration: CategoryTheory.End.eventually_kernelSubobject_pow_eq_mul_drazinInverse
       file: HomologicalAlgebra/Abelian/DrazinProjector.lean
     - declaration: CategoryTheory.End.eventually_imageSubobject_pow_eq_mul_drazinInverse
