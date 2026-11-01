@@ -137,6 +137,15 @@ Licensed under Apache-2.0
   nilpotent input.
   [Value and characteristic API](HomologicalAlgebra/Abelian/Drazin.lean).
 
+- **Drazin projectors and stable subobjects.** For an endomorphism `f` of a
+  Noetherian and Artinian object in an arbitrary abelian category, the canonical
+  kernel and image subobjects of sufficiently high powers `f ^ n` equal those
+  of `f * drazinInverse f`. The complementary component
+  `f * (1 - f * drazinInverse f)` is nilpotent; the idempotent complement itself
+  need not be nilpotent. Object and morphism universes are independent, and
+  neither a stabilization threshold nor a positive index is supplied.
+  [Projector subobject API](HomologicalAlgebra/Abelian/DrazinProjector.lean).
+
 - **Local endomorphism rings.** An indecomposable Noetherian and Artinian
   object in an arbitrary abelian category has a local canonical endomorphism
   ring: `CategoryTheory.isLocalRing_end_of_indecomposable`. Every endomorphism
@@ -532,6 +541,9 @@ For the canonical Drazin inverse, import
 `CategoryTheory.End` API includes `eq_drazinInverse_iff` and
 `existsUnique_drazinInverse`, so the characteristic equations determine the
 value without unfolding its noncomputable construction.
+For its eventual canonical kernel and image subobjects and the nilpotent
+complementary component, import `HomologicalAlgebra.Abelian.DrazinProjector`
+(or `HomologicalAlgebra`).
 For cancellation of a Noetherian and Artinian summand against arbitrary
 remaining objects, import `HomologicalAlgebra.Abelian.FiniteLengthCancellation`
 (or `HomologicalAlgebra`). The proof uses finite local-End decomposition and
