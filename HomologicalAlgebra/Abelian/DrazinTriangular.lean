@@ -6,6 +6,7 @@ module
 
 public import HomologicalAlgebra.Abelian.ChainConditions
 public import HomologicalAlgebra.Abelian.Drazin
+public import HomologicalAlgebra.Preadditive.Sylvester
 public import Mathlib.CategoryTheory.Limits.Shapes.Images
 public import Mathlib.CategoryTheory.Preadditive.Biproducts
 
@@ -270,5 +271,102 @@ theorem factorThruImage_comp_imageMulDrazinInverseBiprodTriangularIso_hom
   rw [imageMulDrazinInverseBiprodTriangularIso_hom, ← Category.assoc, image.fac,
     mul_drazinInverse_biprod_triangular f g h hf hg]
   simp only [End.asHom, End.of, Category.assoc, biprod.lift_fst, Category.comp_id]
+
+/-- A morphism is the canonical graph parameter of the triangular Drazin
+projector exactly when it solves the inhomogeneous Sylvester equation. -/
+theorem eq_comp_inl_drazinInverse_biprod_triangular_snd_iff
+    (f : End X) (g : End Y) (h : X ⟶ Y)
+    (hf : IsUnit f) (hg : IsNilpotent g) (u : X ⟶ Y) :
+    u = f ≫ (biprod.inl : X ⟶ X ⊞ Y) ≫
+        drazinInverse
+          (End.of (CategoryTheory.Biprod.ofComponents f h (0 : Y ⟶ X) g)) ≫
+        (biprod.snd : X ⊞ Y ⟶ Y) ↔
+      f ≫ u = h + u ≫ g := by
+  let T : End (X ⊞ Y) := Biprod.ofComponents f h (0 : Y ⟶ X) g
+  let P : End (X ⊞ Y) := T * drazinInverse T
+  let c : X ⟶ Y := f ≫ (biprod.inl : X ⟶ X ⊞ Y) ≫
+    drazinInverse T ≫ biprod.snd
+  have hP : P = biprod.fst ≫ biprod.lift (𝟙 X) c :=
+    mul_drazinInverse_biprod_triangular f g h hf hg
+  have hPmatrix :
+      P = Biprod.ofComponents (𝟙 X) c (0 : Y ⟶ X) (0 : End Y) := by
+    rw [hP]
+    apply biprod.hom_ext <;>
+      simp only [Category.assoc, biprod.lift_fst, biprod.lift_snd,
+        Biprod.ofComponents_fst, Biprod.ofComponents_snd,
+        Category.comp_id, comp_zero, add_zero]
+  -- The canonical projector commutes with the triangular endomorphism.
+  have hPT : P ≫ T = T ≫ P := by
+    change (drazinInverse T ≫ T) ≫ T = T ≫ drazinInverse T ≫ T
+    exact (congrArg (fun p : End (X ⊞ Y) => p ≫ T)
+      (commute_drazinInverse T).eq).trans (Category.assoc _ _ _)
+  have hc : f ≫ c = h + c ≫ g := by
+    have hc' := congrArg (fun p : End (X ⊞ Y) =>
+      (biprod.inl : X ⟶ X ⊞ Y) ≫ p ≫ biprod.snd) hPT
+    simpa [T, hPmatrix, Biprod.ofComponents_comp, Category.assoc,
+      Preadditive.add_comp, Preadditive.comp_add, biprod.inl_fst,
+      biprod.inl_snd, biprod.inr_fst, biprod.inr_snd] using hc'.symm
+  obtain ⟨_, _, huniq⟩ :=
+    @CategoryTheory.existsUnique_sylvester C _ _ X Y f
+      ((isUnit_iff_isIso f).mp hf) g hg h
+  change u = c ↔ f ≫ u = h + u ≫ g
+  constructor
+  · rintro rfl
+    exact hc
+  · intro hu
+    exact (huniq u hu).trans (huniq c hc).symm
+
+/-- The inverse of the triangular projector image isomorphism, followed by its
+image inclusion, is the unique section of the first projection that intertwines
+the unit diagonal endomorphism with the triangular endomorphism. -/
+theorem eq_imageMulDrazinInverseBiprodTriangularIso_inv_ι_iff
+    (f : End X) (g : End Y) (h : X ⟶ Y)
+    (hf : IsUnit f) (hg : IsNilpotent g) (k : X ⟶ X ⊞ Y) :
+    k = (imageMulDrazinInverseBiprodTriangularIso f g h hf hg).inv ≫
+        image.ι
+          (End.asHom
+            (End.of (CategoryTheory.Biprod.ofComponents f h (0 : Y ⟶ X) g) *
+              drazinInverse
+                (End.of (CategoryTheory.Biprod.ofComponents f h (0 : Y ⟶ X) g)))) ↔
+      k ≫ (biprod.fst : X ⊞ Y ⟶ X) = 𝟙 X ∧
+        k ≫ End.of (CategoryTheory.Biprod.ofComponents f h (0 : Y ⟶ X) g) =
+          f ≫ k := by
+  rw [imageMulDrazinInverseBiprodTriangularIso_inv_ι]
+  let T : End (X ⊞ Y) :=
+    End.of (CategoryTheory.Biprod.ofComponents f h (0 : Y ⟶ X) g)
+  let c : X ⟶ Y := f ≫ (biprod.inl : X ⟶ X ⊞ Y) ≫
+    drazinInverse T ≫ (biprod.snd : X ⊞ Y ⟶ Y)
+  change k = biprod.lift (𝟙 X) c ↔
+    k ≫ (biprod.fst : X ⊞ Y ⟶ X) = 𝟙 X ∧ k ≫ T = f ≫ k
+  have hTfst : T ≫ (biprod.fst : X ⊞ Y ⟶ X) =
+      (biprod.fst : X ⊞ Y ⟶ X) ≫ f := by
+    simp only [T, End.of, Biprod.ofComponents_fst, comp_zero, add_zero]
+  have hTsnd : T ≫ (biprod.snd : X ⊞ Y ⟶ Y) =
+      (biprod.fst : X ⊞ Y ⟶ X) ≫ h + (biprod.snd : X ⊞ Y ⟶ Y) ≫ g := by
+    simp only [T, End.of, Biprod.ofComponents_snd]
+  have hc : f ≫ c = h + c ≫ g :=
+    (eq_comp_inl_drazinInverse_biprod_triangular_snd_iff f g h hf hg c).1 rfl
+  constructor
+  · rintro rfl
+    refine ⟨biprod.lift_fst _ _, ?_⟩
+    apply biprod.hom_ext
+    · simp only [Category.assoc, hTfst, biprod.lift_fst_assoc,
+        biprod.lift_fst, Category.id_comp, Category.comp_id]
+    · simpa only [Category.assoc, hTsnd, Preadditive.comp_add,
+        biprod.lift_fst_assoc, biprod.lift_snd_assoc, biprod.lift_snd,
+        Category.id_comp] using hc.symm
+  · rintro ⟨hkfst, hkT⟩
+    have hu : f ≫ (k ≫ (biprod.snd : X ⊞ Y ⟶ Y)) =
+        h + (k ≫ (biprod.snd : X ⊞ Y ⟶ Y)) ≫ g := by
+      have hs := congrArg
+        (fun l : X ⟶ X ⊞ Y => l ≫ (biprod.snd : X ⊞ Y ⟶ Y)) hkT
+      simp only [Category.assoc, hTsnd, Preadditive.comp_add] at hs
+      simpa only [← Category.assoc, hkfst, Category.id_comp] using hs.symm
+    have hkc : k ≫ (biprod.snd : X ⊞ Y ⟶ Y) = c :=
+      (eq_comp_inl_drazinInverse_biprod_triangular_snd_iff f g h hf hg
+        (k ≫ (biprod.snd : X ⊞ Y ⟶ Y))).2 hu
+    apply biprod.hom_ext
+    · simpa only [biprod.lift_fst] using hkfst
+    · simpa only [biprod.lift_snd] using hkc
 
 end CategoryTheory.End

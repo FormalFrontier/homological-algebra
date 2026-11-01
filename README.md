@@ -276,6 +276,20 @@ Licensed under Apache-2.0
   inverse followed by the inclusion is `biprod.lift (𝟙 X) u`. The canonical
   factor through the image becomes `biprod.fst` under this isomorphism.
 
+- **Sylvester equation and canonical invariant graph.** In any preadditive
+  category, `CategoryTheory.existsUnique_sylvester` states that an invertible
+  `f : X ⟶ X`, a nilpotent `g : End Y` and arbitrary `h : X ⟶ Y` give
+  `∃! u : X ⟶ Y, f ≫ u = h + u ≫ g`. Object and morphism universes are
+  independent; no biproducts, scalar action or chain conditions are needed.
+  Zero objects and zero or nonminimal nilpotence witnesses are included.
+  [Sylvester equation](HomologicalAlgebra/Preadditive/Sylvester.lean).
+  Under the triangular Drazin hypotheses above, this equation characterizes
+  `u = f ≫ biprod.inl ≫ drazinInverse T ≫ biprod.snd`, not the unmultiplied
+  off-diagonal component. If `I` is the projector image isomorphism and `ι`
+  its image inclusion, an arbitrary `k : X ⟶ X ⊞ Y` equals `I.inv ≫ ι`
+  exactly when `k ≫ biprod.fst = 𝟙 X` and `k ≫ T = f ≫ k`.
+  [Canonical graph characterizations](HomologicalAlgebra/Abelian/DrazinTriangular.lean).
+
 - **Local endomorphism rings.** An indecomposable Noetherian and Artinian
   object in an arbitrary abelian category has a local canonical endomorphism
   ring: `CategoryTheory.isLocalRing_end_of_indecomposable`. Every endomorphism

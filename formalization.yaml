@@ -162,6 +162,12 @@ status:
       file: HomologicalAlgebra/Abelian/DrazinPerturbation.lean
     - declaration: CategoryTheory.End.add_mul_drazinInverse_of_isNilpotent
       file: HomologicalAlgebra/Abelian/DrazinPerturbation.lean
+    - declaration: CategoryTheory.existsUnique_sylvester
+      file: HomologicalAlgebra/Preadditive/Sylvester.lean
+    - declaration: CategoryTheory.End.eq_comp_inl_drazinInverse_biprod_triangular_snd_iff
+      file: HomologicalAlgebra/Abelian/DrazinTriangular.lean
+    - declaration: CategoryTheory.End.eq_imageMulDrazinInverseBiprodTriangularIso_inv_ι_iff
+      file: HomologicalAlgebra/Abelian/DrazinTriangular.lean
     - declaration: CategoryTheory.End.drazinInverse_biprod_triangular
       file: HomologicalAlgebra/Abelian/DrazinTriangular.lean
     - declaration: CategoryTheory.End.mul_drazinInverse_biprod_triangular
@@ -489,4 +495,4 @@ automation:
       prompting_notes: AI-assisted mathematical exposition, Lean formalization and documentation with interactive Lean feedback; Codex and Hive supported the work.
   notes: Project-wide inference cost, elapsed time and peak memory are not measured.
 review:
-  status: "other: mathematical results and Lean proofs independently reviewed"
+  status: "other: theorem statements have complete proofs"
