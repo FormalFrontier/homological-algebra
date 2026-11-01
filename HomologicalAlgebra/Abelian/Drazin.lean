@@ -406,6 +406,73 @@ theorem drazinInverse_pow [Abelian C] [IsNoetherianObject X] [IsArtinianObject X
       _ = (f ^ k) ^ n := by rw [hk]
       _ = (f ^ n) ^ k := pow_right_comm f k n
 
+/-- The Drazin inverse of a product of commuting endomorphisms is the product
+of their Drazin inverses. -/
+theorem _root_.Commute.drazinInverse_mul [Abelian C] [IsNoetherianObject X]
+    [IsArtinianObject X] {f g : End X} (hfg : Commute f g) :
+    End.drazinInverse (f * g) = End.drazinInverse f * End.drazinInverse g := by
+  let b : End X := drazinInverse f
+  let d : End X := drazinInverse g
+  have hfb : Commute f b := commute_drazinInverse f
+  have hgd : Commute g d := commute_drazinInverse g
+  have hbg : Commute b g := hfg.drazinInverse_left
+  have hfd : Commute f d := hfg.symm.drazinInverse_left.symm
+  have hbd : Commute b d := hfd.drazinInverse_left
+  have hb : b * f * b = b := drazinInverse_mul_self_mul f
+  have hd : d * g * d = d := drazinInverse_mul_self_mul g
+  symm
+  refine (eq_drazinInverse_iff (f * g) (b * d)).2 ⟨?_, ?_, ?_⟩
+  · exact (hfb.mul_right hfd).mul_left (hbg.symm.mul_right hgd)
+  · calc
+      (b * d) * (f * g) * (b * d) =
+          (b * f) * (d * g) * (b * d) := by
+        rw [hfd.symm.mul_mul_mul_comm b g]
+      _ = (b * f * b) * (d * g * d) :=
+        (hbd.mul_right hbg).symm.mul_mul_mul_comm (b * f) d
+      _ = b * d := by rw [hb, hd]
+  · obtain ⟨n, hn⟩ := exists_pow_succ_mul_drazinInverse f
+    obtain ⟨m, hm⟩ := exists_pow_succ_mul_drazinInverse g
+    let N := max n m
+    have hfN : f ^ (N + 1) * b = f ^ N :=
+      pow_succ_mul_eq_of_le hn (Nat.le_max_left n m)
+    have hgN : g ^ (N + 1) * d = g ^ N :=
+      pow_succ_mul_eq_of_le hm (Nat.le_max_right n m)
+    refine ⟨N, ?_⟩
+    calc
+      (f * g) ^ (N + 1) * (b * d) =
+          (f ^ (N + 1) * g ^ (N + 1)) * (b * d) := by
+        rw [hfg.mul_pow (N + 1)]
+      _ = (f ^ (N + 1) * b) * (g ^ (N + 1) * d) :=
+        (hbg.symm.pow_left (N + 1)).mul_mul_mul_comm (f ^ (N + 1)) d
+      _ = f ^ N * g ^ N := by rw [hfN, hgN]
+      _ = (f * g) ^ N := (hfg.mul_pow N).symm
+
+/-- Double Drazin inversion recovers the group part `f * End.drazinInverse f * f`. -/
+theorem drazinInverse_drazinInverse [Abelian C] [IsNoetherianObject X] [IsArtinianObject X]
+    (f : End X) :
+    End.drazinInverse (End.drazinInverse f) = f * End.drazinInverse f * f := by
+  let b : End X := drazinInverse f
+  have hfb : Commute f b := commute_drazinInverse f
+  have hb : b * f * b = b := drazinInverse_mul_self_mul f
+  symm
+  refine (eq_drazinInverse_iff b (f * b * f)).2 ⟨?_, ?_, 1, ?_⟩
+  · exact (hfb.symm.mul_right (Commute.refl b)).mul_right hfb.symm
+  · calc
+      (f * b * f) * b * (f * b * f) =
+          f * (b * f * b) * (f * b * f) := by simp only [mul_assoc]
+      _ = f * b * (f * b * f) := by rw [hb]
+      _ = f * (b * f * b) * f := by simp only [mul_assoc]
+      _ = f * b * f := by rw [hb]
+  · have hbbf : b ^ (1 + 1) * f = b := by
+      simpa only [pow_one] using
+        (pow_succ_mul_pow_eq_of_outer_inverse hfb hb 1)
+    calc
+      b ^ (1 + 1) * (f * b * f) =
+          (b ^ (1 + 1) * f) * b * f := by simp only [mul_assoc]
+      _ = b * b * f := by rw [hbbf]
+      _ = b * f * b := hfb.symm.right_comm b
+      _ = b ^ 1 := by rw [hb, pow_one]
+
 /-- Multiplicative maps between endomorphism monoids of Noetherian and Artinian
 objects preserve Drazin inverses; preservation of the identity is not required. -/
 @[simp]

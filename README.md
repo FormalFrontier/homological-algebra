@@ -129,6 +129,12 @@ Licensed under Apache-2.0
   to be monic, epic or invertible. Endomorphisms commuting with `f` also
   commute with its Drazin inverse. For every `n : ℕ`, including zero,
   `drazinInverse (f ^ n) = (drazinInverse f) ^ n`.
+  For commuting `f, g : End X`, `Commute.drazinInverse_mul` gives
+  `drazinInverse (f * g) = drazinInverse f * drazinInverse g`.
+  The theorem `CategoryTheory.End.drazinInverse_drazinInverse` gives
+  `drazinInverse (drazinInverse f) = f * drazinInverse f * f`.
+  The double inverse need not equal `f`: it is zero for a nonzero
+  nilpotent input.
   [Value and characteristic API](HomologicalAlgebra/Abelian/Drazin.lean).
 
 - **Local endomorphism rings.** An indecomposable Noetherian and Artinian
