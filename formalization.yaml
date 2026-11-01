@@ -177,6 +177,8 @@ status:
       file: HomologicalAlgebra/Abelian/DrazinPerturbation.lean
     - declaration: CategoryTheory.End.add_mul_drazinInverse_of_isNilpotent
       file: HomologicalAlgebra/Abelian/DrazinPerturbation.lean
+    - declaration: CategoryTheory.End.drazinInverse_biprod_triangular
+      file: HomologicalAlgebra/Abelian/DrazinTriangular.lean
     - declaration: CategoryTheory.nonempty_iso_of_biprod_iso_of_isNoetherianObject_of_isArtinianObject
       file: HomologicalAlgebra/Abelian/FiniteLengthCancellation.lean
     - declaration: CategoryTheory.exists_finite_biproduct_isLocalRing_end

@@ -247,6 +247,17 @@ Licensed under Apache-2.0
   `𝟙 X = 0`, and the sum is empty.
   [Perturbation formulas](HomologicalAlgebra/Abelian/DrazinPerturbation.lean).
 
+- **Drazin inverses of triangular biproducts.** For Noetherian and Artinian
+  objects `X, Y` in an abelian category, let `f : End X` be a unit and
+  `g : End Y` satisfy `g ^ n = 0`. For arbitrary `h : X ⟶ Y`, the
+  Drazin inverse of `Biprod.ofComponents f h 0 g` has components
+  `drazinInverse f`,
+  `∑ i ∈ Finset.range n, ((drazinInverse f) ^ (i + 2)) ≫ h ≫ (g ^ i)`,
+  `0` and `0`, in source-first order. No intertwining condition on `h`
+  is imposed. The witness may be zero or nonminimal; a zero witness forces
+  only `𝟙 Y = 0`. Object and morphism universes are independent.
+  [Triangular formula](HomologicalAlgebra/Abelian/DrazinTriangular.lean).
+
 - **Local endomorphism rings.** An indecomposable Noetherian and Artinian
   object in an arbitrary abelian category has a local canonical endomorphism
   ring: `CategoryTheory.isLocalRing_end_of_indecomposable`. Every endomorphism
