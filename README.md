@@ -93,6 +93,18 @@ Licensed under Apache-2.0
   [canonical restrictions and powers](HomologicalAlgebra/Abelian/EndomorphismPowers.lean),
   [module agreement](HomologicalAlgebra/ModuleCat/Subobject.lean).
 
+- **Fitting naturality and mixed-Hom vanishing.** An arbitrary intertwiner
+  `p : X ⟶ Y` induces a natural square of power-kernel/image copairings at
+  every exponent, given the displayed kernels, images, image map and two
+  biproducts. If both objects are Noetherian and Artinian in an abelian
+  category, the canonical Fitting isomorphisms put `p` in block-diagonal form
+  on one common tail; `p` need not be monic, epic or invertible. In any
+  category with zero morphisms, an intertwiner from a nilpotent endomorphism
+  to a monomorphic one is zero, and dually from an epimorphic endomorphism
+  to a nilpotent one.
+  [Naturality](HomologicalAlgebra/Abelian/FittingNaturality.lean),
+  [generic copairing and vanishing laws](HomologicalAlgebra/Abelian/EndomorphismPowers.lean).
+
 - **Canonical Drazin inverses.** For an endomorphism `f : End X` of a
   Noetherian and Artinian object in any abelian category,
   `CategoryTheory.End.drazinInverse f` is the unique `g` satisfying
@@ -506,8 +518,9 @@ For the canonical Fitting decomposition, import
 and power-chain API are in `HomologicalAlgebra.Abelian.EndomorphismPowers`;
 `HomologicalAlgebra.ModuleCat.Subobject` identifies kernels and images of module
 morphisms with the corresponding submodules, including complementarity of power
-kernels and images. The existing
-Noetherian criterion is in `HomologicalAlgebra.ShortComplex.ModuleCatNoetherian`.
+kernels and images. For arbitrary intertwiners and the resulting block-diagonal
+Fitting coordinates, import `HomologicalAlgebra.Abelian.FittingNaturality`.
+The existing Noetherian criterion is in `HomologicalAlgebra.ShortComplex.ModuleCatNoetherian`.
 For the canonical Drazin inverse, import
 `HomologicalAlgebra.Abelian.Drazin` (or `HomologicalAlgebra`). Its
 `CategoryTheory.End` API includes `eq_drazinInverse_iff` and

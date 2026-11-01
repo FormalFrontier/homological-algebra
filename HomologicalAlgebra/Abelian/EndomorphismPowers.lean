@@ -26,8 +26,13 @@ inclusion equations and agree with the stock maps on the powered squares. The
 kernel restriction has its specified power zero, without a chain condition.
 
 The restrictions intertwine the endomorphism with the block endomorphism of the
-binary biproduct of the kernel and image. No complementarity or invertibility is
-asserted here.
+binary biproduct of the kernel and image. An arbitrary intertwiner induces a
+natural square for the copairings of the power-kernel and power-image inclusions.
+No complementarity or invertibility is asserted here.
+
+An intertwiner from a nilpotent endomorphism to a monomorphic endomorphism is
+zero. Dually, an intertwiner from an epimorphic endomorphism to a nilpotent
+endomorphism is zero. These statements require only zero morphisms.
 
 Only the relevant kernels, images, image maps and zero morphisms are required;
 none of the lemmas requires an abelian category. Object and morphism universes
@@ -79,6 +84,65 @@ open Limits
 namespace End
 
 variable {X : C}
+
+private theorem mono_pow (f : End X) [Mono f] (n : ℕ) : Mono (f ^ n) := by
+  induction n with
+  | zero => simpa only [pow_zero, End.one_def] using (inferInstance : Mono (𝟙 X))
+  | succ n ih =>
+    have := ih
+    simpa only [pow_succ, End.mul_def] using (inferInstance : Mono (f ≫ (f ^ n)))
+
+private theorem epi_pow (f : End X) [Epi f] (n : ℕ) : Epi (f ^ n) := by
+  induction n with
+  | zero => simpa only [pow_zero, End.one_def] using (inferInstance : Epi (𝟙 X))
+  | succ n ih =>
+    have := ih
+    simpa only [pow_succ, End.mul_def] using (inferInstance : Epi (f ≫ (f ^ n)))
+
+/-- An intertwiner from a nilpotent endomorphism to a monomorphic endomorphism
+is zero. -/
+theorem eq_zero_of_isNilpotent_of_mono [HasZeroMorphisms C] {Y : C}
+    (f : End X) (g : End Y) (p : X ⟶ Y) (h : f ≫ p = p ≫ g)
+    [Mono g] (hf : IsNilpotent f) : p = 0 := by
+  obtain ⟨n, hn⟩ := hf
+  have := mono_pow g n
+  apply (cancel_mono (g ^ n)).1
+  simpa only [hn, zero_comp] using (pow_comp_eq_comp_pow f g p h n).symm
+
+/-- An intertwiner from an epimorphic endomorphism to a nilpotent endomorphism
+is zero. -/
+theorem eq_zero_of_epi_of_isNilpotent [HasZeroMorphisms C] {Y : C}
+    (f : End X) (g : End Y) (p : X ⟶ Y) (h : f ≫ p = p ≫ g)
+    [Epi f] (hg : IsNilpotent g) : p = 0 := by
+  obtain ⟨n, hn⟩ := hg
+  have := epi_pow f n
+  apply (cancel_epi (f ^ n)).1
+  simpa only [hn, comp_zero] using pow_comp_eq_comp_pow f g p h n
+
+/-- The maps on kernels and images induced by an intertwiner make the power
+kernel/image copairings natural. Only the displayed kernels, images, image map
+and binary biproducts are required. -/
+@[reassoc]
+theorem pow_biprod_desc_naturality [HasZeroMorphisms C] {Y : C}
+    (f : End X) (g : End Y) (p : X ⟶ Y) (h : f ≫ p = p ≫ g) (n : ℕ)
+    [HasKernel (f ^ n)] [HasKernel (g ^ n)]
+    [HasImage (f ^ n)] [HasImage (g ^ n)]
+    [HasImageMap (Arrow.homMk' (f := f ^ n) (g := g ^ n) p p
+      (pow_comp_eq_comp_pow f g p h n).symm)]
+    [HasBinaryBiproduct (kernel (f ^ n)) (image (f ^ n))]
+    [HasBinaryBiproduct (kernel (g ^ n)) (image (g ^ n))] :
+    biprod.map (W := kernel (f ^ n)) (X := image (f ^ n))
+        (Y := kernel (g ^ n)) (Z := image (g ^ n))
+        (kernel.map (f ^ n) (g ^ n) p p (pow_comp_eq_comp_pow f g p h n))
+        (image.map (Arrow.homMk' (f := f ^ n) (g := g ^ n) p p
+          (pow_comp_eq_comp_pow f g p h n).symm)) ≫
+      biprod.desc (kernel.ι (g ^ n)) (image.ι (g ^ n)) =
+    biprod.desc (kernel.ι (f ^ n)) (image.ι (f ^ n)) ≫ p := by
+  apply biprod.hom_ext'
+  · simp only [biprod.inl_map_assoc, biprod.inl_desc, biprod.inl_desc_assoc,
+      kernel.map, kernel.lift_ι]
+  · simp only [biprod.inr_map_assoc, biprod.inr_desc, biprod.inr_desc_assoc,
+      image.map_homMk'_ι]
 
 section KernelRestriction
 
@@ -197,7 +261,8 @@ theorem powRestriction_biprod_desc [HasZeroMorphisms C] [HasImages C] [HasImageM
     biprod.map (kernelPowRestriction f n) (imagePowRestriction f n) ≫
         biprod.desc (kernel.ι (f ^ n)) (image.ι (f ^ n)) =
       biprod.desc (kernel.ι (f ^ n)) (image.ι (f ^ n)) ≫ f := by
-  apply biprod.hom_ext' <;> simp
+  simpa only [kernelPowRestriction, imagePowRestriction] using
+    pow_biprod_desc_naturality f f f rfl n
 
 end End
 
