@@ -201,6 +201,16 @@ Licensed under Apache-2.0
   neither a stabilization threshold nor a positive index is supplied.
   [Projector subobject API](HomologicalAlgebra/Abelian/DrazinProjector.lean).
 
+- **Commuting nilpotent perturbations.** For `f, n : End X` on a Noetherian
+  and Artinian object in an abelian category, assume `Commute f n` and nilpotence
+  of `n`. The Drazin inverse generally changes, but the stable-image projector
+  satisfies `(f + n) * drazinInverse (f + n) = f * drazinInverse f`.
+  Any witness `n ^ m = 0` gives the explicit finite geometric formula
+  `drazinInverse (f + n) = ∑ k ∈ Finset.range m, (-(drazinInverse f * n)) ^ k * drazinInverse f`.
+  No positivity or minimality of `m` is required: a zero witness forces
+  `𝟙 X = 0`, and the sum is empty.
+  [Perturbation formulas](HomologicalAlgebra/Abelian/DrazinPerturbation.lean).
+
 - **Local endomorphism rings.** An indecomposable Noetherian and Artinian
   object in an arbitrary abelian category has a local canonical endomorphism
   ring: `CategoryTheory.isLocalRing_end_of_indecomposable`. Every endomorphism

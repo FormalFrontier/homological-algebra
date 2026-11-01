@@ -153,6 +153,10 @@ status:
       file: HomologicalAlgebra/Abelian/DrazinProjector.lean
     - declaration: CategoryTheory.End.isNilpotent_mul_one_sub_mul_drazinInverse
       file: HomologicalAlgebra/Abelian/DrazinProjector.lean
+    - declaration: CategoryTheory.End.drazinInverse_add_eq_sum_range
+      file: HomologicalAlgebra/Abelian/DrazinPerturbation.lean
+    - declaration: CategoryTheory.End.add_mul_drazinInverse_of_isNilpotent
+      file: HomologicalAlgebra/Abelian/DrazinPerturbation.lean
     - declaration: CategoryTheory.nonempty_iso_of_biprod_iso_of_isNoetherianObject_of_isArtinianObject
       file: HomologicalAlgebra/Abelian/FiniteLengthCancellation.lean
     - declaration: CategoryTheory.exists_finite_biproduct_isLocalRing_end
