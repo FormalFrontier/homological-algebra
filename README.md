@@ -19,6 +19,19 @@ Licensed under Apache-2.0
 
 ## Headline results
 
+- **Canonical finite-length bounds for endomorphisms.** Write
+  `L = (CategoryTheory.objectLength X).toNat`. If `objectLength X ≠ ⊤`,
+  power kernels stabilize by `L` in a category with zero morphisms and kernels,
+  and every nilpotent endomorphism `g` satisfies `g ^ L = 0`. Power images
+  stabilize by `L` in a category with images and image maps.
+  For an endomorphism `f` of a Noetherian and Artinian object in an abelian
+  category, write `D = CategoryTheory.End.drazinInverse f`. For all `n ≥ L`,
+  the kernel and image of `f ^ n` equal those of `f * D`; moreover,
+  `f ^ (L + 1) * D = f ^ L` and `(f * (1 - f * D)) ^ L = 0`.
+  These uniform bounds include `L = 0` and need not be least for a given map.
+  [Power bounds](HomologicalAlgebra/Abelian/EndomorphismPowerLength.lean),
+  [Drazin bounds](HomologicalAlgebra/Abelian/DrazinLength.lean).
+
 - **Uniqueness of finite biproduct factors.** In a preadditive category, two
   finite families with local canonical endomorphism rings and isomorphic
   biproducts admit an equivalence of their index types and componentwise

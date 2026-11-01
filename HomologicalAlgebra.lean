@@ -66,6 +66,9 @@ public import HomologicalAlgebra.Preadditive.Indecomposable
 public import HomologicalAlgebra.ShortComplex.ModuleCat
 public import HomologicalAlgebra.ShortComplex.ModuleCatNoetherian
 
+public import HomologicalAlgebra.Abelian.DrazinLength
+public import HomologicalAlgebra.Abelian.EndomorphismPowerLength
+
 /-!
 # Homological Algebra
 
