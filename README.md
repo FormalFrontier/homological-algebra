@@ -19,6 +19,15 @@ Licensed under Apache-2.0
 
 ## Headline results
 
+- **Noetherian and Artinian binary biproducts.** In any abelian category,
+  `CategoryTheory.isNoetherianObject_biprod` gives
+  `IsNoetherianObject (X ⊞ Y)` from Noetherian `X` and `Y` alone;
+  separately, `CategoryTheory.isArtinianObject_biprod` gives
+  `IsArtinianObject (X ⊞ Y)` from Artinian `X` and `Y` alone.
+  These are instances of the existing object classes, with independent object
+  and morphism universes and no additional finite-biproduct hypothesis.
+  [Binary closure](HomologicalAlgebra/Abelian/ChainConditions.lean).
+
 - **Canonical finite-length bounds for endomorphisms.** Write
   `L = (CategoryTheory.objectLength X).toNat`. If `objectLength X ≠ ⊤`,
   power kernels stabilize by `L` in a category with zero morphisms and kernels,

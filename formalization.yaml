@@ -71,6 +71,10 @@ status:
   sorry_in_definitions: 0
   axioms: [propext, Classical.choice, Quot.sound]
   main_results:
+    - declaration: CategoryTheory.isNoetherianObject_biprod
+      file: HomologicalAlgebra/Abelian/ChainConditions.lean
+    - declaration: CategoryTheory.isArtinianObject_biprod
+      file: HomologicalAlgebra/Abelian/ChainConditions.lean
     - declaration: CategoryTheory.Limits.biprod.isIso_map_iff
       file: HomologicalAlgebra/Abelian/BiproductIntertwiners.lean
     - declaration: CategoryTheory.Limits.biprod.mapIso_asIso

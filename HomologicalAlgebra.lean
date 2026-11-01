@@ -21,6 +21,7 @@ public import HomologicalAlgebra.Cochain.HomComplexShift
 
 public import HomologicalAlgebra.Abelian.AdmissibleLayers
 public import HomologicalAlgebra.Abelian.ArtinianObject
+public import HomologicalAlgebra.Abelian.ChainConditions
 public import HomologicalAlgebra.Abelian.Endomorphism
 public import HomologicalAlgebra.Abelian.EndomorphismPowers
 public import HomologicalAlgebra.Abelian.BiproductIntertwiners
