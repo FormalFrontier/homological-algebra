@@ -48,6 +48,15 @@ Licensed under Apache-2.0
   the empty decomposition.
   [Theorem](HomologicalAlgebra/Abelian/FiniteLength.lean).
 
+- **Cancellation of finite-length summands.** If `X` is Noetherian and Artinian
+  in an abelian category, an isomorphism `X ⊞ Y ≅ X ⊞ Z` implies
+  `Nonempty (Y ≅ Z)`. The remaining objects are unrestricted: neither chain
+  conditions nor locality of their endomorphism rings is assumed. The
+  endomorphism ring of `X` need not be local, zero objects are allowed, and
+  object and morphism universes are independent. The conclusion does not
+  select a canonical isomorphism.
+  [Theorem](HomologicalAlgebra/Abelian/FiniteLengthCancellation.lean).
+
 - **Subobject correspondence and modularity.** For every object `A` in an
   arbitrary abelian category, the canonical `CategoryTheory.Subobject A`
   forms a modular lattice, with the stock `IsModularLattice` instance.
@@ -497,6 +506,10 @@ For the canonical Drazin inverse, import
 `CategoryTheory.End` API includes `eq_drazinInverse_iff` and
 `existsUnique_drazinInverse`, so the characteristic equations determine the
 value without unfolding its noncomputable construction.
+For cancellation of a Noetherian and Artinian summand against arbitrary
+remaining objects, import `HomologicalAlgebra.Abelian.FiniteLengthCancellation`
+(or `HomologicalAlgebra`). The proof uses finite local-End decomposition and
+one-factor cancellation from the stable-range library.
 For the Noetherian and Artinian endomorphism theorems, import
 `HomologicalAlgebra.Abelian.Endomorphism` (or `HomologicalAlgebra`).
 For the nilpotent-or-unit dichotomy and local endomorphism ring of an
@@ -549,8 +562,9 @@ eight-object exactness example uses the proved endpoint theorem.
 
 Use the repository's pinned `lean-toolchain` (`leanprover/lean4:v4.34.0-rc2`)
 and `lake-manifest.json` (mathlib
-`83abb3e776bdefcbc447a1e44d0debe4010039e5`). Only mathlib is a direct
-Lake dependency, resolved from GitHub. From the project root:
+`83abb3e776bdefcbc447a1e44d0debe4010039e5`). The direct Lake dependencies are
+mathlib and [stable-range](https://github.com/FormalFrontier/stable-range),
+resolved from GitHub at the revisions in `lakefile.toml`. From the project root:
 
 ```sh
 elan toolchain install leanprover/lean4:v4.34.0-rc2

@@ -8,6 +8,7 @@ public import HomologicalAlgebraTest.Cochain.HomComplexFixedDegreeCriteria
 public import HomologicalAlgebraTest.Cochain.DiskProjectivity
 
 public import HomologicalAlgebraTest.Abelian.AdmissibleLayers
+public import HomologicalAlgebraTest.Abelian.FiniteLengthCancellation
 public import HomologicalAlgebraTest.Abelian.QuotientIntersection
 public import HomologicalAlgebraTest.Abelian.SnakeLemma
 public import HomologicalAlgebraTest.AdditiveEuler

@@ -14,6 +14,11 @@ name = "mathlib"
 git = "https://github.com/leanprover-community/mathlib4.git"
 rev = "83abb3e776bdefcbc447a1e44d0debe4010039e5"
 
+[[require]]
+name = "stable-range"
+git = "https://github.com/FormalFrontier/stable-range.git"
+rev = "70231e01f5383c3882231f244612ded7283e77c8"
+
 [[lean_lib]]
 name = "HomologicalAlgebra"
 
