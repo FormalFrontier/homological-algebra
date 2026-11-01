@@ -123,6 +123,27 @@ Licensed under Apache-2.0
   [Naturality](HomologicalAlgebra/Abelian/FittingNaturality.lean),
   [generic copairing and vanishing laws](HomologicalAlgebra/Abelian/EndomorphismPowers.lean).
 
+- **Block intertwiners and canonical summand isomorphisms.** In a category
+  with zero morphisms, `biprod.isIso_map_iff` characterizes invertibility of
+  `biprod.map f g` by invertibility of both components; `biprod.mapIso_asIso`
+  identifies the biproduct of their canonical isomorphisms with
+  `asIso (biprod.map f g)`. Only the source and target binary biproducts are
+  required, and object and morphism universes are independent. For
+  `p : N ⊞ I ⟶ Nprime ⊞ Iprime` satisfying
+  `biprod.map n i ≫ p = p ≫ biprod.map nprime iprime`, nilpotence of `n` and
+  `nprime`, epicity of `i` and monicity of `iprime` force both off-diagonal
+  corners to vanish and express arbitrary `p` as the map of its diagonal
+  corners. If `p` is additionally invertible,
+  `CategoryTheory.End.biprodLeftIso` and `CategoryTheory.End.biprodRightIso`
+  give canonical isomorphisms `N ≅ Nprime` and `I ≅ Iprime`. Their homs are
+  the diagonal corners of `p`, their inverses are the diagonal corners of
+  `inv p`, and their `biprod.mapIso` equals `asIso p`. This concerns the
+  original four summands, unlike the common-tail canonical power-kernel/image
+  Fitting isomorphisms above for Noetherian and Artinian objects in an abelian
+  category. The local-pair invertibility criterion generalizes
+  Mathlib's reverse implications under global binary biproducts.
+  [API](HomologicalAlgebra/Abelian/BiproductIntertwiners.lean).
+
 - **Canonical Drazin inverses.** For an endomorphism `f : End X` of a
   Noetherian and Artinian object in any abelian category,
   `CategoryTheory.End.drazinInverse f` is the unique `g` satisfying

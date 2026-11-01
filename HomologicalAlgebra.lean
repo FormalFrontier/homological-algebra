@@ -23,6 +23,7 @@ public import HomologicalAlgebra.Abelian.AdmissibleLayers
 public import HomologicalAlgebra.Abelian.ArtinianObject
 public import HomologicalAlgebra.Abelian.Endomorphism
 public import HomologicalAlgebra.Abelian.EndomorphismPowers
+public import HomologicalAlgebra.Abelian.BiproductIntertwiners
 public import HomologicalAlgebra.Abelian.Fitting
 public import HomologicalAlgebra.Abelian.FittingNaturality
 public import HomologicalAlgebra.Abelian.Drazin

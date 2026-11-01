@@ -71,6 +71,30 @@ status:
   sorry_in_definitions: 0
   axioms: [propext, Classical.choice, Quot.sound]
   main_results:
+    - declaration: CategoryTheory.Limits.biprod.isIso_map_iff
+      file: HomologicalAlgebra/Abelian/BiproductIntertwiners.lean
+    - declaration: CategoryTheory.Limits.biprod.mapIso_asIso
+      file: HomologicalAlgebra/Abelian/BiproductIntertwiners.lean
+    - declaration: CategoryTheory.End.biprod_inl_comp_snd_eq_zero
+      file: HomologicalAlgebra/Abelian/BiproductIntertwiners.lean
+    - declaration: CategoryTheory.End.biprod_inr_comp_fst_eq_zero
+      file: HomologicalAlgebra/Abelian/BiproductIntertwiners.lean
+    - declaration: CategoryTheory.End.biprod_intertwiner_eq_map
+      file: HomologicalAlgebra/Abelian/BiproductIntertwiners.lean
+    - declaration: CategoryTheory.End.biprodLeftIso
+      file: HomologicalAlgebra/Abelian/BiproductIntertwiners.lean
+    - declaration: CategoryTheory.End.biprodRightIso
+      file: HomologicalAlgebra/Abelian/BiproductIntertwiners.lean
+    - declaration: CategoryTheory.End.biprodLeftIso_hom
+      file: HomologicalAlgebra/Abelian/BiproductIntertwiners.lean
+    - declaration: CategoryTheory.End.biprodLeftIso_inv
+      file: HomologicalAlgebra/Abelian/BiproductIntertwiners.lean
+    - declaration: CategoryTheory.End.biprodRightIso_hom
+      file: HomologicalAlgebra/Abelian/BiproductIntertwiners.lean
+    - declaration: CategoryTheory.End.biprodRightIso_inv
+      file: HomologicalAlgebra/Abelian/BiproductIntertwiners.lean
+    - declaration: CategoryTheory.End.biprod_mapIso_eq_asIso
+      file: HomologicalAlgebra/Abelian/BiproductIntertwiners.lean
     - declaration: CategoryTheory.End.eq_zero_of_isNilpotent_of_mono
       file: HomologicalAlgebra/Abelian/EndomorphismPowers.lean
     - declaration: CategoryTheory.End.eq_zero_of_epi_of_isNilpotent
