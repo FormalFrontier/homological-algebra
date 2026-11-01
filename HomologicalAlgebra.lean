@@ -30,7 +30,9 @@ public import HomologicalAlgebra.Abelian.DrazinProjector
 public import HomologicalAlgebra.Abelian.FiniteLength
 public import HomologicalAlgebra.Abelian.FiniteLengthCancellation
 public import HomologicalAlgebra.Abelian.JordanHolder
+public import HomologicalAlgebra.Abelian.Length
 public import HomologicalAlgebra.Abelian.LocalEndomorphism
+public import HomologicalAlgebra.Abelian.ModuleCatLength
 public import HomologicalAlgebra.Abelian.QuotientIntersection
 public import HomologicalAlgebra.Abelian.SerreClass
 public import HomologicalAlgebra.Abelian.SnakeLemma
@@ -56,6 +58,7 @@ public import HomologicalAlgebra.Homology.ProductTotalAcyclicity
 public import HomologicalAlgebra.Cochain.HomotopyQuotientQuasiIso
 public import HomologicalAlgebra.Cochain.HomotopyQuotientAcyclic
 public import HomologicalAlgebra.ModuleCat.Subobject
+public import HomologicalAlgebra.Order.Length
 public import HomologicalAlgebra.Preadditive.Indecomposable
 public import HomologicalAlgebra.ShortComplex.ModuleCat
 public import HomologicalAlgebra.ShortComplex.ModuleCatNoetherian

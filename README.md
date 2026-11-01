@@ -80,6 +80,24 @@ Licensed under Apache-2.0
   independent; no smallness hypotheses are required.
   [Composition-series API](HomologicalAlgebra/Abelian/JordanHolder.lean).
 
+- **Categorical object length and short-exact additivity.** For an object `X`
+  in any category, `CategoryTheory.objectLength X : ℕ∞` is the height of the
+  largest canonical subobject. It is isomorphism-invariant and monotone under
+  monomorphisms. With only a zero object, length zero characterizes zero
+  objects; with zero morphisms as well, length one characterizes simple objects.
+  In any abelian category, every short exact sequence `0 → A → B → D → 0`
+  satisfies `objectLength B = objectLength A + objectLength D`, including
+  infinite lengths, with no finiteness or splitting hypothesis. Length is
+  finite exactly when the object is both Noetherian and Artinian. A given
+  composition series from `⊥` to `⊤` computes length by its number of steps,
+  with the canonical adjacent-inclusion cokernels as factors. Object and
+  morphism universes are independent; no smallness assumption is needed.
+  [Object length and short exact sequences](HomologicalAlgebra/Abelian/Length.lean),
+  [modular height and cover series](HomologicalAlgebra/Order/Length.lean).
+  Over any ring, categorical length agrees with Mathlib's `Module.length`,
+  with independent ring and module universes.
+  [Module comparison](HomologicalAlgebra/Abelian/ModuleCatLength.lean).
+
 - **Fitting decomposition.** For an endomorphism `f` of a Noetherian and
   Artinian object in an arbitrary abelian category, the kernel and image of
   every sufficiently high power `f ^ n` are complementary. The canonical
@@ -497,6 +515,10 @@ and native cochain-shift module `HomologicalAlgebra.AdditiveEuler.Shift`, the
 finite-interval cochain Euler module `HomologicalAlgebra.AdditiveEuler.Cochain`,
 or the native long-exact-sequence module
 `HomologicalAlgebra.AdditiveEuler.HomologySupport`.
+For categorical object length and its short-exact formulas, import
+`HomologicalAlgebra.Abelian.Length` (or `HomologicalAlgebra`); for agreement
+with module length over any ring, import `HomologicalAlgebra.Abelian.ModuleCatLength`.
+The generic modular-lattice results are in `HomologicalAlgebra.Order.Length`.
 For Hom-complex homotopy invariance and contractions in either variable, use
 `HomologicalAlgebra.Cochain.HomComplexFunctoriality`; see
 [Hom-complex homotopy and contractibility](docs/HomComplexHomotopy.md).
