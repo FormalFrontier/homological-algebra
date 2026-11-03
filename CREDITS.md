@@ -129,11 +129,14 @@ Its finite-dimensional comparison uses Mathlib's existing power-kernel
 stabilization theorem through the canonical subobject and endomorphism
 correspondences.
 
-Finite-length summand cancellation reuses the
+Finite-family cancellation reuses the
 [stable-range library](https://github.com/FormalFrontier/stable-range)
 through `StableRange.CategoryTheory.Cancellation`: cancellation of one summand
-with a possibly noncommutative local endomorphism ring. This library combines
-that interface with its finite local-End decomposition. The dependency is pinned
+with a possibly noncommutative local endomorphism ring. The finite-family proof
+uses Mathlib's biproduct transport APIs and Kim Morrison's additive envelope,
+following this library's finite-biproduct uniqueness approach. Finite-length
+summand cancellation combines this result with finite local-End decomposition.
+The dependency is pinned
 to `70231e01f5383c3882231f244612ded7283e77c8` in `lakefile.toml` and
 `lake-manifest.json`.
 

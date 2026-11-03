@@ -13,6 +13,7 @@ public import HomologicalAlgebra.ArtinianFunctor
 public import HomologicalAlgebra.NoetherianFunctor
 public import HomologicalAlgebra.Indecomposable
 public import HomologicalAlgebra.Preadditive.BiproductUniqueness
+public import HomologicalAlgebra.Preadditive.FiniteCancellation
 
 public import HomologicalAlgebra.Cochain.BiproductKCriteria
 public import HomologicalAlgebra.Cochain.KFamilyLimits

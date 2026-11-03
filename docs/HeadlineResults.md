@@ -10,6 +10,7 @@ For a shorter overview, installation and build instructions, see the
 - [Uniqueness of finite biproduct factors](#uniqueness-of-finite-biproduct-factors).
 - [Finite indecomposable decompositions](#finite-indecomposable-decompositions).
 - [Finite-length decompositions with local endomorphism rings](#finite-length-decompositions-with-local-endomorphism-rings).
+- [Cancellation of finite local-End families](#cancellation-of-finite-local-end-families).
 - [Cancellation of finite-length summands](#cancellation-of-finite-length-summands).
 - [Subobject correspondence and modularity](#subobject-correspondence-and-modularity).
 - [Composition series and Jordan–Hölder](#composition-series-and-jordanhölder).
@@ -93,6 +94,31 @@ such decompositions of isomorphic totals admit an index equivalence and
 componentwise isomorphisms. This does not make the matching canonical or force
 a supplied total isomorphism to be permutation-diagonal.
 
+## Cancellation of finite local-End families
+
+In any preadditive category, let `F : ι → C` be a finite family whose canonical
+endomorphism rings `End (F i)` are local, possibly noncommutative rings. Then
+`(⨁ F) ⊞ Y ≅ (⨁ F) ⊞ Z` implies `Nonempty (Y ≅ Z)`, by
+`CategoryTheory.cancel_finite_biproduct_of_isLocalRing_end`.
+Only the common full biproduct `⨁ F` and the two displayed binary biproducts
+are required to exist in the original category; partial sums need not exist.
+The remaining objects `Y, Z` are arbitrary, with no locality or chain conditions.
+The object, morphism and index universes are independent; no abelian structure,
+chosen zero object or idempotent completeness is assumed.
+[Theorem](../HomologicalAlgebra/Preadditive/FiniteCancellation.lean).
+
+The empty family is included. Locality entails nontriviality of each factor's
+endomorphism ring, but the endomorphism ring of the full common sum need not be
+local. The conclusion gives existence of an isomorphism, not a canonical
+isomorphism or invertibility of the residual block of the supplied map.
+
+The proof reindexes the supplied sum by `Fin n`, transports the common sum and
+the two binary totals through Mathlib's fully faithful additive embedding into
+`Mat_ C`, and cancels one local-End factor at a time there. Singleton cancellation
+uses `StableRange.CategoryTheory.Cancellation` from the
+[stable-range library](https://github.com/FormalFrontier/stable-range).
+Fully faithful preimage of the resulting isomorphism gives the conclusion in `C`.
+
 ## Cancellation of finite-length summands
 
 In an arbitrary abelian category, a Noetherian **and** Artinian object `X`
@@ -105,11 +131,9 @@ Zero objects are included, object and morphism universes are independent,
 and the conclusion asserts existence rather than a canonical isomorphism.
 [Theorem](../HomologicalAlgebra/Abelian/FiniteLengthCancellation.lean).
 
-The proof combines finite local-End decomposition with one-summand cancellation
-from the [stable-range library](https://github.com/FormalFrontier/stable-range),
-through `StableRange.CategoryTheory.Cancellation` for possibly noncommutative
-local endomorphism rings. It does not require locality of the entire canceled
-object's endomorphism ring.
+The proof combines finite local-End decomposition with the generic
+[finite-family cancellation theorem](#cancellation-of-finite-local-end-families).
+It does not require locality of the entire canceled object's endomorphism ring.
 
 ## Subobject correspondence and modularity
 

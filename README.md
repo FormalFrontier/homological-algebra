@@ -34,6 +34,15 @@ product totals of modules. The families have different hypotheses, detailed belo
   Its local-End factors also satisfy the generic uniqueness theorem above.
   [Statement and module](docs/HeadlineResults.md#finite-length-decompositions-with-local-endomorphism-rings).
 
+- **Cancellation of finite local-End families.** In a preadditive category,
+  a finite biproduct of objects with local canonical, possibly noncommutative
+  endomorphism rings cancels from binary biproducts with arbitrary remaining
+  objects. Only the common full sum and the two binary totals are required;
+  no intermediate sums, chain conditions or idempotent completeness are assumed.
+  The object, morphism and index universes are independent, and the empty family
+  is allowed. The residual isomorphism is not canonical.
+  [Statement and module](docs/HeadlineResults.md#cancellation-of-finite-local-end-families).
+
 - **Cancellation of finite-length summands.** In any abelian category, if
   `X` is Noetherian **and** Artinian, `X ⊞ Y ≅ X ⊞ Z` implies
   `Nonempty (Y ≅ Z)` for unrestricted `Y, Z`. No locality of `End X`
